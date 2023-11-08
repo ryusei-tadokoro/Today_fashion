@@ -91,3 +91,7 @@ tofa(today fashion)とは
 * 問い合わせ #特に体感温度につていて数値などを
 * 購入する服の診断 #過去の登録履歴やアンケートによって好みを分析して、次回買うべき服を提案する。(似たような服を購入防止案)
 
+画面遷移図
+https://www.figma.com/file/CoB2D7wLJ0Kr24SehVVR5w/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=5%3A731&mode=design&t=IwVfGRNwZa6EyoEY-1
+
+
