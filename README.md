@@ -92,6 +92,6 @@ tofa(today fashion)とは
 * 購入する服の診断 #過去の登録履歴やアンケートによって好みを分析して、次回買うべき服を提案する。(似たような服を購入防止案)
 
 画面遷移図
-https://www.figma.com/file/CoB2D7wLJ0Kr24SehVVR5w/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=5%3A731&mode=design&t=IwVfGRNwZa6EyoEY-1
+https://www.figma.com/file/Hm71hKfu2xKw8ZEEW5JY6O/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3_today_fashion(Tofa)?type=design&node-id=0%3A1&mode=design&t=lPEL6XUFxWH5Dodx-1
 
 
