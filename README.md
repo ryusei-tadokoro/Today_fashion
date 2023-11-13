@@ -96,4 +96,4 @@ tofa(today fashion)とは
 https://www.figma.com/file/Hm71hKfu2xKw8ZEEW5JY6O/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3_today_fashion(Tofa)?type=design&node-id=0%3A1&mode=design&t=lPEL6XUFxWH5Dodx-1
 
 E-R図
-https://i.gyazo.com/19990cf4419969229054152741b8fdad.png
+https://i.gyazo.com/4fa7e33f7a9ad6e122d700adbb9acb1a.png
