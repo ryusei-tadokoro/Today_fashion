@@ -69,11 +69,12 @@ tofa(today fashion)とは
      *写真の場合、CarrierWave、MiniMagickを実装予定。画像のリサイズ、画像データの容量制限するため
      *アイコンの場合、アイコンの選択(服の色を選択) 
 　　*服の名前（必須 :string型にしてフリー入力にする）
-　　＊服の種類（必須 選択式にする（Yシャツなら　厚手、薄着など））
+　　＊カテゴリー（必須 選択式にする（アウター、トップス、ボトムズなど））
+　　　＊サブカテゴリー（必須 選択式にする（トップスならYシャツ、T-シャツなど））
 　　＊服の備考欄（任意）
 　　　＊購入日
 　　　＊サイズ
-　　　＊購入場所
+　　　＊店名
 　　　＊値段
 　　　＊使用頻度
 　　　＊季節 #購入した服の適正時期
@@ -96,4 +97,4 @@ tofa(today fashion)とは
 https://www.figma.com/file/Hm71hKfu2xKw8ZEEW5JY6O/%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3_today_fashion(Tofa)?type=design&node-id=0%3A1&mode=design&t=lPEL6XUFxWH5Dodx-1
 
 E-R図
-https://i.gyazo.com/4fa7e33f7a9ad6e122d700adbb9acb1a.png
+https://i.gyazo.com/83d47c2de1e41ddff4b1a554bf76360f.png
