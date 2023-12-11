@@ -1,0 +1,24 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "## サービス概要 tofa(today fashion)とは 今持っている服装やアクセサリー等を管理し、 その中で気温や自分の体調に合わせてコーディネートをしてくれるサービスです。",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryusei-tadokoro/today_fashion.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryusei-tadokoro/today_fashion/issues"
+  },
+  "homepage": "https://github.com/ryusei-tadokoro/today_fashion#readme"
+}

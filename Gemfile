@@ -68,7 +68,6 @@ group :test do
 end
 
 gem "sassc-rails"
-
 gem 'bootstrap'
-gem 'font-awesome-sass'
 gem 'jquery-rails'
+gem 'font-awesome-rails'
