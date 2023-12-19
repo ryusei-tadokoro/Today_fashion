@@ -67,7 +67,11 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem "sassc-rails"
 gem 'bootstrap'
+gem 'font-awesome-sass'
 gem 'jquery-rails'
-gem 'font-awesome-rails'
+gem "sassc-rails"
+gem 'devise'
+gem "rails-i18n"
+gem "enum_help"
+gem 'dotenv-rails'

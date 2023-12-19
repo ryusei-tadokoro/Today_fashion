@@ -1,0 +1,2 @@
+class AdditionalResidence < ApplicationRecord
+end
