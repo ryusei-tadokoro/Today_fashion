@@ -6,6 +6,7 @@ class User < ApplicationRecord
     
   belongs_to :residence, class_name: 'Residence'
   belongs_to :additional_residence, class_name: 'AdditionalResidence', optional: true
-
+  belongs_to :sensation
+  
   validates :residence, presence: true
 end

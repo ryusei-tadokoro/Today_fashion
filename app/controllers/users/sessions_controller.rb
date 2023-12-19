@@ -18,7 +18,6 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-　# ↓以下の内容を追記
   def respond_to_on_destroy
     respond_to do |format|
       format.all { head :no_content }
