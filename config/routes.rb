@@ -7,4 +7,8 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     confirmations: "users/confirmations"
   }
+    # ログアウト用のルートを追加
+  devise_scope :user do
+    delete 'logout', to: 'devise/sessions#destroy', as: :logout
+  end
 end
