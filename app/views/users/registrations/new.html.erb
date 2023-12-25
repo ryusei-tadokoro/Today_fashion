@@ -33,12 +33,12 @@
 
   <div class="field">
     <%= f.label :additional_region %><br />
-    <%= f.select :additional_region_id, AdditionalResidence.all.map { |ar| [ar.name, ar.id] }, prompt: 'Select additional residence' %>
+    <%= f.select :additional_residence_id, AdditionalResidence.all.map { |ar| [ar.name, ar.id] }, prompt: 'Select additional residence' %>
   </div>
 
   <div class="field">
-    <%= f.label :temperature_setting %><br />
-    <%= f.select :temperature_setting_id, Sensation.all.map { |ts| [ts.name, ts.id] }, prompt: 'Select sensation' %>
+    <%= f.label :sensation %><br />
+    <%= f.select :sensation_id, Sensation.all.map { |ts| [ts.name, ts.id] }, prompt: 'Select sensation' %>
   </div>
 
   <div class="actions">
