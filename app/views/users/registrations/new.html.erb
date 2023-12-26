@@ -28,17 +28,16 @@
 
   <div class="field">
     <%= f.label :residence %><br />
-    <%= f.select :residence_id, Residence.all.map { |r| [r.name, r.id] }, prompt: 'Select residence' %>
+    <%= f.select :residence_id, Residence.residence_ids.keys, {} %>
   </div>
 
   <div class="field">
     <%= f.label :additional_regsidence %><br />
-    <%= f.select :additional_residence_id, AdditionalResidence.all.map { |ar| [ar.name, ar.id] }, prompt: 'Select additional residence' %>
-  </div>
+    <%= f.select :additional_residence_id, AdditionalResidence.additional_residence_ids.keys, {} %>
 
   <div class="field">
     <%= f.label :sensation %><br />
-    <%= f.select :sensation_id, Sensation.all.map { |ts| [ts.name, ts.id] }, prompt: 'Select sensation' %>
+    <%= f.select :sensation_id, Sensation.sensation_ids.keys, {} %>
   </div>
 
   <div class="actions">

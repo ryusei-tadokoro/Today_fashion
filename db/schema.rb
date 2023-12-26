@@ -10,23 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_12_19_211021) do
+ActiveRecord::Schema[7.1].define(version: 2023_12_26_220437) do
   create_table "additional_residences", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "additional_regsidence_id", default: 0, null: false
   end
 
   create_table "residences", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "residence_id", default: 0, null: false
   end
 
   create_table "sensations", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer "sensation_id", default: 0, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -41,6 +35,7 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_19_211021) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
