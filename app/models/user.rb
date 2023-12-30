@@ -4,9 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
     
-  belongs_to :residence, class_name: 'Residence'
-  belongs_to :additional_residence, class_name: 'AdditionalResidence', optional: true
+  belongs_to :residence
+  belongs_to :additional_residence, class_name: 'Residence'
   belongs_to :sensation
-  
-  validates :residence, presence: true
+
+  validates :residence_id, presence: true
+  validates :additional_residence_id, presence: true
+  validates :sensation_id, presence: true
 end
