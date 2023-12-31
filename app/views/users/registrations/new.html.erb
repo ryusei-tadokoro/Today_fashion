@@ -28,16 +28,16 @@
 
   <div class="field">
     <%= f.label :residence %><br />
-    <%= f.select :residence_id, Residence.residence_names.keys, {} %>
+    <%= f.select :residence_name, Residence.residence_names.keys, {} %>
   </div>
 
   <div class="field">
     <%= f.label :additional_regsidence %><br />
-    <%= f.select :additional_residence_id, AdditionalResidence.additional_residence_names.keys, {} %>
+    <%= f.select :additional_residence_name, AdditionalResidence.additional_residence_names.keys, {} %>
 
   <div class="field">
     <%= f.label :sensation %><br />
-    <%= f.select :sensation_id, Sensation.sensation_names.keys, {} %>
+    <%= f.select :sensation_name, Sensation.sensation_names.keys, {} %>
   </div>
 
   <div class="actions">
