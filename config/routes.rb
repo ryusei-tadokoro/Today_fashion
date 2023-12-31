@@ -7,4 +7,6 @@ Rails.application.routes.draw do
     passwords: "users/passwords",
     confirmations: "users/confirmations"
   }
+  get 'weather', to: 'weather#index', as: :weather
+  get 'weather/show', to: 'weather#show', as: :show_weather
 end

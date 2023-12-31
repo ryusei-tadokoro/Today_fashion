@@ -74,4 +74,5 @@ gem "sassc-rails"
 gem 'devise'
 gem "rails-i18n"
 gem "enum_help"
-gem 'dotenv-rails'
+gem 'dotenv-rails', groups: [:development, :test]
+gem 'httparty'

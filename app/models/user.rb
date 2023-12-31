@@ -8,7 +8,7 @@ class User < ApplicationRecord
   belongs_to :additional_residence, class_name: 'Residence'
   belongs_to :sensation
 
-  validates :residence_id, presence: true
-  validates :additional_residence_id, presence: true
-  validates :sensation_id, presence: true
+  validates :residence_name, presence: true
+  validates :additional_residence_name, presence: true
+  validates :sensation_name, presence: true
 end
