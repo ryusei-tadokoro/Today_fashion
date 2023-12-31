@@ -1,6 +1,6 @@
 class Sensation < ApplicationRecord
     has_many :users
-    enum sensation_id:{
+    enum sensation_name:{
         '選択してください':0,
         暑がり:1,やや暑がり:2,普通:3,やや寒がり:4,寒がり:5,
     }
