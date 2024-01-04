@@ -3,12 +3,4 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
-    
-  belongs_to :residence
-  belongs_to :additional_residence, class_name: 'Residence'
-  belongs_to :sensation
-
-  validates :residence_name, presence: true
-  validates :additional_residence_name, presence: true
-  validates :sensation_name, presence: true
 end
