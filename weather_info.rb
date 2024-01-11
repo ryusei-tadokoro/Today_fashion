@@ -1,3 +1,5 @@
+require 'net/http'
+
 class WeatherInfo
   def initialize(prefectures)
     @prefectures = prefectures
@@ -15,7 +17,7 @@ class WeatherInfo
 
     # 都道府県一覧をインデックス番号付きで一覧出力
     @prefectures.each.with_index(1) do |prefecture, i|
-      puts "#{i.to_s.rjust(2)}. #{prefecture["prefecture"]}"
+      puts "#{i.to_s.rjust(2)}. #{prefecture[0]}"  
     end
     puts <<~TEXT
 
@@ -39,12 +41,21 @@ class WeatherInfo
   end
 
   def get_weather_forecast(prefecture)
-    # 外部API「OpenWeatherMap」から天気情報を取得
-    response = open("http://api.openweathermap.org/data/2.5/forecast" + "?q=#{prefecture["english"]}&appid=#{WEATHER_API_KEY}&units=metric&lang=ja")
-    # 取得したデータをJSONとして解析
-    data = JSON.parse(response.read)
-    # JSONデータ内の一部の情報のみ取得しハッシュ化
-    datas = { list: data["list"], prefecture_name: data["city"]["name"] }
+    api_key = ENV['WEATHER_API_KEY']
+    url = URI.parse("http://api.openweathermap.org/data/2.5/forecast?q=#{prefecture["english"]}&appid=#{api_key}&units=metric&lang=ja")
+
+    response = Net::HTTP.get_response(url)
+
+    if response.is_a?(Net::HTTPSuccess)
+      data = JSON.parse(response.body)
+      datas = { list: data["list"], prefecture_name: data["city"]["name"] }
+    else
+      # エラーハンドリング
+      puts "APIからデータを取得できませんでした。"
+      datas = nil
+    end
+
+    datas
   end
 
   def display_weather_forecast(weathers)

@@ -1,0 +1,5 @@
+<% if @weather_forecast %>
+  <%= render_weather_forecast(@weather_forecast) %>
+<% else %>
+  <p>天気予報を取得できませんでした。</p>
+<% end %>

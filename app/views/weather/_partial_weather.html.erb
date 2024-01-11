@@ -1,0 +1,7 @@
+<div>
+  ---------------------------
+  <%= weather["dt_txt"].to_datetime.strftime("%p%H時頃") %>
+  天気：<%= weather["weather"][0]["description"] %>
+  気温：<%= weather["main"]["temp"] %>℃
+  ---------------------------
+</div>
