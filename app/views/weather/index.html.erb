@@ -1,5 +1,5 @@
 <%= form_with url: show_weather_path, method: :get do |form| %>
-  <%= form.label :city, "都道府県:" %>
+  <%= form.label :prefecture, "都道府県:" %>
   <%= form.select :city, options_for_select(@prefecture_data), prompt: "都道府県を選択してください" %>
   <%= form.submit "天気を検索" %>
 <% end %>

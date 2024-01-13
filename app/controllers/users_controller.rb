@@ -7,6 +7,6 @@ class UsersController < ApplicationController
 
   def user_params
     #ストロングパラメータで、名前とメールを受け取ることができるように設定しておく。
-    params.require(:user).permit(:name, :email)
+    params.require(:user).permit(:name, :email, :password_confirmation, :residence)
   end
 end

@@ -25,6 +25,11 @@
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
   </div>
+
+  <div class="field">
+    <%= f.label :residence, "登録地域:" %><br />
+    <%= f.select :residence, options_for_select(@prefecture_data.map { |pref| [pref["prefecture"], pref["english"]] }), prompt: "登録地域を選択してください" %>
+  </div>
   
   <div class="actions">
     <%= f.submit "Sign up" %>
