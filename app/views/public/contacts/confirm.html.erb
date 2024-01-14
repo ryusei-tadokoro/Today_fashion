@@ -25,7 +25,7 @@
 
       <div class="d-flex">
         <div class="mr-3">
-          <%= form_with model: @contact, url: done_public_contacts_path, method: :get do |f| %>
+          <%= form_with model: @contact, url: public_contacts_path do |f| %>
             <%= f.hidden_field :name %>
             <%= f.hidden_field :email %>
             <%= f.hidden_field :subject %>
