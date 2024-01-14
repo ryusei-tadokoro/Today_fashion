@@ -13,9 +13,9 @@ Rails.application.routes.draw do
   namespace :public do
     resources :contacts, only: [:new, :create, :index] do
       collection do
-        get 'confirm'
+        post 'confirm'
         post 'back'
-        get 'done', to: 'contacts#done'
+        get 'done'
       end
     end
   end
