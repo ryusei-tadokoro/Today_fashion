@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :set_prefectures, only: [:new, :create]
-  before_action :set_constitutions, only: [:new, :create]
+  before_action :set_prefectures, only: [:new, :create, :edit, :update]
+  before_action :set_constitutions, only: [:new, :create, :edit, :update]
 
   def create
     build_resource(sign_up_params)

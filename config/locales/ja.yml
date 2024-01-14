@@ -151,6 +151,7 @@ ja:
     sign_up: "新規登録"
     log_in: "ログイン"
     log_out: "ログアウト"
+    return_title: "トップページへ戻る"
   actions:
     sign_up: "新規登録"
   sign_up:
@@ -164,3 +165,19 @@ ja:
     sign_in_with: "%{provider}でログイン"
     resend_confirmation_instructions: "確認メールの再送信"
     send_reset_password_instructions: "パスワードリセットの手順を送信する"
+  footer:
+    privacy_policy: "プライバシーポリシー"
+    terms_of_service: "サイト利用規約"
+  edit_user:
+    title: "ユーザー情報の編集"
+    currently_waiting_confirmation: "現在、確認待ちのメールアドレスがあります: %{email}"
+    leave_blank: "変更しない場合は空白のままにしてください"
+    minimum_password_length: "最低%{count}文字以上で入力してください"
+    password_confirmation: "パスワードの確認"
+    current_password_confirmation: "変更を確定するためには現在のパスワードが必要です"
+    update: "更新"
+    cancel_account: "アカウント削除"
+    unhappy: "アカウント削除する場合は以下のボタンを押してください"
+    cancel_account_button: "アカウントを削除する"
+    confirmation_message: "本当によろしいですか？"
+    back: "戻る"
