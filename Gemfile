@@ -76,3 +76,4 @@ gem "rails-i18n"
 gem "enum_help"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'httparty'
+gem 'active_hash'

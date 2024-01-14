@@ -16,7 +16,11 @@ ja:
         last_sign_in_ip: 最終ログインIPアドレス
         locked_at: ロック時刻
         password: パスワード
-        password_confirmation: パスワード（確認用）
+        password_confirmation: パスワード確認
+        prefecture_id: 居住地設定
+        second_prefecture_id: 追加登録地
+        constitution_id: 体感設定
+        sign_up: 登録する
         remember_created_at: ログイン記憶時刻
         remember_me: ログインを記憶する
         reset_password_sent_at: パスワードリセット送信時刻
@@ -25,6 +29,8 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+        name: ユーザー名
+        constitution: 体質
     models:
       user: ユーザー
   devise:
@@ -141,3 +147,20 @@ ja:
       not_saved:
         one: エラーが発生したため %{resource} は保存されませんでした。
         other: "%{count} 件のエラーが発生したため %{resource} は保存されませんでした。"
+  nav:
+    sign_up: "新規登録"
+    log_in: "ログイン"
+    log_out: "ログアウト"
+  actions:
+    sign_up: "新規登録"
+  sign_up:
+    title: "ユーザー登録"
+  devise_links:
+    log_in: "ログイン"
+    sign_up: "新規登録"
+    forgot_password: "パスワードを忘れましたか？"
+    confirmation_instructions: "確認メールが届かない場合"
+    unlock_instructions: "ロック解除メールが届かない場合"
+    sign_in_with: "%{provider}でログイン"
+    resend_confirmation_instructions: "確認メールの再送信"
+    send_reset_password_instructions: "パスワードリセットの手順を送信する"
