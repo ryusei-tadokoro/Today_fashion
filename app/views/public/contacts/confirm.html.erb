@@ -25,7 +25,7 @@
 
       <div class="d-flex">
         <div class="mr-3">
-          <%= form_with model: @contact do |f| %>
+          <%= form_with model: @contact, url: done_public_contacts_path, method: :get do |f| %>
             <%= f.hidden_field :name %>
             <%= f.hidden_field :email %>
             <%= f.hidden_field :subject %>
@@ -35,7 +35,7 @@
         </div>
 
         <div>
-          <%= form_with model: @contact, url: back_contacts_path do |f| %>
+          <%= form_with model: @contact, url: back_public_contacts_path  do |f| %>
             <%= f.hidden_field :name %>
             <%= f.hidden_field :email %>
             <%= f.hidden_field :subject %>
@@ -43,6 +43,7 @@
             <%= f.submit '入力画面に戻る', class: "btn btn-info" %>
           <% end %>
         </div>
+
       </div>
     </div>
   </div>
