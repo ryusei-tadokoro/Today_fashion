@@ -3,5 +3,9 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
-  validates :residence, presence: true
+
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :prefecture
+  belongs_to :second_prefecture, class_name: 'Prefecture', foreign_key: 'second_prefecture_id', optional: true
+  belongs_to :constitution
 end

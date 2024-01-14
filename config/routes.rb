@@ -9,4 +9,14 @@ Rails.application.routes.draw do
   }
   get 'weather', to: 'weather#index', as: :weather
   get 'weather/show', to: 'weather#show', as: :show_weather
+
+  namespace :public do
+    resources :contacts, only: [:new, :create, :index] do
+      collection do
+        get 'confirm'
+        post 'back'
+        get 'done', to: 'contacts#done'
+      end
+    end
+  end
 end
