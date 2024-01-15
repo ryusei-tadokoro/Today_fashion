@@ -31,6 +31,7 @@ ja:
         updated_at: 更新日
         name: ユーザー名
         constitution: 体質
+        image: プロフィール画像
     models:
       user: ユーザー
   devise:

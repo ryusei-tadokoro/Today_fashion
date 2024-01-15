@@ -9,6 +9,13 @@
       <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item">
+            <% if @user.image? %>
+              <%= image_tag @user.image.url, class: 'icon_image' %>
+            <% else %>
+              <%= image_tag 'default_image.png', class: 'icon_image', alt: 'Default Icon' %>
+            <% end %>
+          </li>
+          <li class="nav-item">
             <%= link_to @user.name , edit_user_registration_path, class: 'nav-link' %>
           </li>
           <li class="nav-item">
