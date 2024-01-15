@@ -29,7 +29,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id, :second_prefecture_id, :constitution_id)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id, :second_prefecture_id, :constitution_id, :image)
   end
 
   def set_prefectures

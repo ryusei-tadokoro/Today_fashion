@@ -5,6 +5,16 @@
   <%= render "users/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :image %><br/>
+    <%= f.file_field :image, value: @user.default_image %>
+    <% if resource.image? %>
+      <%= image_tag resource.image.url, class: 'icon_image', id: 'preview-image' %>
+    <% else %>
+      <%= image_tag 'default_image.png', class: 'icon_image', alt: 'Default Image', id: 'preview-image' %>
+    <% end %>
+  </div>
+
+  <div class="field">
     <%= f.label :name %> <br />
     <%= f.text_field :name %>
   </div>

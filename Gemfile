@@ -77,3 +77,5 @@ gem "enum_help"
 gem 'dotenv-rails', groups: [:development, :test]
 gem 'httparty'
 gem 'active_hash'
+gem 'carrierwave'
+gem 'mini_magick'
