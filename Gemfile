@@ -74,8 +74,10 @@ gem "sassc-rails"
 gem 'devise'
 gem "rails-i18n"
 gem "enum_help"
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'dotenv-rails'
 gem 'httparty'
 gem 'active_hash'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'omniauth-line'
+gem 'omniauth-rails_csrf_protection'

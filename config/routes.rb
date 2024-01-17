@@ -5,7 +5,8 @@ Rails.application.routes.draw do
     registrations: "users/registrations",
     sessions: "users/sessions",
     passwords: "users/passwords",
-    confirmations: "users/confirmations"
+    confirmations: "users/confirmations",
+    omniauth_callbacks: "omniauth_callbacks"
   }
   get 'weather', to: 'weather#index', as: :weather
   get 'weather/show', to: 'weather#show', as: :show_weather
