@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_15_204922) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_16_210258) do
   create_table "contacts", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -30,10 +30,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_15_204922) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
-    t.integer "prefecture_id", null: false
-    t.integer "constitution_id", null: false
+    t.integer "prefecture_id"
+    t.integer "constitution_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
     t.string "name"
     t.integer "second_prefecture_id"
     t.string "image"

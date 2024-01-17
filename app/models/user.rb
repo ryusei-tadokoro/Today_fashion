@@ -2,19 +2,40 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable
+         :recoverable, :rememberable, :validatable, :confirmable,
+         :omniauthable, omniauth_providers: %i[line] 
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
   belongs_to :second_prefecture, class_name: 'Prefecture', foreign_key: 'second_prefecture_id', optional: true
   belongs_to :constitution
 
-  validates :prefecture_id, :constitution_id, presence: true
   validates :password, presence: true, on: :create
 
   mount_uploader :image, ImageUploader
   def default_image
     ActionController::Base.helpers.asset_path('default_image.png')
+  end
+
+  def social_profile(provider)
+    social_profiles.select { |sp| sp.provider == provider.to_s }.first
+  end
+
+  def set_values(omniauth)
+    return if provider.to_s != omniauth["provider"].to_s || uid != omniauth["uid"]
+    credentials = omniauth["credentials"]
+    info = omniauth["info"]
+
+    access_token = credentials["refresh_token"]
+    access_secret = credentials["secret"]
+    credentials = credentials.to_json
+    name = info["name"]
+    # self.set_values_by_raw_info(omniauth['extra']['raw_info'])
+  end
+
+  def set_values_by_raw_info(raw_info)
+    self.raw_info = raw_info.to_json
+    self.save!
   end
 
 end
