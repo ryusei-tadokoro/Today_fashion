@@ -44,7 +44,7 @@
 
   <div class="field">
     <%= f.label :second_prefecture_id %><br />
-    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '必要に応じて選択してください' %>
+    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
   </div>
 
   <div class="field">
@@ -54,16 +54,6 @@
   
   <div class="actions">
     <%= f.submit  t('actions.sign_up')  %>
-  </div>
-<% end %>
-
-<% if flash[:notice] %>
-  <div class="alert alert-success">
-    <%= flash[:notice] %>
-  </div>
-<% elsif flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
   </div>
 <% end %>
 

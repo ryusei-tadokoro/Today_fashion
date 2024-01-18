@@ -36,7 +36,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_210258) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.string "name"
+    t.string "name", null: false
     t.integer "second_prefecture_id"
     t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
