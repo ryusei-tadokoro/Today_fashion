@@ -79,6 +79,8 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    ancestry (4.3.3)
+      activerecord (>= 5.2.6)
     autoprefixer-rails (10.4.16.0)
       execjs (~> 2)
     base64 (0.2.0)
@@ -343,6 +345,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_hash
+  ancestry
   bootsnap
   bootstrap
   capybara
