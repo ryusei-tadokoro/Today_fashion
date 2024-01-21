@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :subcategory_id, t('activerecord.attributes.closet.subcategory_id') %><br />
-    <%= f.text_field :subcategory_id %>
+    <%= f.collection_select :subcategory_id, @subcategories, :id, :name, prompt: '選択してください', disabled: true %>
   </div>
 
   <div class="field">
@@ -68,7 +68,7 @@
 
   <div class="field">
     <%= f.label :image, t('activerecord.attributes.closet.image') %><br />
-    <%= f.text_field :image %>
+    <%= f.file_field :image %>
   </div>
 
   <div class="actions">
