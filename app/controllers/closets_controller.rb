@@ -1,9 +1,13 @@
 class ClosetsController < ApplicationController
-  before_action :set_closet, only: %i[ show edit update destroy ]
+  before_action :set_closet, only: %i[show edit update destroy ]
 
   # GET /closets or /closets.json
   def index
-    @closets = Closet.all
+    if user_signed_in?
+      @closets = current_user.closets
+    else
+      redirect_to new_user_session_path, alert: 'ログインが必要です'
+    end
   end
 
   # GET /closets/1 or /closets/1.json
@@ -23,14 +27,15 @@ class ClosetsController < ApplicationController
 
   # POST /closets or /closets.json
   def create
-    @closet = Closet.new(closet_params)
+    @closet = current_user.closets.new(closet_params)
   
     respond_to do |format|
       if @closet.save
         format.html { redirect_to closet_url(@closet), notice: "Closet was successfully created." }
         format.json { render :show, status: :created, location: @closet }
       else
-        # ここでnewアクションにリダイレクトしていないか確認
+        @categories = Category.all
+        @subcategories = Subcategory.all
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @closet.errors, status: :unprocessable_entity }
       end

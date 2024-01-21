@@ -9,7 +9,8 @@ class User < ApplicationRecord
   belongs_to :prefecture
   belongs_to :second_prefecture, class_name: 'Prefecture', foreign_key: 'second_prefecture_id', optional: true
   belongs_to :constitution
-
+  has_many :closets  
+  
   validates :password, presence: true
 
   mount_uploader :image, ImageUploader
