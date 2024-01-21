@@ -11,7 +11,7 @@ class User < ApplicationRecord
   belongs_to :constitution
   has_many :closets  
   
-  validates :password, presence: true
+  validates :password, presence: true, if: :password_required?
 
   mount_uploader :image, ImageUploader
   def default_image
@@ -37,5 +37,8 @@ class User < ApplicationRecord
     self.raw_info = raw_info.to_json
     self.save!
   end
-
+  def password_required?
+    # 新しいパスワードが存在する場合にのみバリデーションを適用する
+    new_record? || password.present? || password_confirmation.present?
+  end
 end

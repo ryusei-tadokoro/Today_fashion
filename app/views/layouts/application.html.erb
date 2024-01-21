@@ -5,8 +5,11 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Bootstrap CSSをインクルード -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
 
   <body>
@@ -15,17 +18,19 @@
     <% else %>
       <%= render 'shared/before_login_header' %> 
     <% end %>
-    
-    <% if flash[:notice] %>
-      <div class="alert alert-success">
-        <%= flash[:notice] %>
-      </div>
-    <% elsif flash[:alert] %>
-      <div class="alert alert-danger">
-        <%= flash[:alert] %>
-      </div>
+
+    <% flash.each do |type, message| %>
+      <%= content_tag(:div, message, class: "alert alert-#{type == 'notice' ? 'success' : 'danger'}") %>
     <% end %>
-    <%= yield %>
+    
+    <div class="container" style="padding-top: 90px;"> 
+      <%= yield %>
+    </div>
+
     <%= render 'shared/footer' %>
+
+    <!-- Bootstrap JSとPopper.jsをインクルード -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  
   </body>
 </html>
