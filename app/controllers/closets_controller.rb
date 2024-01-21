@@ -14,6 +14,7 @@ class ClosetsController < ApplicationController
   def new
     @closet = Closet.new
     @categories = Category.all
+    @subcategories = Subcategory.all
   end
 
   # GET /closets/1/edit
@@ -23,12 +24,13 @@ class ClosetsController < ApplicationController
   # POST /closets or /closets.json
   def create
     @closet = Closet.new(closet_params)
-
+  
     respond_to do |format|
       if @closet.save
         format.html { redirect_to closet_url(@closet), notice: "Closet was successfully created." }
         format.json { render :show, status: :created, location: @closet }
       else
+        # ここでnewアクションにリダイレクトしていないか確認
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @closet.errors, status: :unprocessable_entity }
       end
@@ -58,14 +60,19 @@ class ClosetsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_closet
-      @closet = Closet.find(params[:id])
-    end
+  def subcategories_for_category
+    category_id = params[:category_id]
+    subcategories = Subcategory.where(category_id: category_id)
+    render json: subcategories
+  end
 
-    # Only allow a list of trusted parameters through.
-    def closet_params
-      params.require(:closet).permit(:name, :category_id, :subcategory_id, :purchase_date, :size, :color, :purchase_location, :price, :usage_frequency, :season, :other_comments, :image)
-    end
+  private
+
+  def set_closet
+    @closet = Closet.find(params[:id])
+  end
+
+  def closet_params
+    params.require(:closet).permit(:name, :category_id, :subcategory_id, :purchase_date, :size, :color, :purchase_location, :price, :usage_frequency, :season, :other_comments, :image)
+  end
 end
