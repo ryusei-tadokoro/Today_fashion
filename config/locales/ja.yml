@@ -1,6 +1,19 @@
 ja:
   activerecord:
     attributes:
+      closet:
+        name: "名前"
+        category_id: "カテゴリー"
+        subcategory_id: "サブカテゴリー"
+        purchase_date: "購入日"
+        size: "サイズ"
+        color: "色"
+        purchase_location: "購入場所"
+        price: "価格"
+        usage_frequency: "使用頻度"
+        season: "季節"
+        other_comments: "その他のコメント"
+        image: "画像"
       user:
         confirmation_sent_at: パスワード確認送信時刻
         confirmation_token: パスワード確認用トークン
@@ -34,6 +47,14 @@ ja:
         image: プロフィール画像
     models:
       user: ユーザー
+    errors:
+      template:
+        header:
+          one: "1つのエラーが %{model} の保存を妨げました"
+          other: "%{count} のエラーが %{model} の保存を妨げました"
+  helpers:
+    submit:
+      create: "%{model} を作成する"
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。
