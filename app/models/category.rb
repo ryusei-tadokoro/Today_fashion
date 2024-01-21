@@ -5,6 +5,6 @@ class Category < ActiveHash::Base
     { id: 7, name: 'バッグ' }, { id: 8, name: 'アクセサリー' }, { id: 9, name: 'その他' }
   ]
   include ActiveHash::Associations
-  has_many :closets
+  belongs_to :closets
   has_many :subcategories
 end

@@ -1,4 +1,4 @@
-<%= form_with(model: closet) do |form| %>
+<%= form_with(model: closet) do |f| %>
   <% if closet.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(closet.errors.count, "error") %> prohibited this closet from being saved:</h2>
@@ -11,66 +11,68 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="field">
+    <%= f.label :name, t('activerecord.attributes.closet.name') %><br />
+    <%= f.text_field :name %>
   </div>
 
-  <div>
-    <%= form.label :category_id, style: "display: block" %>
-    <%= form.text_field :category_id %>
+  <div class="field">
+    <%= f.label :category_id, t('activerecord.attributes.closet.category_id') %><br />
+    <%= f.collection_select :category_id, @categories, :id, :name, prompt: '選択してください' %>
   </div>
 
-  <div>
-    <%= form.label :subcategory_id, style: "display: block" %>
-    <%= form.text_field :subcategory_id %>
+  <div class="field">
+    <%= f.label :subcategory_id, t('activerecord.attributes.closet.subcategory_id') %><br />
+    <%= f.text_field :subcategory_id %>
   </div>
 
-  <div>
-    <%= form.label :purchase_date, style: "display: block" %>
-    <%= form.date_field :purchase_date %>
-  </div>
-  <div>
-    <%= form.label :size, t('activerecord.attributes.closet.size'), style: "display: block" %>
-    <%= form.text_field :size %>
+  <div class="field">
+    <%= f.label :purchase_date, t('activerecord.attributes.closet.purchase_date') %><br />
+    <%= f.date_field :purchase_date %>
   </div>
 
-  <div>
-    <%= form.label :color, t('activerecord.attributes.closet.color'), style: "display: block" %>
-    <%= form.text_field :color %>
+  <div class="field">
+    <%= f.label :size, t('activerecord.attributes.closet.size') %><br />
+    <%= f.text_field :size %>
   </div>
 
-  <div>
-    <%= form.label :purchase_location, t('activerecord.attributes.closet.purchase_location'), style: "display: block" %>
-    <%= form.text_field :purchase_location %>
+  <div class="field">
+    <%= f.label :color, t('activerecord.attributes.closet.color') %><br />
+    <%= f.text_field :color %>
   </div>
 
-  <div>
-    <%= form.label :price, t('activerecord.attributes.closet.price'), style: "display: block" %>
-    <%= form.text_field :price %>
+  <div class="field">
+    <%= f.label :purchase_location, t('activerecord.attributes.closet.purchase_location') %><br />
+    <%= f.text_field :purchase_location %>
   </div>
 
-  <div>
-    <%= form.label :usage_frequency, t('activerecord.attributes.closet.usage_frequency'), style: "display: block" %>
-    <%= form.number_field :usage_frequency %>
+  <div class="field">
+    <%= f.label :price, t('activerecord.attributes.closet.price') %><br />
+    <%= f.text_field :price %>
   </div>
 
-  <div>
-    <%= form.label :season, t('activerecord.attributes.closet.season'), style: "display: block" %>
-    <%= form.text_field :season %>
+  <div class="field">
+    <%= f.label :usage_frequency, t('activerecord.attributes.closet.usage_frequency') %><br />
+    <%= f.number_field :usage_frequency %>
   </div>
 
-  <div>
-    <%= form.label :other_comments, t('activerecord.attributes.closet.other_comments'), style: "display: block" %>
-    <%= form.text_area :other_comments %>
+  <div class="field">
+    <%= f.label :season, t('activerecord.attributes.closet.season') %><br />
+    <%= f.text_field :season %>
   </div>
 
-  <div>
-    <%= form.label :image, t('activerecord.attributes.closet.image'), style: "display: block" %>
-    <%= form.text_field :image %>
+  <div class="field">
+    <%= f.label :other_comments, t('activerecord.attributes.closet.other_comments') %><br />
+    <%= f.text_area :other_comments %>
   </div>
 
-  <div>
-    <%= form.submit t('helpers.submit.create', model: Closet.model_name.human) %>
+  <div class="field">
+    <%= f.label :image, t('activerecord.attributes.closet.image') %><br />
+    <%= f.text_field :image %>
   </div>
+
+  <div class="actions">
+    <%= f.submit t('helpers.submit.create', model: Closet.model_name.human) %>
+  </div>
+
 <% end %>

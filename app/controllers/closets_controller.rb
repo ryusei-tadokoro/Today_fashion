@@ -13,6 +13,7 @@ class ClosetsController < ApplicationController
   # GET /closets/new
   def new
     @closet = Closet.new
+    @categories = Category.all
   end
 
   # GET /closets/1/edit
