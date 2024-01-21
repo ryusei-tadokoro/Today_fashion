@@ -1,0 +1,76 @@
+<%= form_with(model: closet) do |form| %>
+  <% if closet.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(closet.errors.count, "error") %> prohibited this closet from being saved:</h2>
+
+      <ul>
+        <% closet.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :category_id, style: "display: block" %>
+    <%= form.text_field :category_id %>
+  </div>
+
+  <div>
+    <%= form.label :subcategory_id, style: "display: block" %>
+    <%= form.text_field :subcategory_id %>
+  </div>
+
+  <div>
+    <%= form.label :purchase_date, style: "display: block" %>
+    <%= form.date_field :purchase_date %>
+  </div>
+  <div>
+    <%= form.label :size, t('activerecord.attributes.closet.size'), style: "display: block" %>
+    <%= form.text_field :size %>
+  </div>
+
+  <div>
+    <%= form.label :color, t('activerecord.attributes.closet.color'), style: "display: block" %>
+    <%= form.text_field :color %>
+  </div>
+
+  <div>
+    <%= form.label :purchase_location, t('activerecord.attributes.closet.purchase_location'), style: "display: block" %>
+    <%= form.text_field :purchase_location %>
+  </div>
+
+  <div>
+    <%= form.label :price, t('activerecord.attributes.closet.price'), style: "display: block" %>
+    <%= form.text_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :usage_frequency, t('activerecord.attributes.closet.usage_frequency'), style: "display: block" %>
+    <%= form.number_field :usage_frequency %>
+  </div>
+
+  <div>
+    <%= form.label :season, t('activerecord.attributes.closet.season'), style: "display: block" %>
+    <%= form.text_field :season %>
+  </div>
+
+  <div>
+    <%= form.label :other_comments, t('activerecord.attributes.closet.other_comments'), style: "display: block" %>
+    <%= form.text_area :other_comments %>
+  </div>
+
+  <div>
+    <%= form.label :image, t('activerecord.attributes.closet.image'), style: "display: block" %>
+    <%= form.text_field :image %>
+  </div>
+
+  <div>
+    <%= form.submit t('helpers.submit.create', model: Closet.model_name.human) %>
+  </div>
+<% end %>
