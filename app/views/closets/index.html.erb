@@ -1,5 +1,3 @@
-<p style="color: green"><%= notice %></p>
-
 <div class="text-center">
   <h1>クローゼットの中身</h1>
   <%= link_to "新規アイテムの登録はこちら", new_closet_path %>
@@ -9,7 +7,7 @@
   <% @closets.each do |closet| %>
     <%= render closet %>
     <p>
-      <%= link_to "Show this closet", closet %>
+      <%= link_to t('closets.show_link'), closet %>
     </p>
   <% end %>
 </div>

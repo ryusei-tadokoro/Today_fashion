@@ -1,33 +1,21 @@
-<div id="<%= dom_id closet %>">
+<div id="closet_<%= closet.id %>">
   <p>
-    <strong>Name:</strong>
+    <strong><%= t('closets.name') %>:</strong>
     <%= closet.name %>
   </p>
 
   <p>
-    <strong>Category:</strong>
-    <%= closet.category_id %>
-  </p>
-
-  <p>
-    <strong>Subcategory:</strong>
-    <%= closet.subcategory_id %>
-  </p>
-
-  <p>
-    <strong>Purchase date:</strong>
-    <%= closet.purchase_date %>
-  </p>
-
-  <p>
-    <strong>Season:</strong>
-    <%= closet.season %>
-  </p>
-
-
-  <p>
-    <strong>Image:</strong>
+    <strong><%= t('closets.image') %>:</strong>
     <%= closet.image %>
   </p>
 
+  <p>
+    <strong><%= t('closets.subcategory') %>:</strong>
+    <%= Subcategory.find(closet.subcategory_id).name %>
+  </p>
+
+  <p>
+    <strong><%= t('closets.season') %>:</strong>
+    <%= closet.season %>
+  </p>
 </div>

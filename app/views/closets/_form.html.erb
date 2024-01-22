@@ -1,13 +1,14 @@
-<%= form_with(model: closet) do |f| %>
-  <% if closet.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(closet.errors.count, "error") %> prohibited this closet from being saved:</h2>
-
-      <ul>
-        <% closet.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+<%= form_with(model: @closet, class: 'row g-3') do |f| %>
+  <% if @closet.errors.any? %>
+    <div class="col-12">
+      <div class="alert alert-danger">
+        <h4 class="alert-heading"><%= pluralize(@closet.errors.count, "つのエラー") %> 登録できませんでした:</h4>
+        <ul>
+          <% @closet.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   <% end %>
 
@@ -21,7 +22,14 @@
 
       <div class="field">
         <%= f.label :image, t('activerecord.attributes.closet.image') %><br />
-        <%= f.file_field :image %>
+        <%= f.file_field :image, id: 'image-upload', onchange: 'previewImage(this)' %>
+        <div id="image-preview" style="margin-top: 10px;">
+          <% if f.object.image? %>
+            <%= image_tag f.object.image.url, class: 'icon_image', id: 'preview-image' %>
+          <% else %>
+            <%= image_tag 'default_icon.png', class: 'icon_image', alt: 'Default Image', id: 'preview-image' %>
+          <% end %>
+        </div>
       </div>
 
       <div class="field">
@@ -80,7 +88,7 @@
     </div>
   </div>
 
-  <div class="actions">
-    <%= f.submit "登録する" %>
+  <div class="col-12 mt-3">
+    <%= f.submit "登録する", class: 'btn btn-primary' %>
   </div>
 <% end %>
