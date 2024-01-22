@@ -35,6 +35,9 @@
                       <%= link_to "プロフィール", edit_user_registration_path, class: 'dropdown-item' if user_signed_in? %>
                     </li>
                     <li class="nav-item">
+                      <%= link_to "マイ クローゼット", closets_path, class: "dropdown-item" %>
+                    </li>
+                    <li class="nav-item">
                       <%= link_to t('nav.log_out'), destroy_user_session_path, class: "dropdown-item", method: :delete if user_signed_in? %>
                     </li>
                   </ul>
