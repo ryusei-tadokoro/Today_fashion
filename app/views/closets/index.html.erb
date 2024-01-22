@@ -1,6 +1,9 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Closets</h1>
+<div class="text-center">
+  <h1>クローゼットの中身</h1>
+  <%= link_to "新規アイテムの登録はこちら", new_closet_path %>
+</div>
 
 <div id="closets">
   <% @closets.each do |closet| %>
@@ -10,5 +13,3 @@
     </p>
   <% end %>
 </div>
-
-<%= link_to "New closet", new_closet_path %>
