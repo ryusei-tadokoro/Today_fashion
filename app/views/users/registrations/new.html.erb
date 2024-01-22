@@ -2,7 +2,7 @@
 
 
 <%= form_with model: @user, url: registration_path(resource_name), local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <%= render "shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :image %><br/>
@@ -44,7 +44,7 @@
 
   <div class="field">
     <%= f.label :second_prefecture_id %><br />
-    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '必要に応じて選択してください' %>
+    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
   </div>
 
   <div class="field">
@@ -57,14 +57,4 @@
   </div>
 <% end %>
 
-<% if flash[:notice] %>
-  <div class="alert alert-success">
-    <%= flash[:notice] %>
-  </div>
-<% elsif flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+<%= render "shared/links" %>

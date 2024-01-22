@@ -25,8 +25,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
       render :new
     end
   end
+  
+
+
+  protected
+
+  # パスワードなしで更新できるメソッド
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 
   private
+  
 
   def sign_up_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id, :second_prefecture_id, :constitution_id, :image)

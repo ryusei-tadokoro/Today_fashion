@@ -10,7 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_16_210258) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_21_104959) do
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "closets", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id", null: false
+    t.integer "subcategory_id", null: false
+    t.date "purchase_date"
+    t.string "size"
+    t.string "color"
+    t.string "purchase_location"
+    t.decimal "price"
+    t.integer "usage_frequency"
+    t.string "season"
+    t.text "other_comments"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.index ["category_id"], name: "index_closets_on_category_id"
+    t.index ["subcategory_id"], name: "index_closets_on_subcategory_id"
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -18,6 +44,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_210258) do
     t.text "message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -36,11 +70,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_16_210258) do
     t.datetime "updated_at", null: false
     t.string "provider"
     t.string "uid"
-    t.string "name"
+    t.string "name", null: false
     t.integer "second_prefecture_id"
     t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "closets", "categories"
+  add_foreign_key "closets", "subcategories"
+  add_foreign_key "subcategories", "categories"
 end
