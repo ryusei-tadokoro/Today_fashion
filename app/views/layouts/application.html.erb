@@ -22,17 +22,19 @@
   <body>
     <% if user_signed_in? %>
       <%= render 'shared/header' %> 
+      <div class="container" style="padding-top: 90px;"> 
+        <% flash.each do |type, message| %>
+          <%= content_tag(:div, message, class: "alert alert-#{type == 'notice' ? 'success' : 'danger'}") %>
+        <% end %>
+        <%= yield %>
+      </div>
     <% else %>
       <%= render 'shared/before_login_header' %> 
+      <div class="container"> 
+        <%= yield %>
+      </div>
     <% end %>
     
-    <div class="container" style="padding-top: 90px;"> 
-      <% flash.each do |type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{type == 'notice' ? 'success' : 'danger'}") %>
-      <% end %>
-      <%= yield %>
-    </div>
-
     <%= render 'shared/footer' %>
   
   </body>
