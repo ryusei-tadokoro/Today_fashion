@@ -1,10 +1,10 @@
-<h1>Editing closet</h1>
+<h1><%= t('closets.edit_title', closetName: @closet.name) %></h1>
 
 <%= render "form", closet: @closet %>
 
 <br>
 
 <div>
-  <%= link_to "Show this closet", @closet %> |
-  <%= link_to "Back to closets", closets_path %>
+<%= link_to t('closets.show_link'), @closet %> |
+<%= link_to t('closets.back_link'), closets_path %>
 </div>
