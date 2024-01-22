@@ -1,7 +1,7 @@
 <h2><%= t('devise_links.resend_confirmation_instructions') %></h2>
 
 <%= form_with model: @user, url: confirmation_path(resource_name), local: true do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <%= render "shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :email %><br />
