@@ -2,15 +2,16 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable, :confirmable,
+         :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[line] 
 
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
   belongs_to :second_prefecture, class_name: 'Prefecture', foreign_key: 'second_prefecture_id', optional: true
   belongs_to :constitution
-
-  validates :password, presence: true, on: :create
+  has_many :closets  
+  
+  validates :password, presence: true, if: :password_required?
 
   mount_uploader :image, ImageUploader
   def default_image
@@ -30,12 +31,14 @@ class User < ApplicationRecord
     access_secret = credentials["secret"]
     credentials = credentials.to_json
     name = info["name"]
-    # self.set_values_by_raw_info(omniauth['extra']['raw_info'])
   end
 
   def set_values_by_raw_info(raw_info)
     self.raw_info = raw_info.to_json
     self.save!
   end
-
+  def password_required?
+    # 新しいパスワードが存在する場合にのみバリデーションを適用する
+    new_record? || password.present? || password_confirmation.present?
+  end
 end

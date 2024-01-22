@@ -1,7 +1,7 @@
 <h2><%= t('edit_user.title') %></h2>
 
 <%= form_with(model: resource, url: registration_path(resource_name), local: true) do |f| %>
-  <%= render "users/shared/error_messages", resource: resource %>
+  <%= render "shared/error_messages", resource: resource %>
 
   <div class="field">
     <%= f.label :image %><br/>
@@ -20,48 +20,19 @@
   </div><br />
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div><br />
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div><%= t('edit_user.currently_waiting_confirmation', email: resource.unconfirmed_email) %></div>
-  <% end %><br />
-
-  <div class="field">
-    <%= f.label :password %> <i>(<%= t('edit_user.leave_blank') %>)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= t('edit_user.minimum_password_length', count: @minimum_password_length) %></em>
-    <% end %>
-  </div><br />
-
-   <div class="field">
-    <%= f.label :password_confirmation %> <i>(新しく入力したパスワードを入れてください)</i><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div><br />
-
-  <div class="field">
     <%= f.label :prefecture_id %><br />
     <%= f.collection_select :prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
-  </div>
+  </div><br />
 
   <div class="field">
     <%= f.label :second_prefecture_id %><br />
-    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '必要に応じて選択してください' %>
-  </div>
+    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
+  </div><br />
 
   <div class="field">
     <%= f.label :constitution_id %><br />
     <%= f.collection_select :constitution_id, @constitutions, :id, :name, prompt: '選択してください' %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(<%= t('edit_user.current_password_confirmation') %>)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div><br />
-  
 
   <div class="actions">
     <%= f.submit t('edit_user.update') %>
@@ -89,15 +60,6 @@
 
 <div><%= t('edit_user.unhappy') %> <%= button_to t('edit_user.cancel_account_button'), registration_path(resource_name), data: { confirm: t('edit_user.confirmation_message'), turbo_confirm: t('edit_user.confirmation_message') }, method: :delete %></div>
 <br />
-<% if flash[:notice] %>
-  <div class="alert alert-success">
-    <%= flash[:notice] %>
-  </div>
-<% elsif flash[:alert] %>
-  <div class="alert alert-danger">
-    <%= flash[:alert] %>
-  </div>
-<% end %>
 
-<%= link_to t('edit_user.back'), root_path, class: 'nav-link' %>
+<%= link_to "トップページへ戻る", root_path, class: 'nav-item' %>
 

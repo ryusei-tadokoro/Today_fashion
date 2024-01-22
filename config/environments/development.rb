@@ -87,4 +87,6 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.hosts.clear
+
+  config.reset_password_within = 1.hours
 end
