@@ -3,11 +3,13 @@
   <%= link_to "新規アイテムの登録はこちら", new_closet_path %>
 </div>
 
-<div id="closets">
-  <% @closets.each do |closet| %>
-    <%= render closet %>
-    <p>
-      <%= link_to t('closets.show_link'), closet %>
-    </p>
-  <% end %>
+<div class="container">
+  <div id="closets" class="row">
+    <% @closets.each do |closet| %>
+      <%= render closet %>
+      <p>
+        <%= link_to t('closets.show_link'), closet %>
+      </p>
+    <% end %>
+  </div>
 </div>

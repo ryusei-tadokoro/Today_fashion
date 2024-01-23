@@ -26,7 +26,12 @@ class ClosetsController < ApplicationController
   # POST /closets or /closets.json
   def create
     @closet = current_user.closets.new(closet_params)
-  
+
+    # 画像が添付されていない場合はデフォルトの画像を設定
+    unless params[:closet][:image].present?
+      @closet.image = File.open(Rails.root.join('app', 'assets', 'images', 'sample.png'))
+    end
+
     respond_to do |format|
       if @closet.save
         format.html { redirect_to closet_url(@closet), notice: "Closet was successfully created." }
@@ -42,6 +47,11 @@ class ClosetsController < ApplicationController
 
   # PATCH/PUT /closets/1 or /closets/1.json
   def update
+    # 画像が添付されていない場合はデフォルトの画像を設定
+    unless params[:closet][:image].present?
+      @closet.image = File.open(Rails.root.join('app', 'assets', 'images', 'sample.png'))
+    end
+
     respond_to do |format|
       if @closet.update(closet_params)
         format.html { redirect_to closet_url(@closet), notice: "Closet was successfully updated." }
