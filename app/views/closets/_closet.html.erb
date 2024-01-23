@@ -1,21 +1,14 @@
-<div id="closet_<%= closet.id %>">
-  <p>
-    <strong><%= t('closets.name') %>:</strong>
-    <%= closet.name %>
-  </p>
-
-  <p>
-    <strong><%= t('closets.image') %>:</strong>
-    <%= closet.image %>
-  </p>
-
-  <p>
-    <strong><%= t('closets.subcategory') %>:</strong>
-    <%= Subcategory.find(closet.subcategory_id).name %>
-  </p>
-
-  <p>
-    <strong><%= t('closets.season') %>:</strong>
-    <%= closet.season %>
-  </p>
+<div id="closet_<%= closet.id %>" class="card mt-1">
+  <div class="card-body">
+    <h5 class="card-title"><%= closet.name %></h5>
+    <%= image_tag closet.image.url, class: 'fashion_image', alt: closet.name %>
+    <p class="card-text">
+      <strong><%= t('closets.subcategory') %>:</strong>
+      <%= Subcategory.find(closet.subcategory_id).name %>
+    </p>
+    <p class="card-text">
+      <strong><%= t('closets.season') %>:</strong>
+      <%= closet.season %>
+    </p>
+  </div>
 </div>

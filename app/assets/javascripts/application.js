@@ -9,41 +9,22 @@ document.addEventListener("DOMContentLoaded", function() {
     alert(flashNotice.textContent.trim());
   }
 
-  $(document).on('change', '#user_image', function() {
-    readURL(this);
-    previewImage(this); // 追加
+  $(document).on('change', '#user_image, #image-upload', function() {
+    previewImage(this);
   });
 
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = function(e) {
-        $('#image_preview').attr('src', e.target.result);
-        $('#image_preview').show();
-      };
-
-      reader.readAsDataURL(input.files[0]);
-    }
-  }
-
   function previewImage(input) {
-    var preview = document.getElementById('image-preview');
+    var preview = document.getElementById('preview-image');
     preview.innerHTML = '';
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
 
       reader.onload = function (e) {
-        var img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '200px';
-        preview.appendChild(img);
+        preview.src = e.target.result;
       }
 
       reader.readAsDataURL(input.files[0]);
     }
   }
 });
-
