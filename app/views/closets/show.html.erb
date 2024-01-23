@@ -2,72 +2,67 @@
   <!-- Left Side -->
   <div class="col-md-6">
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.name') %>:</strong>
-      <%= @closet.name %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.name') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.name %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.image') %>:</strong>
-      <%= @closet.image %>
+      <%= image_tag @closet.image.url, class: 'fashion_image', alt: @closet.name %>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.category_id') %>:</strong>
-      <%= Category.find(@closet.category_id).name %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.category_id') %>:</strong>
+      <span style="font-size: 30px;"><%= Category.find(@closet.category_id).name %>/<%= Subcategory.find(@closet.subcategory_id).name %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.subcategory_id') %>:</strong>
-      <%= Subcategory.find(@closet.subcategory_id).name %>
-    </div>
-
-    <div class="field">
-      <strong><%= t('activerecord.attributes.closet.color') %>:</strong>
-      <%= @closet.color %>
-    </div>
-
-    <div class="field">
-      <strong><%= t('activerecord.attributes.closet.season') %>:</strong>
-      <%= @closet.season %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.season') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.season %></span>
     </div>
   </div>
 
   <!-- Right Side -->
   <div class="col-md-6">
+
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.purchase_date') %>:</strong>
-      <%= @closet.purchase_date %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.color') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.color %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.size') %>:</strong>
-      <%= @closet.size %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.purchase_date') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.purchase_date %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.purchase_location') %>:</strong>
-      <%= @closet.purchase_location %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.size') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.size %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.price') %>:</strong>
-      <%= @closet.price %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.purchase_location') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.purchase_location %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.usage_frequency') %>:</strong>
-      <%= @closet.usage_frequency %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.price') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.price %></span>
     </div>
 
     <div class="field">
-      <strong><%= t('activerecord.attributes.closet.other_comments') %>:</strong>
-      <%= @closet.other_comments %>
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.usage_frequency') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.usage_frequency %></span>
+    </div>
+
+    <div class="field">
+      <strong style="font-size: 30px;"><%= t('activerecord.attributes.closet.other_comments') %>:</strong>
+      <span style="font-size: 30px;"><%= @closet.other_comments %></span>
+    </div>
+
+    <div class="mt-3">
+      <%= link_to t('closets.edit_link'), edit_closet_path(@closet), class: 'btn btn-warning me-2' %>
+      <%= link_to t('closets.back_link'), closets_path, class: 'btn btn-secondary' %>
+      <%= button_to t('closets.destroy_button'), @closet, method: :delete, data: { confirm: t('closets.confirm_destroy') }, class: 'btn btn-danger' %>
     </div>
   </div>
-</div>
-
-<div class="mt-3">
-  <%= link_to t('closets.edit_link'), edit_closet_path(@closet), class: 'btn btn-warning me-2' %>
-  <%= link_to t('closets.back_link'), closets_path, class: 'btn btn-secondary' %>
-  <%= button_to t('closets.destroy_button'), @closet, method: :delete, data: { confirm: t('closets.confirm_destroy') }, class: 'btn btn-danger' %>
 </div>

@@ -4,7 +4,8 @@ class ClosetsController < ApplicationController
   # GET /closets or /closets.json
   def index
     if user_signed_in?
-      @closets = current_user.closets
+      @user = current_user
+      @closets = @user.closets
     else
       redirect_to new_user_session_path, alert: 'ログインが必要です'
     end
