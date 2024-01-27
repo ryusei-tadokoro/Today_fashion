@@ -5,4 +5,17 @@
 <% end %>
 
 <p>今日の日付: <%= Date.current.strftime('%Y年%m月%d日') %></p>
+<% if @default_weather %>
+  <p>都市名: <%= @default_weather[:name] %></p>
+  <p>現在の温度: <%= @default_weather[:temp_celsius] %> °C</p>
+  <p>最高気温: <%= @default_weather[:temp_max_celsius] %> °C</p>
+  <p>最低気温: <%= @default_weather[:temp_min_celsius] %> °C</p>
+  <p>湿度: <%= @default_weather[:humidity] %> %</p>
+  <p>降水確率: <%= @default_weather[:precipitation_probability] %></p>
+  <p>風速: <%= @default_weather[:wind_speed] %> m/s</p>
+  <p>天気: <%= @default_weather[:description] %></p>
+  <p>今日のひとこと: <%= @default_weather[:today_message] %></p>
+<% else %>
+  <p>デフォルトの天気情報が取得できませんでした。</p>
+<% end %>
 <p>明日の日付: <%= Date.tomorrow.strftime('%Y年%m月%d日') %></p>
