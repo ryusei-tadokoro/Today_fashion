@@ -1,0 +1,2 @@
+class TodayMessage < ApplicationRecord
+end

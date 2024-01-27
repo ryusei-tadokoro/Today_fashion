@@ -8,19 +8,18 @@ class WeatherController < ApplicationController
   before_action :load_prefecture_data, only: [:index]
 
   def index
-    # デフォルトの都市を東京に設定
-    default_city = 'Tokyo'
+   # ユーザーの地域を取得
+    user_prefecture_id = current_user&.prefecture_id
+
+    # ユーザーの地域が設定されている場合はそれを使用し、そうでなければデフォルトの都市を東京に設定
+    default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
 
     # WeatherServiceのインスタンスを生成し、fetch_weatherメソッドを呼び出して天気情報を取得
     response = WeatherService.new(default_city).fetch_weather
-
-    # HTTPレスポンスが成功かどうかをチェック
     if response.success?
       # HTTParty からのレスポンスをパースして、Rubyのハッシュ形式のデータ構造（weather_data）に変換
       weather_data = response.parsed_response
       @default_weather = {
-        # ... (必要な情報を追加)
-
         # 都市名（東京都新宿区）
         name: "#{weather_data['name']} #{weather_data['sys']['country']}",
         # 現在の温度
@@ -38,7 +37,7 @@ class WeatherController < ApplicationController
         # 天気
         description: weather_data['weather'][0]['description'],
         # 今日のひとこと（適切な情報がAPIに含まれていれば使用）
-        today_message: 'デフォルトの天気情報です。'
+        today_message: random_today_message(weather_data)
       }
     else
       # 失敗した場合はエラーメッセージを表示
@@ -53,6 +52,7 @@ class WeatherController < ApplicationController
     if response.success?
       # HTTParty からのレスポンスをパースして、Rubyのハッシュ形式のデータ構造（weather_data）に変換
       weather_data = response.parsed_response
+      rainfall = weather_data['rain']['3h'] if weather_data['rain']
       @weather = {
         # 取得したweather_dataハッシュから特定の気象データを取り出し、適切な形式に変換
         # 都市の天気
@@ -70,7 +70,8 @@ class WeatherController < ApplicationController
         # 風速
         wind_speed: weather_data["wind"]["speed"],
         # 天気
-        description: weather_data["weather"][0]["description"]
+        description: weather_data["weather"][0]["description"],
+        rainfall: rainfall
       }
     else
       # 成功でない場合、ユーザーをindexアクションにリダイレクトし、エラーメッセージを表示
@@ -97,21 +98,30 @@ class WeatherController < ApplicationController
 
   # ケルビン単位の温度を摂氏単位に変換するkelvin_to_celsiusメソッドを定義
   def kelvin_to_celsius(kelvin)
-    kelvin - 273.15
+    super(kelvin)
+  end
+
+  def random_today_message(weather_data)
+    return '' unless weather_data
+
+    if weather_data[:rainfall].present?
+      return "今日は傘が必要なので持っていってください。"
+    end
+
+    random_message = TodayMessage.order('RANDOM()').first
+    random_message&.content || ''
   end
 end
 
 class WeatherService
-  # HTTPartyモジュールをWeatherServiceクラスにインクルード
   include HTTParty
-  # OpenWeatherMap APIのベースURIを設定
   base_uri 'api.openweathermap.org'
 
-  def initialize(city)
+  def initialize(city, options = {})
     # 環境変数からOpenWeatherMapのAPIキーを取得
     api_key = ENV['OPENWEATHERMAP_API_KEY']
     # APIリクエストのためのオプションを設定
-    if use_city_id
+    if options[:use_city_id]
       @options = { query: { id: city, appid: api_key, lang: 'ja' } }
     else
       @options = { query: { q: "#{city},jp", appid: api_key, lang: 'ja' } }
@@ -121,5 +131,11 @@ class WeatherService
   def fetch_weather
     # HTTPartyによって提供されるgetメソッドをクラスメソッドとして呼び出す
     self.class.get("/data/2.5/weather", @options)
+  end
+
+  private
+
+  def kelvin_to_celsius(kelvin)
+    super(kelvin)
   end
 end

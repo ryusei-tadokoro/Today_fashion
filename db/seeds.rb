@@ -74,3 +74,7 @@ subcategories_data = [
 subcategories_data.each do |subcategory_data|
   Subcategory.find_or_create_by(subcategory_data)
 end
+
+TodayMessage.create(content: '今日も元気に過ごしましょう。')
+TodayMessage.create(content: '今日はいい日になりそうですね。')
+TodayMessage.create(content: '素敵な出会いがありますように。')
