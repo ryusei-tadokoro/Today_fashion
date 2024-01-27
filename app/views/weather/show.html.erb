@@ -7,6 +7,9 @@
 <p><strong>湿度:</strong> <%= @weather[:humidity] %> %</p>
 <p><strong>風速:</strong> <%= @weather[:wind_speed] %> m/s</p>
 <p><strong>天気:</strong> <%= @weather[:description] %></p>
+<% if @weather['rainfall'].present? %>
+  <p>降水量: <%= @weather['rainfall'] %>mm</p>
+<% end %>
 
 <div>
   <%= link_to '戻る', weather_path, class: "btn btn-primary" %>
