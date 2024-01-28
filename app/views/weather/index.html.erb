@@ -1,5 +1,5 @@
 <%= form_with url: show_weather_path, method: :get do |form| %>
-  <%= form.label :prefecture, "都道府県:" %>
+  <%= form.label :prefecture, "各都道府県の天気:" %>
   <%= form.select :city, options_for_select(@prefecture_data), prompt: "都道府県を選択してください" %>
   <%= form.submit "天気を検索" %>
 <% end %>
@@ -19,5 +19,5 @@
   <% end %>
   <p>今日のひとこと: <%= @default_weather[:today_message] %></p>
 <% else %>
-  <p>デフォルト設定(東京)の天気情報が取得できませんでした。</p>
+  <p>天気情報が取得できませんでした。</p>
 <% end %>

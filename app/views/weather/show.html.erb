@@ -1,16 +1,51 @@
-<h1><%= @weather[:name] %> の天気</h1>
+<div class="container mt-5">
+  <h1><%= @weather[:name] %> の本日の天気</h1>
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <p class="card-text"><strong>体感温度:</strong> <%= @weather[:feels_like_celsius] %> °C</p>
+      <p class="card-text"><strong>最低温度:</strong> <%= @weather[:temp_min_celsius] %> °C</p>
+      <p class="card-text"><strong>最高温度:</strong> <%= @weather[:temp_max_celsius] %> °C</p>
+      <p class="card-text"><strong>湿度:</strong> <%= @weather[:humidity] %> %</p>
+      <p class="card-text"><strong>風速:</strong> <%= @weather[:wind_speed] %> m/s</p>
+      <p class="card-text">天気: <%= @weather[:description] %></p>
+      <% if @weather['rainfall'].present? %>
+        <p class="card-text">降水量: <%= @weather['rainfall'] %>mm</p>
+      <% end %>
+    </div>
+  </div>
 
-<p><strong>温度:</strong> <%= @weather[:temp_celsius] %> °C</p>
-<p><strong>体感温度:</strong> <%= @weather[:feels_like_celsius] %> °C</p>
-<p><strong>最低温度:</strong> <%= @weather[:temp_min_celsius] %> °C</p>
-<p><strong>最高温度:</strong> <%= @weather[:temp_max_celsius] %> °C</p>
-<p><strong>湿度:</strong> <%= @weather[:humidity] %> %</p>
-<p><strong>風速:</strong> <%= @weather[:wind_speed] %> m/s</p>
-<p><strong>天気:</strong> <%= @weather[:description] %></p>
-<% if @weather['rainfall'].present? %>
-  <p>降水量: <%= @weather['rainfall'] %>mm</p>
-<% end %>
+  <div class="mt-4">
+    <h2 class="mt-4">5日間の天気予報</h2>
 
-<div>
-  <%= link_to '戻る', weather_path, class: "btn btn-primary" %>
+    <% if @weather_data.present? %>
+      <div class="card" style="width: 105%;">
+        <% @weather_data['list'].group_by { |forecast| Time.at(forecast['dt']).strftime('%Y-%m-%d') }.each do |date, forecasts| %>
+          <div class="card-body">
+            <p class="card-text"><strong><%= date %></strong></p>
+            <div class="d-flex flex-wrap">
+              <% forecasts.each do |forecast| %>
+                <div class="card m-2" style="width: 8.7rem;">
+                  <div class="card-body">
+                    <p class="card-text"><strong><%= Time.at(forecast['dt']).strftime('%H:%M') %></strong></p>
+                    <p class="card-text">気温: <%= forecast['main']['temp'] %>℃</p>
+                    <p class="card-text">天気: <%= forecast['weather'][0]['description'] %></p>
+                    <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
+                    <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
+                      <p class="card-text">降水量: <%= forecast['rain']['3h'] %>mm</p>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+    </div>
+    <% else %>
+      <p class="mt-4">天気情報が取得できませんでした。</p>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <%= link_to '戻る', weather_path, class: "btn btn-primary" %>
+  </div>
 </div>
