@@ -20,7 +20,7 @@ class WeatherController < ApplicationController
       # HTTParty からのレスポンスをパースして、Rubyのハッシュ形式のデータ構造（weather_data）に変換
       weather_data = response.parsed_response
       @default_weather = {
-        # 都市名（東京都新宿区）
+        # 都市名（東京都）
         name: "#{weather_data['name']} #{weather_data['sys']['country']}",
         # 現在の温度
         temp_celsius: kelvin_to_celsius(weather_data['main']['temp']).round(2),
@@ -73,6 +73,11 @@ class WeatherController < ApplicationController
         description: weather_data["weather"][0]["description"],
         rainfall: rainfall
       }
+      # 5日間の天気予報を取得
+      response_forecast = WeatherService.new(params[:city]).fetch_weather_forecast
+      if response_forecast.success?
+        @weather_data = response_forecast.parsed_response
+      end
     else
       # 成功でない場合、ユーザーをindexアクションにリダイレクトし、エラーメッセージを表示
       redirect_to action: :index, alert: "天気情報の取得に失敗しました。"
@@ -129,13 +134,34 @@ class WeatherService
   end
 
   def fetch_weather
-    # HTTPartyによって提供されるgetメソッドをクラスメソッドとして呼び出す
     self.class.get("/data/2.5/weather", @options)
+  end
+
+  def fetch_weather_forecast
+    response = self.class.get("/data/2.5/forecast", @options)
+    if response.success?
+      weather_forecast_data = response.parsed_response
+      # 5日間の予報データのリストを取得
+      forecasts = weather_forecast_data['list']
+
+      # 各予報データの温度を摂氏に変換
+      forecasts.each do |forecast|
+        forecast['main']['temp'] = kelvin_to_celsius(forecast['main']['temp']).round(1)
+        forecast['main']['feels_like'] = kelvin_to_celsius(forecast['main']['feels_like']).round(1)
+        forecast['main']['temp_min'] = kelvin_to_celsius(forecast['main']['temp_min']).round(1)
+        forecast['main']['temp_max'] = kelvin_to_celsius(forecast['main']['temp_max']).round(1)
+      end
+
+      @weather_data = weather_forecast_data
+    else
+      flash.now[:alert] = "5日間の天気予報の取得に失敗しました。"
+    end
+    response
   end
 
   private
 
   def kelvin_to_celsius(kelvin)
-    super(kelvin)
+    kelvin - 273.15
   end
 end
