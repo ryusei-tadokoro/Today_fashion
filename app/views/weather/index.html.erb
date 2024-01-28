@@ -22,6 +22,7 @@
               current_user&.constitution_id.to_i
             ) %>
             </div>
+            <%= image_tag(@clothing_data.image_url, alt: 'Clothing Image') if @clothing_data.present? %>
           </div>
         </div>
       </div>
@@ -53,6 +54,7 @@
               current_user&.constitution_id.to_i
             ) %>
             </div>
+            <%= image_tag(@second_clothing_data.image_url, alt: 'Clothing Image') if @second_clothing_data.present? %>
           </div>
         </div>
       </div>
