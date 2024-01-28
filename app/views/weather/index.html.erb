@@ -1,23 +1,59 @@
 <%= form_with url: show_weather_path, method: :get do |form| %>
-  <%= form.label :prefecture, "各都道府県の天気:" %>
+  <%= form.label :city, "各都道府県の天気:" %>
   <%= form.select :city, options_for_select(@prefecture_data), prompt: "都道府県を選択してください" %>
   <%= form.submit "天気を検索" %>
 <% end %>
 
 <p>今日の日付: <%= Date.current.strftime('%Y年%m月%d日') %></p>
-<% if @default_weather %>
-  <h2>今日の天気情報</h2>
-  <p>都市名: <%= @default_weather[:name] %></p>
-  <p>現在の温度: <%= @default_weather[:temp_celsius] %> °C</p>
-  <p>最高気温: <%= @default_weather[:temp_max_celsius] %> °C</p>
-  <p>最低気温: <%= @default_weather[:temp_min_celsius] %> °C</p>
-  <p>湿度: <%= @default_weather[:humidity] %> %</p>
-  <p>風速: <%= @default_weather[:wind_speed] %> m/s</p>
-  <p>天気: <%= @default_weather[:description] %></p>
-  <% if @default_weather[:rainfall].present? %>
-    <p>降水量: <%= @default_weather[:rainfall] %> mm</p>
-  <% end %>
-  <p>今日のひとこと: <%= @default_weather[:today_message] %></p>
+
+<% if @weather_data.present? %>
+  <div class="container mt-5">
+    <div class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= @weather_data['name'] %></h5>
+        <div class="row">
+          <div class="col">
+            <p>最高気温: <%= kelvin_to_celsius(@weather_data['main']['temp_max']).round(1) %> °C</p>
+            <p>最低気温: <%= kelvin_to_celsius(@weather_data['main']['temp_min']).round(1) %> °C</p>
+            <p>湿度: <%= @weather_data['main']['humidity'] %> %</p>
+            <p>風速: <%= @weather_data['wind']['speed'] %> m/s</p>
+            <p>天気: <%= @weather_data['weather'][0]['description'] %></p>
+            <img src="https://openweathermap.org/img/wn/<%= @weather_data['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
+            <p>服装指数: <%= dress_code_suggestion(
+              kelvin_to_celsius(@weather_data['main']['temp_max']),
+              current_user&.constitution_id.to_i
+            ) %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% else %>
-  <p>天気情報が取得できませんでした。</p>
+  <p>天気情報がありません。</p>
+<% end %>
+
+<% if @second_weather_data.present? %>
+  <div class="container mt-5">
+    <div class="card mt-3">
+      <div class="card-body">
+        <h5 class="card-title"><%= @second_weather_data['name'] %></h5>
+        <div class="row">
+          <div class="col">
+            <p>最高気温: <%= kelvin_to_celsius(@second_weather_data['main']['temp_max']).round(1) %> °C</p>
+            <p>最低気温: <%= kelvin_to_celsius(@second_weather_data['main']['temp_min']).round(1) %> °C</p>
+            <p>湿度: <%= @second_weather_data['main']['humidity'] %> %</p>
+            <p>風速: <%= @second_weather_data['wind']['speed'] %> m/s</p>
+            <p>天気: <%= @second_weather_data['weather'][0]['description'] %></p>
+            <img src="https://openweathermap.org/img/wn/<%= @second_weather_data['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
+            <p>服装指数: <%= dress_code_suggestion(
+              kelvin_to_celsius(@second_weather_data['main']['temp_max']),
+              current_user&.constitution_id.to_i
+            ) %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <p>天気情報がありません。</p>
 <% end %>

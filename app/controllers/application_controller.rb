@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   def configure_permitted_parameters
@@ -7,9 +8,4 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:account_update, keys: [:name, :prefecture_id, :second_prefecture_id, :constitution_id, :image])
   end
 
-  private
-
-  def kelvin_to_celsius(kelvin)
-    (kelvin - 273.15).round(1)
-  end
 end
