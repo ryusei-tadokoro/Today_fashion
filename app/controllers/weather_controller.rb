@@ -8,10 +8,18 @@ class WeatherController < ApplicationController
   def index
     user_prefecture_id = current_user&.prefecture_id
     user_second_prefecture_id = current_user&.second_prefecture_id
+  
+    # デフォルトの都市とセカンドの都市を取得
     default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
-    @weather_data = fetch_weather_data(default_city)
     second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
+  
+    # デフォルトの都市の天気データを取得
+    @weather_data = fetch_weather_data(default_city)
+  
+    # セカンドの都市の天気データを取得
     @second_weather_data = fetch_weather_data(second_city)
+  
+    # デフォルトの都市とセカンドの都市のどちらか一方でもデータが存在すれば成功とみなす
     flash.now[:alert] = "天気情報の取得に失敗しました。" unless @weather_data || @second_weather_data
   end
 
