@@ -31,8 +31,8 @@ ja:
         locked_at: ロック時刻
         password: パスワード
         password_confirmation: パスワード確認
-        prefecture_id: 居住地設定
-        second_prefecture_id: 追加登録地
+        prefecture_id: 都道府県設定
+        second_prefecture_id: 追加都道府県設定
         constitution_id: 体感設定
         sign_up: 登録する
         remember_created_at: ログイン記憶時刻
