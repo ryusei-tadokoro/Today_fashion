@@ -442,5 +442,111 @@ module ApplicationHelper
 
     return "#{icon_tags.join(' ')} #{suggestion}".html_safe unless icon_tags.empty?
     return suggestion
-  end  
+  end
+
+  def display_clothes_photo(temperature, constitution_id, user)
+    subcategory_id =
+      case constitution_id
+      when 1 # 暑がり
+        if temperature < 3
+          [18, 7, 2, 10, 6] 
+        elsif temperature >= 3 && temperature < 7
+          [17, 7, 2, 10, 29] 
+        elsif temperature >= 7 && temperature < 11
+          [18, 6, 8, 11, 35] 
+        elsif temperature >= 11 && temperature < 15
+          [18, 6, 2, 29, 11] 
+        elsif temperature >= 15 && temperature < 18
+          [7, 1, 10, 29]
+        elsif temperature >= 18 && temperature < 22
+          [20, 10, 29]
+        elsif temperature >= 22 && temperature < 26
+          [1, 11, 29]
+        elsif temperature >= 26
+          [1, 11, 29]
+        end
+
+      when 2 # やや暑がり
+        if temperature < 4
+          [17, 7, 2, 10, 6] 
+        elsif temperature >= 4 && temperature < 8
+          [17, 7, 2, 10, 29]
+        elsif temperature >= 8 && temperature < 12
+          [18, 6, 8, 11, 35]
+        elsif temperature >= 12 && temperature < 16
+          [18, 6, 2, 29, 11]
+        elsif temperature >= 16 && temperature < 19
+          [7, 1, 10, 29]
+        elsif temperature >= 19 && temperature < 23
+          [20, 10, 29]
+        elsif temperature >= 23 && temperature < 27
+          [1, 11, 29]
+        elsif temperature >= 27
+          [1, 11, 29]
+        end
+
+      when 3 # 標準
+        if temperature < 5
+          [17, 7, 2, 10, 6]
+        elsif temperature >= 5 && temperature < 9
+          [17, 7, 2, 10, 29] 
+        elsif temperature >= 9 && temperature < 13
+          [18, 6, 8, 11, 35]
+        elsif temperature >= 13 && temperature < 17
+          [18, 6, 2, 29, 11] 
+        elsif temperature >= 17 && temperature < 20
+          [7, 1, 10, 29]
+        elsif temperature >= 20 && temperature < 24
+          [20, 10, 29]
+        elsif temperature >= 24 && temperature < 28
+          [1, 11, 29]
+        elsif temperature >= 28
+          [1, 11, 29]
+        end
+
+      when 4 # やや寒がり
+        if temperature < 6
+          [17, 7, 2, 10, 6]
+        elsif temperature >= 6 && temperature < 10
+          [17, 7, 2, 10, 29]
+        elsif temperature >= 10 && temperature < 14
+          [18, 6, 8, 11, 35]
+        elsif temperature >= 14 && temperature < 18
+          [18, 6, 2, 29, 11] 
+        elsif temperature >= 18 && temperature < 21
+          [7, 1, 10, 29]
+        elsif temperature >= 21 && temperature < 25
+          [20, 10, 29]
+        elsif temperature >= 25 && temperature < 29
+          [1, 11, 29]
+        elsif temperature >= 29
+          [1, 11, 29]
+        end
+
+      when 5 # 寒がり
+        if temperature < 7
+          [17, 7, 2, 10, 6] 
+        elsif temperature >= 7 && temperature < 11
+          [17, 7, 2, 10, 29] 
+        elsif temperature >= 11 && temperature < 15
+          [18, 6, 8, 11, 35] 
+        elsif temperature >= 15 && temperature < 19
+          [18, 6, 2, 29, 11] 
+        elsif temperature >= 19 && temperature < 22
+          [7, 1, 10, 29]
+        elsif temperature >= 22 && temperature < 26
+          [20, 10, 29]
+        elsif temperature >= 26 && temperature < 30
+          [1, 11, 29]
+        elsif temperature >= 30
+          [1, 11, 29]
+        end
+      else
+        nil
+      end
+
+    closet = user.closets.find_by(subcategory_id: subcategory_id)
+
+    return closet&.image_url
+  end
 end
