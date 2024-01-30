@@ -1,4 +1,4 @@
-<p>今日の日付: <%= Date.current.strftime('%Y年%m月%d日') %></p>
+<p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
 
 <% if @weather_data.present? %>
   <div class="container mt-5">
@@ -8,7 +8,6 @@
         <div class="row">
           <div class="col">
           <p>気温: <%= kelvin_to_celsius(@weather_data['main']['temp_max']).round(1) %> °C / <%= kelvin_to_celsius(@weather_data['main']['temp_min']).round(1) %> °C</p>
-
             <p>湿度: <%= @weather_data['main']['humidity'] %> %</p>
             <p>風速: <%= @weather_data['wind']['speed'] %> m/s</p>
             <p>天気: <%= @weather_data['weather'][0]['description'] %></p>
@@ -21,8 +20,17 @@
               kelvin_to_celsius(@weather_data['main']['temp_max']),
               current_user&.constitution_id.to_i
             ) %>
+              <div class="row mt-3">
+                <div class="col">
+                  <% if current_user %>
+                    <% image_url = display_clothes_photo(kelvin_to_celsius(@weather_data['main']['temp_max']), current_user.constitution_id.to_i, current_user) %>
+                    <% if image_url.present? %>
+                      <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </div>
             </div>
-            <%= image_tag(@clothing_data.image_url, alt: 'Clothing Image') if @clothing_data.present? %>
           </div>
         </div>
       </div>
@@ -54,7 +62,7 @@
               current_user&.constitution_id.to_i
             ) %>
             </div>
-            <%= image_tag(@second_clothing_data.image_url, alt: 'Clothing Image') if @second_clothing_data.present? %>
+
           </div>
         </div>
       </div>
