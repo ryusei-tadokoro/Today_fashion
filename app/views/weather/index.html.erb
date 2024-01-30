@@ -3,3 +3,6 @@
   <%= form.select :city, options_for_select(@prefecture_data), prompt: "都道府県を選択してください" %>
   <%= form.submit "天気を検索" %>
 <% end %>
+
+<p>今日の日付: <%= Date.current.strftime('%Y年%m月%d日') %></p>
+<p>明日の日付: <%= Date.tomorrow.strftime('%Y年%m月%d日') %></p>

@@ -1,33 +1,14 @@
-<div id="<%= dom_id closet %>">
-  <p>
-    <strong>Name:</strong>
-    <%= closet.name %>
-  </p>
-
-  <p>
-    <strong>Category:</strong>
-    <%= closet.category_id %>
-  </p>
-
-  <p>
-    <strong>Subcategory:</strong>
-    <%= closet.subcategory_id %>
-  </p>
-
-  <p>
-    <strong>Purchase date:</strong>
-    <%= closet.purchase_date %>
-  </p>
-
-  <p>
-    <strong>Season:</strong>
-    <%= closet.season %>
-  </p>
-
-
-  <p>
-    <strong>Image:</strong>
-    <%= closet.image %>
-  </p>
-
+<div class="card" style="width: 18rem;">
+  <%= image_tag closet.image.url, class: 'card-img-top', alt: closet.name, height: '250px'  %>
+  <div class="card-body">
+    <h5 class="card-title"><%= closet.name %></h5>
+    <p class="card-text">
+      <%= Category.find(closet.category_id).name %>/<%= Subcategory.find(closet.subcategory_id).name %>
+    </p>
+    <p class="card-text">
+      <strong>季節:</strong>
+      <%= closet.season %>
+    </p>
+    <%= link_to "詳細を見る", closet_path(closet), class: "btn btn-primary" %>
+  </div>
 </div>

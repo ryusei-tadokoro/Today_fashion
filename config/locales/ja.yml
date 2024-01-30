@@ -3,6 +3,7 @@ ja:
     attributes:
       closet:
         name: "名前"
+        category: "カテゴリー"
         category_id: "カテゴリー"
         subcategory_id: "サブカテゴリー"
         purchase_date: "購入日"
@@ -203,3 +204,17 @@ ja:
     cancel_account_button: "アカウントを削除する"
     confirmation_message: "本当によろしいですか？"
     back: "戻る"
+  closets:
+    name: "名前"
+    category: "カテゴリ"
+    subcategory: "サブカテゴリ"
+    purchase_date: "購入日"
+    season: "季節"
+    image: "画像"
+    notice: "お知らせ: %{message}"
+    edit_link: "編集"
+    show_link: "詳細"
+    back_link: "一覧ページへ"
+    destroy_button: "削除"
+    confirm_destroy: "本当に削除しますか？"
+    edit_title: "%{closetName} の編集"

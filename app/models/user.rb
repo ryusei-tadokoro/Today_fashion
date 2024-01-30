@@ -9,7 +9,7 @@ class User < ApplicationRecord
   belongs_to :prefecture
   belongs_to :second_prefecture, class_name: 'Prefecture', foreign_key: 'second_prefecture_id', optional: true
   belongs_to :constitution
-  has_many :closets  
+  has_many :closets, dependent: :destroy   
   
   validates :password, presence: true, if: :password_required?
 
