@@ -4,8 +4,9 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # 新規登録時(sign_up時)にnameというキーのパラメーターを追加で許可する
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :prefecture_id, :second_prefecture_id, :constitution_id, :image])
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :prefecture_id, :second_prefecture_id, :constitution_id, :image])
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: %i[name prefecture_id second_prefecture_id constitution_id image])
+    devise_parameter_sanitizer.permit(:account_update,
+                                      keys: %i[name prefecture_id second_prefecture_id constitution_id image])
   end
-
 end

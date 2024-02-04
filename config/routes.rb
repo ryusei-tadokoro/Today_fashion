@@ -3,15 +3,14 @@ Rails.application.routes.draw do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'
   end
 
-
   root 'weather#index'
   devise_for :users, controllers: {
     # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
-    registrations: "users/registrations",
-    sessions: "users/sessions",
-    passwords: "users/passwords",
-    confirmations: "users/confirmations",
-    omniauth_callbacks: "omniauth_callbacks"
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+    passwords: 'users/passwords',
+    confirmations: 'users/confirmations',
+    omniauth_callbacks: 'omniauth_callbacks'
   }
   get 'weather', to: 'weather#index', as: :weather
   get 'weather/show', to: 'weather#show', as: :show_weather
@@ -20,7 +19,7 @@ Rails.application.routes.draw do
   post '/closets/analyze_image', to: 'closets#analyze_image'
 
   namespace :public do
-    resources :contacts, only: [:new, :create, :index] do
+    resources :contacts, only: %i[new create index] do
       collection do
         post 'confirm'
         post 'back'

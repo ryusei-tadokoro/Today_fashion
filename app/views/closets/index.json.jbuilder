@@ -1,1 +1,1 @@
-json.array! @closets, partial: "closets/closet", as: :closet
+json.array! @closets, partial: 'closets/closet', as: :closet

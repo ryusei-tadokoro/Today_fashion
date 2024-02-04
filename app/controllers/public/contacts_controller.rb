@@ -1,16 +1,15 @@
 class Public::ContactsController < ApplicationController
-
   def new
     @contact = Contact.new
   end
 
   def confirm
     @contact = Contact.new(contact_params)
-    if @contact.invalid?
-      flash[:alert] = @contact.errors.full_messages.join(", ")
-      @contact = Contact.new
-      render :new
-    end
+    return unless @contact.invalid?
+
+    flash[:alert] = @contact.errors.full_messages.join(', ')
+    @contact = Contact.new
+    render :new
   end
 
   def back
@@ -24,18 +23,17 @@ class Public::ContactsController < ApplicationController
       ContactMailer.send_mail(@contact).deliver_now
       redirect_to done_public_contacts_path
     else
-      flash[:alert] = @contact.errors.full_messages.join(", ")
+      flash[:alert] = @contact.errors.full_messages.join(', ')
       @contact = Contact.new
       render :new
     end
   end
 
-  def done
+  def done; end
+
+  private
+
+  def contact_params
+    params.require(:contact).permit(:name, :email, :subject, :message)
   end
-
-    private
-
-    def contact_params
-      params.require(:contact).permit(:name, :email, :subject, :message)
-    end
 end

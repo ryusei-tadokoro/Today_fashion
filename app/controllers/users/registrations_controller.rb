@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :set_prefectures, only: [:new, :create, :edit, :update]
-  before_action :set_constitutions, only: [:new, :create, :edit, :update]
+  before_action :set_prefectures, only: %i[new create edit update]
+  before_action :set_constitutions, only: %i[new create edit update]
 
   def create
     build_resource(sign_up_params)
@@ -21,12 +21,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
       logger.error("User creation failed: #{resource.errors.full_messages.join(', ')}")
       clean_up_passwords resource
       set_minimum_password_length
-      flash[:error] = "ユーザー登録に失敗しました。"
+      flash[:error] = 'ユーザー登録に失敗しました。'
       render :new
     end
   end
-  
-
 
   protected
 
@@ -36,10 +34,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
-  
 
   def sign_up_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id, :second_prefecture_id, :constitution_id, :image)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id,
+                                 :second_prefecture_id, :constitution_id, :image)
   end
 
   def set_prefectures
