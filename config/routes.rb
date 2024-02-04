@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'weather/show', to: 'weather#show', as: :show_weather
   get 'privacy_policy', to: 'static_pages#privacy_policy', as: :privacy_policy
   get 'terms_of_service', to: 'static_pages#terms_of_service', as: :terms_of_service
+  post '/closets/analyze_image', to: 'closets#analyze_image'
 
   namespace :public do
     resources :contacts, only: [:new, :create, :index] do
