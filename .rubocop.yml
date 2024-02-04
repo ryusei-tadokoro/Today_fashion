@@ -1,0 +1,7 @@
+require: rubocop-rails
+
+AllCops:
+  TargetRubyVersion: 3.2.2
+  NewCops: enable # 新しいCopを自動的に有効にする
+  Exclude:
+    - 'db/schema.rb'
