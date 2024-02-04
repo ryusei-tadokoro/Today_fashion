@@ -443,19 +443,32 @@ module ApplicationHelper
     return "#{icon_tags.join(' ')} #{suggestion}".html_safe unless icon_tags.empty?
     return suggestion
   end
-  
+
+
   def display_clothes_photo(temperature, constitution_id, user)
-    subcategory_ids =
+    subcategory_ids = get_subcategory_ids(temperature, constitution_id)
+    
+    image_urls = subcategory_ids.uniq.map do |subcategory_id|
+      closet = user.closets.find_by(subcategory_id: subcategory_id)
+      closet&.image_url
+    end.compact
+
+    image_urls
+  end
+
+  private
+  
+  def get_subcategory_ids(temperature, constitution_id)
       case constitution_id
       when 1 # 暑がり
         if temperature < 3
           [18, 7, 2, 10, 6] 
         elsif temperature >= 3 && temperature < 7
-          [18, 7, 2, 10, 29] # ダウンジャケットに変更
+          [17, 7, 2, 10, 29]
         elsif temperature >= 7 && temperature < 11
-          [17, 6, 8, 11, 35] # コートに変更
+          [17, 6, 8, 11, 35] 
         elsif temperature >= 11 && temperature < 15
-          [17, 6, 2, 29, 11] # コートに変更
+          [17, 6, 2, 29, 11] 
         elsif temperature >= 15 && temperature < 18
           [7, 1, 10, 29]
         elsif temperature >= 18 && temperature < 22
@@ -468,13 +481,13 @@ module ApplicationHelper
 
       when 2 # やや暑がり
         if temperature < 4
-          [18, 7, 2, 10, 6] # ダウンジャケットに変更
+          [18, 7, 2, 10, 6]
         elsif temperature >= 4 && temperature < 8
-          [18, 7, 2, 10, 29] # ダウンジャケットに変更
+          [18, 7, 2, 10, 29]
         elsif temperature >= 8 && temperature < 12
-          [17, 6, 8, 11, 35] # コートに変更
+          [17, 6, 8, 11, 35] 
         elsif temperature >= 12 && temperature < 16
-          [17, 6, 2, 29, 11] # コートに変更
+          [17, 6, 2, 29, 11] 
         elsif temperature >= 16 && temperature < 19
           [7, 1, 10, 29]
         elsif temperature >= 19 && temperature < 23
@@ -487,13 +500,13 @@ module ApplicationHelper
 
       when 3 # 標準
         if temperature < 5
-          [18, 7, 2, 10, 6] # ダウンジャケットに変更
+          [18, 7, 2, 10, 6]
         elsif temperature >= 5 && temperature < 9
-          [18, 7, 2, 10, 29] # ダウンジャケットに変更
+          [18, 7, 2, 10, 29]
         elsif temperature >= 9 && temperature < 13
-          [17, 6, 8, 11, 35] # コートに変更
+          [17, 6, 8, 11, 35] 
         elsif temperature >= 13 && temperature < 17
-          [17, 6, 2, 29, 11] # コートに変更
+          [17, 6, 2, 29, 11] 
         elsif temperature >= 17 && temperature < 20
           [7, 1, 10, 29]
         elsif temperature >= 20 && temperature < 24
@@ -506,13 +519,13 @@ module ApplicationHelper
 
       when 4 # やや寒がり
         if temperature < 6
-          [18, 7, 2, 10, 6] # ダウンジャケットに変更
+          [18, 7, 2, 10, 6]
         elsif temperature >= 6 && temperature < 10
-          [18, 7, 2, 10, 29] # ダウンジャケットに変更
+          [18, 7, 2, 10, 29]
         elsif temperature >= 10 && temperature < 14
-          [17, 6, 8, 11, 35] # コートに変更
+          [17, 6, 8, 11, 35] 
         elsif temperature >= 14 && temperature < 18
-          [17, 6, 2, 29, 11] # コートに変更
+          [17, 6, 2, 29, 11] 
         elsif temperature >= 18 && temperature < 21
           [7, 1, 10, 29]
         elsif temperature >= 21 && temperature < 25
@@ -525,13 +538,13 @@ module ApplicationHelper
 
       when 5 # 寒がり
         if temperature < 7
-          [18, 7, 2, 10, 6] # ダウンジャケットに変更
+          [18, 7, 2, 10, 6]
         elsif temperature >= 7 && temperature < 11
-          [18, 7, 2, 10, 29] # ダウンジャケットに変更
+          [18, 7, 2, 10, 29]
         elsif temperature >= 11 && temperature < 15
-          [17, 6, 8, 11, 35] # コートに変更
+          [17, 6, 8, 11, 35] 
         elsif temperature >= 15 && temperature < 19
-          [17, 6, 2, 29, 11] # コートに変更
+          [17, 6, 2, 29, 11] 
         elsif temperature >= 19 && temperature < 22
           [7, 1, 10, 29]
         elsif temperature >= 22 && temperature < 26
@@ -542,15 +555,7 @@ module ApplicationHelper
           [1, 11, 29]
         end
       else
-        nil
+        []
       end
-
-      return nil unless subcategory_ids
-
-      # 指定されたサブカテゴリーIDに対応するクローゼットアイテムをすべて取得
-      closets = user.closets.where(subcategory_id: subcategory_ids)
-  
-      # すべてのアイテムの画像URLを配列として返す
-      closets.map(&:image_url)
   end
 end
