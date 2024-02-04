@@ -205,6 +205,7 @@ ja:
     confirmation_message: "本当によろしいですか？"
     back: "戻る"
   closets:
+    new_title: "新規アイテム"
     name: "名前"
     category: "カテゴリ"
     subcategory: "サブカテゴリ"
