@@ -447,15 +447,23 @@ module ApplicationHelper
 
   def display_clothes_photo(temperature, constitution_id, user)
     subcategory_ids = get_subcategory_ids(temperature, constitution_id)
-    
+  
     image_urls = subcategory_ids.uniq.map do |subcategory_id|
-      closet = user.closets.find_by(subcategory_id: subcategory_id)
-      closet&.image_url
+      # 最後に使用された日が最も古いアイテムを選択
+      closet_item = user.closets
+                        .where(subcategory_id: subcategory_id)
+                        .order(:last_worn_on)
+                        .first
+  
+      # アイテムの最後に使用された日を今日に更新
+      closet_item.update(last_worn_on: Date.today) if closet_item.present?
+  
+      closet_item&.image_url
     end.compact
-
+  
     image_urls
   end
-
+  
   private
   
   def get_subcategory_ids(temperature, constitution_id)

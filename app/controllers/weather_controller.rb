@@ -21,21 +21,25 @@ class WeatherController < ApplicationController
   
     # デフォルトの都市とセカンドの都市のどちらか一方でもデータが存在すれば成功とみなす
     flash.now[:alert] = "天気情報の取得に失敗しました。" unless @weather_data || @second_weather_data
-
-    @clothing_data = fetch_clothing_data(@weather_data)
-    @second_clothing_data = fetch_clothing_data(@second_weather_data)
   end
 
   def show
     @weather_data = fetch_weather_data(params[:city])
     if @weather_data
-      rainfall = @weather_data['rain']['3h'] if @weather_data['rain']
+      rainfall = @weather_data.dig('rain', '1h') || @weather_data.dig('rain', '3h') || 0
       @weather = extract_weather_data(@weather_data, rainfall)
       fetch_and_update_weather_forecast(params[:city])
     else
       redirect_to action: :index, alert: "天気情報の取得に失敗しました。"
     end
   end
+  
+  def extract_weather_data(weather_data, rainfall)
+    {
+      rainfall: rainfall
+    }
+  end
+  
 
   private
 
@@ -74,18 +78,6 @@ class WeatherController < ApplicationController
 
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15
-  end
-
-  def fetch_clothing_data(weather_data)
-    # ここでユーザーが登録した服の情報を取得するロジックを実装します
-    # 例: サブカテゴリーが 'jacket' で気温が 10 度の場合、
-    # ユーザーが登録した 'jacket' カテゴリーかつ気温が 10 度の服の情報を取得
-    # 適切なロジックに変更してください
-    # 例:
-    subcategory = 'jacket' # ここを実際のサブカテゴリーに置き換える
-    temperature = kelvin_to_celsius(weather_data['main']['temp_max']).round(1)
-
-    @clothing_data = Closet.where(subcategory: subcategory).find { |closet| closet.temperature_range.include?(temperature) }
   end
 end
 
