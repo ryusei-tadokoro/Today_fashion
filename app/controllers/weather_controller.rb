@@ -29,6 +29,11 @@ class WeatherController < ApplicationController
       rainfall = @weather_data.dig('rain', '1h') || @weather_data.dig('rain', '3h') || 0
       @weather = extract_weather_data(@weather_data, rainfall)
       fetch_and_update_weather_forecast(params[:city])
+  
+      # 降水量がある場合はLINE通知を送信
+      if rainfall > 0
+        send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。")
+      end
     else
       redirect_to action: :index, alert: "天気情報の取得に失敗しました。"
     end
@@ -39,7 +44,26 @@ class WeatherController < ApplicationController
       rainfall: rainfall
     }
   end
+
+  def send_line_notification(message)
+    client = Line::Bot::Client.new { |config|
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    }
   
+    message = {
+      type: 'text',
+      text: message
+    }
+  
+    user_id = ENV['LINE_USER_ID']
+  
+    response = client.push_message(user_id, message)
+  
+    if response.code != 200
+      Rails.logger.error "Failed to send LINE message: #{response.body}"
+    end
+  end
 
   private
 

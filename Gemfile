@@ -84,3 +84,7 @@ gem 'omniauth-rails_csrf_protection'
 gem 'ancestry'
 gem 'google-cloud-vision'
 gem 'line-bot-api'
+group :development, :test do
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+end
