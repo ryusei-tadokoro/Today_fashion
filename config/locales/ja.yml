@@ -219,3 +219,5 @@ ja:
     destroy_button: "削除"
     confirm_destroy: "本当に削除しますか？"
     edit_title: "%{closetName} の編集"
+  alerts:
+    login_required: "ログインが必要です"

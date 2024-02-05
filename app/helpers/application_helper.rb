@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15
@@ -456,7 +458,7 @@ module ApplicationHelper
                         .first
 
       # アイテムの最後に使用された日を今日に更新
-      closet_item.update(last_worn_on: Date.today) if closet_item.present?
+      closet_item.update(last_worn_on: Time.zone.today) if closet_item.present?
 
       closet_item&.image_url
     end.compact

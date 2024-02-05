@@ -1,9 +1,9 @@
+# frozen_string_literal: true
+
+# 衣類に関する操作を管理するコントローラーです。
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
   before_action :set_categories_and_subcategories, only: %i[new edit]
-
-  require 'base64'
-  require 'google/cloud/vision/v1'
 
   # GET /closets or /closets.json
   def index
@@ -11,7 +11,7 @@ class ClosetsController < ApplicationController
       @user = current_user
       @closets = @user.closets
     else
-      redirect_to new_user_session_path, alert: 'ログインが必要です'
+      redirect_to new_user_session_path, alert: I18n.t('alerts.login_required')
     end
   end
 
@@ -26,94 +26,41 @@ class ClosetsController < ApplicationController
   # GET /closets/1/edit
   def edit; end
 
+  # POST /closets or /closets.json
   def create
-    uploaded_image = params[:closet][:image]
+    result = ImageAnalyzer.analyze(params[:closet][:image])
 
-    if uploaded_image.nil?
-      flash[:alert] = '画像がありません。'
-      redirect_to new_closet_path
-      return
+    if result[:error]
+      flash.now[:alert] = result[:error]
+      redirect_to new_closet_path and return
     end
 
-    begin
-      image_path = uploaded_image.tempfile.path
-      image_content = Base64.strict_encode64(File.binread(image_path))
-      response = @image_annotator.label_detection(image: { content: image_content })
-      labels = response.responses[0].label_annotations
-      clothing_name = labels.first.description if labels.any?
-    rescue StandardError => e
-      flash[:alert] = "画像の分析に失敗しました。エラー: #{e.message}"
-      redirect_to new_closet_path
-      return
-    end
-
-    @closet = current_user.closets.new(closet_params)
-    @closet.name = clothing_name if clothing_name.present?
-
+    @closet = current_user.closets.new(closet_params.merge(name: result[:name]))
     if @closet.save
-      redirect_to closet_url(@closet), notice: 'Closet was successfully created.'
+      redirect_to closet_url(@closet), notice: I18n.t('notices.closet_created')
     else
-      @categories = Category.all
-      @subcategories = Subcategory.all
       render :new, status: :unprocessable_entity
     end
   end
 
+  # PATCH/PUT /closets/1 or /closets/1.json
   def update
-    respond_to do |format|
-      update_params = params[:closet][:image].present? ? closet_params : closet_params.except(:image)
+    update_params = closet_update_params
 
-      if @closet.update(update_params)
-        format.html { redirect_to closet_url(@closet), notice: 'Closet was successfully updated.' }
-        format.json { render :show, status: :ok, location: @closet }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @closet.errors, status: :unprocessable_entity }
-      end
+    if @closet.update(update_params)
+      redirect_to closet_url(@closet), notice: I18n.t('notices.closet_updated')
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /closets/1 or /closets/1.json
   def destroy
-    @closet.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to closets_url, notice: 'Closet was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    @closet.destroy
+    redirect_to closets_url, notice: I18n.t('notices.closet_destroyed')
   end
 
-  def subcategories_for_category
-    category_id = params[:category_id]
-    subcategories = Subcategory.where(category_id:)
-    render json: subcategories
-  end
 
-  def analyze_image
-    uploaded_image = params[:image]
-
-    if uploaded_image.nil?
-      render json: { error: 'Image parameter is missing.' }, status: :bad_request
-      return
-    end
-
-    begin
-      image_path = uploaded_image.tempfile.path
-      image_content = Base64.strict_encode64(File.binread(image_path))
-      response = @image_annotator.label_detection(image: { content: image_content })
-      labels = response.responses[0].label_annotations
-      highest_confidence_label = labels.max_by(&:score)
-    rescue StandardError => e
-      render json: { error: "Failed to analyze the image. Error: #{e.message}" }, status: :unprocessable_entity
-      return
-    end
-
-    if highest_confidence_label.present?
-      render json: { name: highest_confidence_label.description }
-    else
-      render json: { error: 'No labels detected.' }, status: :ok
-    end
-  end
 
   private
 
@@ -126,13 +73,14 @@ class ClosetsController < ApplicationController
                                    :purchase_location, :price, :usage_frequency, :season, :other_comments, :image)
   end
 
+  def closet_update_params
+    params.require(:closet).permit(:name, :category_id, :subcategory_id, :purchase_date, :size, :color,
+                                   :purchase_location, :price, :usage_frequency, :season, :other_comments).merge(image: params[:closet][:image].presence || @closet.image)
+  end
+
   def set_categories_and_subcategories
     @categories = Category.all
     @subcategories = Subcategory.all
   end
 
-  def initialize_image_annotator
-    require 'google/cloud/vision/v1'
-    @image_annotator = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
-  end
 end

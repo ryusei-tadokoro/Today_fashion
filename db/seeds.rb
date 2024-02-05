@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 categories_data = [
   { name: 'トップス' }, { name: 'ボトムス' }, { name: 'アウター' },
   { name: 'セットアップ' }, { name: 'ワンピース・サロペット' }, { name: 'シューズ' },

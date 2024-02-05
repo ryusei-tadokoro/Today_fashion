@@ -1,39 +1,43 @@
-class Public::ContactsController < ApplicationController
-  def new
-    @contact = Contact.new
-  end
+# frozen_string_literal: true
 
-  def confirm
-    @contact = Contact.new(contact_params)
-    return unless @contact.invalid?
+module Public
+  class ContactsController < ApplicationController
+    def new
+      @contact = Contact.new
+    end
 
-    flash[:alert] = @contact.errors.full_messages.join(', ')
-    @contact = Contact.new
-    render :new
-  end
+    def confirm
+      @contact = Contact.new(contact_params)
+      return unless @contact.invalid?
 
-  def back
-    @contact = Contact.new(contact_params)
-    render :new
-  end
-
-  def create
-    @contact = Contact.new(contact_params)
-    if @contact.save
-      ContactMailer.send_mail(@contact).deliver_now
-      redirect_to done_public_contacts_path
-    else
-      flash[:alert] = @contact.errors.full_messages.join(', ')
+      flash.now[:alert] = @contact.errors.full_messages.join(', ')
       @contact = Contact.new
       render :new
     end
-  end
 
-  def done; end
+    def back
+      @contact = Contact.new(contact_params)
+      render :new
+    end
 
-  private
+    def create
+      @contact = Contact.new(contact_params)
+      if @contact.save
+        ContactMailer.send_mail(@contact).deliver_now
+        redirect_to done_public_contacts_path
+      else
+        flash[:alert] = @contact.errors.full_messages.join(', ')
+        @contact = Contact.new
+        render :new
+      end
+    end
 
-  def contact_params
-    params.require(:contact).permit(:name, :email, :subject, :message)
+    def done; end
+
+    private
+
+    def contact_params
+      params.require(:contact).permit(:name, :email, :subject, :message)
+    end
   end
 end
