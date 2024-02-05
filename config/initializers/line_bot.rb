@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'line/bot'
 
 LineBotApi = Line::Bot::Client.new do |config|

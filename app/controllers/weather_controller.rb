@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'uri'
 
@@ -31,7 +33,7 @@ class WeatherController < ApplicationController
       fetch_and_update_weather_forecast(params[:city])
 
       # 降水量がある場合はLINE通知を送信
-      send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。") if rainfall > 0
+      send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。") if rainfall.positive?
     else
       redirect_to action: :index, alert: '天気情報の取得に失敗しました。'
     end

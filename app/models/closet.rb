@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Closet < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user

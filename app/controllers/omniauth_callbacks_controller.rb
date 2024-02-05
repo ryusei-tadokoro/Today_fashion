@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # ApplicationControllerをDevise::OmniauthCallbacksControllerに変更
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line

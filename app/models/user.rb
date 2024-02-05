@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -28,10 +30,10 @@ class User < ApplicationRecord
     credentials = omniauth['credentials']
     info = omniauth['info']
 
-    access_token = credentials['refresh_token']
-    access_secret = credentials['secret']
-    credentials = credentials.to_json
-    name = info['name']
+    credentials['refresh_token']
+    credentials['secret']
+    credentials.to_json
+    info['name']
   end
 
   def set_values_by_raw_info(raw_info)
