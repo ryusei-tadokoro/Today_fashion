@@ -469,99 +469,60 @@ module ApplicationHelper
   def get_subcategory_ids(temperature, constitution_id)
     case constitution_id
     when 1 # 暑がり
-      if temperature < 3
-        [18, 7, 2, 10, 6]
-      elsif temperature >= 3 && temperature < 7
-        [17, 7, 2, 10, 29]
-      elsif temperature >= 7 && temperature < 11
-        [17, 6, 8, 11, 35]
-      elsif temperature >= 11 && temperature < 15
-        [17, 6, 2, 29, 11]
-      elsif temperature >= 15 && temperature < 18
-        [7, 1, 10, 29]
-      elsif temperature >= 18 && temperature < 22
-        [20, 10, 29]
-      elsif temperature >= 22 && temperature < 26
-        [1, 11, 29]
-      elsif temperature >= 26
-        [1, 11, 29]
+      case temperature
+      when ...3 then [18, 7, 2, 10, 6]
+      when 3...7 then [17, 7, 2, 10, 29]
+      when 7...11 then [17, 6, 8, 11, 35]
+      when 11...15 then [17, 6, 2, 29, 11]
+      when 15...18 then [7, 1, 10, 29]
+      when 18...22 then [20, 10, 29]
+      when 22... then [1, 11, 29]
       end
-
+  
     when 2 # やや暑がり
-      if temperature < 4
-        [18, 7, 2, 10, 6]
-      elsif temperature >= 4 && temperature < 8
-        [18, 7, 2, 10, 29]
-      elsif temperature >= 8 && temperature < 12
-        [17, 6, 8, 11, 35]
-      elsif temperature >= 12 && temperature < 16
-        [17, 6, 2, 29, 11]
-      elsif temperature >= 16 && temperature < 19
-        [7, 1, 10, 29]
-      elsif temperature >= 19 && temperature < 23
-        [20, 10, 29]
-      elsif temperature >= 23 && temperature < 27
-        [1, 11, 29]
-      elsif temperature >= 27
-        [1, 11, 29]
+      case temperature
+      when ...4 then [18, 7, 2, 10, 6]
+      when 4...8 then [18, 7, 2, 10, 29]
+      when 8...12 then [17, 6, 8, 11, 35]
+      when 12...16 then [17, 6, 2, 29, 11]
+      when 16...19 then [7, 1, 10, 29]
+      when 19...23 then [20, 10, 29]
+      when 23... then [1, 11, 29]
       end
-
+  
     when 3 # 標準
-      if temperature < 5
-        [18, 7, 2, 10, 6]
-      elsif temperature >= 5 && temperature < 9
-        [18, 7, 2, 10, 29]
-      elsif temperature >= 9 && temperature < 13
-        [17, 6, 8, 11, 35]
-      elsif temperature >= 13 && temperature < 17
-        [17, 6, 2, 29, 11]
-      elsif temperature >= 17 && temperature < 20
-        [7, 1, 10, 29]
-      elsif temperature >= 20 && temperature < 24
-        [20, 10, 29]
-      elsif temperature >= 24 && temperature < 28
-        [1, 11, 29]
-      elsif temperature >= 28
-        [1, 11, 29]
+      case temperature
+      when ...5 then [18, 7, 2, 10, 6]
+      when 5...9 then [18, 7, 2, 10, 29]
+      when 9...13 then [17, 6, 8, 11, 35]
+      when 13...17 then [17, 6, 2, 29, 11]
+      when 17...20 then [7, 1, 10, 29]
+      when 20...24 then [20, 10, 29]
+      when 24... then [1, 11, 29]
       end
-
+  
     when 4 # やや寒がり
-      if temperature < 6
-        [18, 7, 2, 10, 6]
-      elsif temperature >= 6 && temperature < 10
-        [18, 7, 2, 10, 29]
-      elsif temperature >= 10 && temperature < 14
-        [17, 6, 8, 11, 35]
-      elsif temperature >= 14 && temperature < 18
-        [17, 6, 2, 29, 11]
-      elsif temperature >= 18 && temperature < 21
-        [7, 1, 10, 29]
-      elsif temperature >= 21 && temperature < 25
-        [20, 10, 29]
-      elsif temperature >= 25 && temperature < 29
-        [1, 11, 29]
-      elsif temperature >= 29
-        [1, 11, 29]
+      case temperature
+      when ...6 then [18, 7, 2, 10, 6]
+      when 6...10 then [18, 7, 2, 10, 29]
+      when 10...14 then [17, 6, 8, 11, 35]
+      when 14...18 then [17, 6, 2, 29, 11]
+      when 18...21 then [7, 1, 10, 29]
+      when 21...25 then [20, 10, 29]
+      when 25... then [1, 11, 29]
       end
-
+  
     when 5 # 寒がり
-      if temperature < 7
-        [18, 7, 2, 10, 6]
-      elsif temperature >= 7 && temperature < 11
-        [18, 7, 2, 10, 29]
-      elsif temperature >= 11 && temperature < 15
-        [17, 6, 8, 11, 35]
-      elsif temperature >= 15 && temperature < 19
-        [17, 6, 2, 29, 11]
-      elsif temperature >= 19 && temperature < 22
-        [7, 1, 10, 29]
-      elsif temperature >= 22 && temperature < 26
-        [20, 10, 29]
-      elsif temperature >= 26 && temperature < 30
-        [1, 11, 29]
-      elsif temperature >= 30
-        [1, 11, 29]
+      case temperature
+      when ...7 then [18, 7, 2, 10, 6]
+      when 7...11 then [18, 7, 2, 10, 29]
+      when 11...15 then [17, 6, 8, 11, 35]
+      when 15...19 then [17, 6, 2, 29, 11]
+      when 19...22 then [7, 1, 10, 29]
+      when 22...26 then [20, 10, 29]
+      when 26... then [1, 11, 29]
       end
+  
     else
       []
     end

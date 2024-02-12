@@ -103,7 +103,7 @@ class LinebotController < ApplicationController
                       },
                       {
                         type: 'text',
-                        text: "#{temp_max} - #{temp_min} °C",
+                        text: "#{temp_max} ℃ / #{temp_min} °C",
                         wrap: true,
                         color: '#666666',
                         size: 'sm',

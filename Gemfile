@@ -87,4 +87,9 @@ gem 'omniauth-line'
 gem 'omniauth-rails_csrf_protection'
 gem 'rails-i18n'
 gem 'sassc-rails'
+gem 'simplecov', require: false, group: :test
 gem 'whenever', require: false
+
+gem 'dockerfile-rails', '>= 1.6', group: :development
+
+gem 'pg', '~> 1.5'
