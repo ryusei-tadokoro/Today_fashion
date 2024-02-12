@@ -219,5 +219,11 @@ ja:
     destroy_button: "削除"
     confirm_destroy: "本当に削除しますか？"
     edit_title: "%{closetName} の編集"
+    create:
+      success: 'アイテムが作成されました'
+    update:
+      success: 'アイテムが更新されました'
+    destroy:
+      success: 'アイテムが削除されました'
   alerts:
     login_required: "ログインが必要です"
