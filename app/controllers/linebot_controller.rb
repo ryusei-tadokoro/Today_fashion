@@ -17,33 +17,11 @@ class LinebotController < ApplicationController
   # LINEからのコールバックを処理するアクション
   def callback
     body = request.body.read
-
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     return head :bad_request unless client.validate_signature(body, signature)
 
     events = client.parse_events_from(body)
-
-    events.each do |event|
-      user_id = event['source']['userId']
-      user = User.find_by(uid: user_id)
-
-      next if user.nil?
-
-      case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Text
-          message_text = event.message['text']
-          message = case message_text
-                    when /天気予報/
-                      fetch_weather_forecast_message(user)
-                    else
-                      { type: 'text', text: "申し訳ありません。'#{message_text}'に対する応答を用意していません。" }
-                    end
-          client.reply_message(event['replyToken'], message)
-        end
-      end
-    end
+    events.each { |event| handle_event(event) }
 
     head :ok
   end
@@ -204,5 +182,29 @@ class LinebotController < ApplicationController
       type: 'text',
       text: '天気予報の取得に失敗しました。'
     }
+  end
+
+  def handle_event(event)
+    user_id = event['source']['userId']
+    user = User.find_by(uid: user_id)
+    return if user.nil?
+
+    case event
+    when Line::Bot::Event::Message
+      handle_message_event(event, user)
+    end
+  end
+
+  def handle_message_event(event, user)
+    return unless event.type == Line::Bot::Event::MessageType::Text
+
+    message_text = event.message['text']
+    message = case message_text
+              when /天気予報/
+                fetch_weather_forecast_message(user)
+              else
+                { type: 'text', text: "申し訳ありません。'#{message_text}'に対する応答を用意していません。" }
+              end
+    client.reply_message(event['replyToken'], message)
   end
 end
