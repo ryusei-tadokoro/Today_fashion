@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VisionApiController < ApplicationController
   require 'google/cloud/vision/v1'
 
