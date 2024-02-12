@@ -39,12 +39,6 @@ class WeatherController < ApplicationController
     end
   end
 
-  def extract_weather_data(_weather_data, rainfall)
-    {
-      rainfall:
-    }
-  end
-
   private
 
   def validate_city
