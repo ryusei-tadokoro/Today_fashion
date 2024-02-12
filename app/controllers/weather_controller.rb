@@ -45,26 +45,6 @@ class WeatherController < ApplicationController
     }
   end
 
-  def send_line_notification(message)
-    client = Line::Bot::Client.new do |config|
-      config.channel_secret = ENV.fetch('LINE_CHANNEL_SECRET', nil)
-      config.channel_token = ENV.fetch('LINE_CHANNEL_TOKEN', nil)
-    end
-
-    message = {
-      type: 'text',
-      text: message
-    }
-
-    user_id = ENV.fetch('LINE_USER_ID', nil)
-
-    response = client.push_message(user_id, message)
-
-    return unless response.code != 200
-
-    Rails.logger.error "Failed to send LINE message: #{response.body}"
-  end
-
   private
 
   def validate_city
@@ -98,41 +78,6 @@ class WeatherController < ApplicationController
   def fetch_and_update_weather_forecast(city)
     response_forecast = WeatherService.new(city).fetch_weather_forecast
     @weather_data = response_forecast.parsed_response if response_forecast.success?
-  end
-
-  def kelvin_to_celsius(kelvin)
-    kelvin - 273.15
-  end
-end
-
-class WeatherService
-  include HTTParty
-  base_uri 'api.openweathermap.org'
-
-  def initialize(city)
-    @api_key = ENV.fetch('OPENWEATHERMAP_API_KEY', nil)
-    @options = { query: { q: "#{city},jp", appid: @api_key, lang: 'ja' } }
-  end
-
-  def fetch_weather
-    self.class.get('/data/2.5/weather', @options)
-  end
-
-  def fetch_weather_forecast
-    response = self.class.get('/data/2.5/forecast', @options)
-    update_forecast_temperatures(response.parsed_response) if response.success?
-    response
-  end
-
-  private
-
-  def update_forecast_temperatures(weather_forecast_data)
-    weather_forecast_data['list'].each do |forecast|
-      forecast['main']['temp'] = kelvin_to_celsius(forecast['main']['temp']).round(1)
-      forecast['main']['feels_like'] = kelvin_to_celsius(forecast['main']['feels_like']).round(1)
-      forecast['main']['temp_min'] = kelvin_to_celsius(forecast['main']['temp_min']).round(1)
-      forecast['main']['temp_max'] = kelvin_to_celsius(forecast['main']['temp_max']).round(1)
-    end
   end
 
   def kelvin_to_celsius(kelvin)
