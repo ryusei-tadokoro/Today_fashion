@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/services/weather_service.rb
 class WeatherService
   include HTTParty

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'line/bot'
 
 class LinebotController < ApplicationController
@@ -25,21 +27,20 @@ class LinebotController < ApplicationController
       user_id = event['source']['userId']
       user = User.find_by(uid: user_id)
 
-      if user.nil?
-      else
-        case event
-        when Line::Bot::Event::Message
-          case event.type
-          when Line::Bot::Event::MessageType::Text
-            message_text = event.message['text']
-            message = case message_text
-                      when /天気予報/
-                        fetch_weather_forecast_message(user)
-                      else
-                        { type: 'text', text: "申し訳ありません。'#{message_text}'に対する応答を用意していません。" }
-                      end
-            client.reply_message(event['replyToken'], message)
-          end
+      next if user.nil?
+
+      case event
+      when Line::Bot::Event::Message
+        case event.type
+        when Line::Bot::Event::MessageType::Text
+          message_text = event.message['text']
+          message = case message_text
+                    when /天気予報/
+                      fetch_weather_forecast_message(user)
+                    else
+                      { type: 'text', text: "申し訳ありません。'#{message_text}'に対する応答を用意していません。" }
+                    end
+          client.reply_message(event['replyToken'], message)
         end
       end
     end
