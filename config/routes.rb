@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :closets do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'
   end
+  post '/callback' => 'linebot#callback'
 
   root 'weather#index'
   devise_for :users, controllers: {
