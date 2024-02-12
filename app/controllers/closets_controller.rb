@@ -28,18 +28,13 @@ class ClosetsController < ApplicationController
 
   # POST /closets or /closets.json
   def create
-    result = ImageAnalyzer.analyze(params[:closet][:image])
-
-    if result[:error]
-      flash.now[:alert] = result[:error]
-      redirect_to new_closet_path and return
-    end
-
-    @closet = current_user.closets.new(closet_params.merge(name: result[:name]))
-    if @closet.save
-      redirect_to closet_url(@closet), notice: I18n.t('notices.closet_created')
-    else
-      render :new, status: :unprocessable_entity
+    @closet = current_user.closets.new(closet_params)
+    respond_to do |format|
+      unless save_and_respond(format)
+        set_categories_and_subcategories
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @closet.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -48,7 +43,7 @@ class ClosetsController < ApplicationController
     update_params = closet_update_params
 
     if @closet.update(update_params)
-      redirect_to closet_url(@closet), notice: I18n.t('notices.closet_updated')
+      redirect_to closet_url(@closet), notice: t('.success')
     else
       render :edit, status: :unprocessable_entity
     end
@@ -57,16 +52,26 @@ class ClosetsController < ApplicationController
   # DELETE /closets/1 or /closets/1.json
   def destroy
     @closet.destroy
-    redirect_to closets_url, notice: I18n.t('notices.closet_destroyed')
+    redirect_to closets_url, notice: t('.success')
   end
 
   def subcategories_for_category
     category_id = params[:category_id]
-    subcategories = Subcategory.where(category_id: category_id)
+    subcategories = Subcategory.where(category_id:)
     render json: subcategories
   end
-  
+
   private
+
+  def save_and_respond(format)
+    if @closet.save
+      format.html { redirect_to closet_url(@closet), notice: t('.success') }
+      format.json { render :show, status: :created, location: @closet }
+      true
+    else
+      false
+    end
+  end
 
   def set_closet
     @closet = Closet.find(params[:id])
@@ -78,8 +83,10 @@ class ClosetsController < ApplicationController
   end
 
   def closet_update_params
-    params.require(:closet).permit(:name, :category_id, :subcategory_id, :purchase_date, :size, :color,
-                                   :purchase_location, :price, :usage_frequency, :season, :other_comments).merge(image: params[:closet][:image].presence || @closet.image)
+    params.require(:closet).permit(
+      :name, :category_id, :subcategory_id, :purchase_date, :size, :color,
+      :purchase_location, :price, :usage_frequency, :season, :other_comments
+    ).merge(image: params[:closet][:image].presence || @closet.image)
   end
 
   def set_categories_and_subcategories
@@ -87,4 +94,16 @@ class ClosetsController < ApplicationController
     @subcategories = Subcategory.all
   end
 
+  def result_handled?(result)
+    if result[:error]
+      flash.now[:alert] = result[:error]
+      redirect_to new_closet_path
+      return true
+    end
+    false
+  end
+
+  def image_param
+    params[:closet][:image].presence || @closet.image
+  end
 end
