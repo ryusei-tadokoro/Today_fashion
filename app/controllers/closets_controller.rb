@@ -3,7 +3,7 @@
 # 衣類に関する操作を管理するコントローラーです。
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
-  before_action :set_categories_and_subcategories, only: %i[new edit]
+  before_action :set_categories_and_subcategories, only: %i[new create edit]
 
   # GET /closets or /closets.json
   def index
