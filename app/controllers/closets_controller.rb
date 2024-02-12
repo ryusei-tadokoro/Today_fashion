@@ -3,7 +3,7 @@
 # 衣類に関する操作を管理するコントローラーです。
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
-  before_action :set_categories_and_subcategories, only: %i[new create edit]
+  before_action :set_categories_and_subcategories, only: %i[new edit]
 
   # GET /closets or /closets.json
   def index
@@ -60,8 +60,12 @@ class ClosetsController < ApplicationController
     redirect_to closets_url, notice: I18n.t('notices.closet_destroyed')
   end
 
-
-
+  def subcategories_for_category
+    category_id = params[:category_id]
+    subcategories = Subcategory.where(category_id: category_id)
+    render json: subcategories
+  end
+  
   private
 
   def set_closet
