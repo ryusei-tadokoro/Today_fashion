@@ -478,7 +478,7 @@ module ApplicationHelper
       when 18...22 then [20, 10, 29]
       when 22... then [1, 11, 29]
       end
-  
+
     when 2 # やや暑がり
       case temperature
       when ...4 then [18, 7, 2, 10, 6]
@@ -489,7 +489,7 @@ module ApplicationHelper
       when 19...23 then [20, 10, 29]
       when 23... then [1, 11, 29]
       end
-  
+
     when 3 # 標準
       case temperature
       when ...5 then [18, 7, 2, 10, 6]
@@ -500,7 +500,7 @@ module ApplicationHelper
       when 20...24 then [20, 10, 29]
       when 24... then [1, 11, 29]
       end
-  
+
     when 4 # やや寒がり
       case temperature
       when ...6 then [18, 7, 2, 10, 6]
@@ -511,7 +511,7 @@ module ApplicationHelper
       when 21...25 then [20, 10, 29]
       when 25... then [1, 11, 29]
       end
-  
+
     when 5 # 寒がり
       case temperature
       when ...7 then [18, 7, 2, 10, 6]
@@ -522,7 +522,7 @@ module ApplicationHelper
       when 22...26 then [20, 10, 29]
       when 26... then [1, 11, 29]
       end
-  
+
     else
       []
     end
