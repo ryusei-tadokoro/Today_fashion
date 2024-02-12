@@ -28,7 +28,6 @@ class LinebotController < ApplicationController
       user = User.find_by(uid: user_id)
 
       if user.nil?
-        # ユーザーが見つからない場合の処理（必要に応じて）
       else
         case event
         when Line::Bot::Event::Message
@@ -50,23 +49,158 @@ class LinebotController < ApplicationController
     head :ok
   end
 
+  def fetch_weather_data(city)
+    response = WeatherService.new(city).fetch_weather
+    response.success? ? response.parsed_response : nil
+  end
+
   private
 
   # ユーザーの登録都市の天気予報を取得し、メッセージを生成するメソッド
   def fetch_weather_forecast_message(user)
-    # 仮にユーザーの都市名を取得するメソッドがあると仮定
-    city = user.city_name
-
-    # 天気予報を取得するロジック（API呼び出し等）
-    forecast = WeatherService.new(city).fetch_weather_forecast
-
-    # LINEで送信するメッセージの形式に合わせてメッセージを作成
-    {
-      type: 'text',
-      text: "#{city}の天気予報: #{forecast}"
-    }
+    default_city = user.prefecture_id.present? ? Prefecture.find(user.prefecture_id).name : 'Tokyo'
+    weather_data = fetch_weather_data(default_city)
+  
+    if weather_data.present?
+      temp_max = kelvin_to_celsius(weather_data['main']['temp_max']).round(1)
+      temp_min = kelvin_to_celsius(weather_data['main']['temp_min']).round(1)
+      humidity = weather_data['main']['humidity']
+      wind_speed = weather_data['wind']['speed']
+      description = weather_data['weather'][0]['description']
+      icon_url = "https://openweathermap.org/img/wn/#{weather_data['weather'][0]['icon']}@2x.png"
+  
+      message = {
+        type: "flex",
+        altText: "#{default_city}の天気予報",
+        contents: {
+          type: "bubble",
+          body: {
+            type: "box",
+            layout: "vertical",
+            contents: [
+              {
+                type: "text",
+                text: "#{default_city}の天気予報",
+                weight: "bold",
+                size: "xl"
+              },
+              {
+                type: "box",
+                layout: "vertical",
+                margin: "lg",
+                spacing: "sm",
+                contents: [
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "気温",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1
+                      },
+                      {
+                        type: "text",
+                        text: "#{temp_max} - #{temp_min} °C",
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 5
+                      }
+                    ]
+                  },
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "湿度",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1
+                      },
+                      {
+                        type: "text",
+                        text: "#{humidity} %",
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 5
+                      }
+                    ]
+                  },
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "風速",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1
+                      },
+                      {
+                        type: "text",
+                        text: "#{wind_speed} m/s",
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 5
+                      }
+                    ]
+                  },
+                  {
+                    type: "box",
+                    layout: "baseline",
+                    spacing: "sm",
+                    contents: [
+                      {
+                        type: "text",
+                        text: "天気",
+                        color: "#aaaaaa",
+                        size: "sm",
+                        flex: 1
+                      },
+                      {
+                        type: "text",
+                        text: description,
+                        wrap: true,
+                        color: "#666666",
+                        size: "sm",
+                        flex: 5
+                      }
+                    ]
+                  },
+                  {
+                    type: "image",
+                    url: icon_url,
+                    size: "md",
+                    aspectRatio: "1:1"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    else
+      message = {
+        type: 'text',
+        text: "#{default_city}の天気情報が取得できませんでした。"
+      }
+    end
+  
+    message
   rescue => e
-    # 天気予報取得時のエラー処理
+    Rails.logger.error "Error fetching weather forecast: #{e.message}"
+    Rails.logger.error e.backtrace.join("\n")
     {
       type: 'text',
       text: "天気予報の取得に失敗しました。"
