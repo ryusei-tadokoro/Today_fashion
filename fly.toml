@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for today-fashion on 2024-02-12T20:30:56+09:00
+# fly.toml app configuration file generated for today-fashion-1997 on 2024-02-14T06:25:10+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'today-fashion'
+app = 'today-fashion-1997'
 primary_region = 'nrt'
 console_command = '/rails/bin/rails console'
 

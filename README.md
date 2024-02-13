@@ -138,7 +138,7 @@ Google Cloud Vision API
 Webアプリケーションサーバ: Fly.io
 ファイルサーバ: 未指定
 セッションサーバ: 未指定
-データベースサーバ: SQLite
+データベースサーバ: PostgraSQL
 
 その他
 VCS: GitHub
