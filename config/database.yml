@@ -3,7 +3,7 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: todayfashion # PostgreSQLのユーザー名
-  password: tofa0129sanga1997 # PostgreSQLのパスワード
+  password: <%= ENV['YOUR_LOCAL_DATABASE_PASSWORD'] %> # PostgreSQLのパスワード
   host: localhost
 
 development:
@@ -16,6 +16,11 @@ test:
 
 production:
   <<: *default
-  database: todayfashion_production
-  username: todayfashion
-  password: <%= ENV['YOUR_PRODUCTION_DATABASE_PASSWORD'] %>
+  database: today-fashion-20240214-db
+  username: postgres
+  password: <%= ENV['PRODUCTION_DATABASE_PASSWORD'] %>
+  Hostname:    today-fashion-20240214-db.internal
+  Flycast:     fdaa:6:774f:0:1::2
+  Proxy port:  5432
+  Postgres port:  5433
+  Connection string: postgres://postgres:FgSZZRW87EiRAkY@today-fashion-20240214-db.flycast:5432
