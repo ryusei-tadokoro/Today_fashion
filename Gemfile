@@ -62,6 +62,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "sqlite3"
 end
 
 group :test do
@@ -95,4 +96,6 @@ gem 'whenever', require: false
 
 gem 'dockerfile-rails', '>= 1.6', group: :development
 
-gem 'pg', '~> 1.5'
+group :production do
+  gem "pg"
+end
