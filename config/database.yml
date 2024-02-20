@@ -16,11 +16,4 @@ test:
 
 production:
   <<: *default
-  database: today-fashion-20240214-db
-  username: postgres
-  password: <%= ENV['PRODUCTION_DATABASE_PASSWORD'] %>
-  Hostname:    today-fashion-20240214-db.internal
-  Flycast:     fdaa:6:774f:0:1::2
-  Proxy port:  5432
-  Postgres port:  5433
-  Connection string: postgres://postgres:FgSZZRW87EiRAkY@today-fashion-20240214-db.flycast:5432
+  url: <%= ENV["DATABASE_URL"] %>

@@ -1,17 +1,13 @@
-# fly.toml app configuration file generated for todayfashion on 2024-02-16T06:17:37+09:00
+# fly.toml app configuration file generated for todayfashion on 2024-02-17T09:00:16+09:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'todayfashion'
 primary_region = 'nrt'
-console_command = 'bin/rails console'
+console_command = '/rails/bin/rails console'
 
 [build]
-  [build.args]
-    BUNDLER_VERSION = "2.4.22"
-    NODE_VERSION = "20.10.0"
-    RUBY_VERSION = "3.2.2"
 
 [http_service]
   internal_port = 3000
