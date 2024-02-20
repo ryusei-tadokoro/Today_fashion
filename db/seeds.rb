@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 categories_data = [
   { name: 'トップス' }, { name: 'ボトムス' }, { name: 'アウター' },
   { name: 'セットアップ' }, { name: 'ワンピース・サロペット' }, { name: 'シューズ' },
@@ -8,7 +10,6 @@ categories_data.each do |category_data|
   Category.find_or_create_by(category_data)
 end
 
-
 subcategories_data = [
   { name: 'Tシャツ', category_id: 1 },
   { name: 'シャツ', category_id: 1 },
@@ -16,7 +17,7 @@ subcategories_data = [
   { name: 'スウェット', category_id: 1 },
   { name: 'パーカー', category_id: 1 },
   { name: 'ニット', category_id: 1 },
-  { name: 'カーディガン', category_id: 1 },  
+  { name: 'カーディガン', category_id: 1 },
   { name: 'インナー', category_id: 1 },
   { name: 'その他', category_id: 1 },
   { name: 'ジーンズ', category_id: 2 },

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Constitution < ActiveHash::Base
   self.data = [
     { id: 1, name: '暑がり' }, { id: 2, name: 'やや暑がり' }, { id: 3, name: '標準' },

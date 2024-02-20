@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Closet < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user
@@ -7,7 +9,6 @@ class Closet < ApplicationRecord
   validates :name, presence: true
   validates :category, presence: true
 
-  
   def default_image
     ActionController::Base.helpers.asset_path('sample.png')
   end

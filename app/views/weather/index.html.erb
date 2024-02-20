@@ -12,6 +12,9 @@
             <p>風速: <%= @weather_data['wind']['speed'] %> m/s</p>
             <p>天気: <%= @weather_data['weather'][0]['description'] %></p>
             <img src="https://openweathermap.org/img/wn/<%= @weather_data['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
+            <% if @weather_data['rain'] && @weather_data['rain']['1h'] %>
+              <p>降水量: <%= @weather_data['rain']['1h'] %> mm</p>
+            <% end %>
           </div>
           <div class="col ml-auto">
             <div style='display: flex; flex-wrap: wrap;'>
@@ -20,16 +23,14 @@
               kelvin_to_celsius(@weather_data['main']['temp_max']),
               current_user&.constitution_id.to_i
             ) %>
-              <div class="row mt-3">
-                <div class="col">
-                  <% if current_user %>
-                    <% image_urls = display_clothes_photo(kelvin_to_celsius(@weather_data['main']['temp_max']), current_user.constitution_id.to_i, current_user) %>
-                    <% image_urls.each do |image_url| %>
-                      <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
+            </div>
+            <div style='display: flex; flex-wrap: wrap;'>
+              <% if current_user %>
+                <% image_urls = display_clothes_photo(kelvin_to_celsius(@weather_data['main']['temp_max']), current_user.constitution_id.to_i, current_user) %>
+                <% image_urls.each do |image_url| %>
+                  <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
@@ -53,6 +54,9 @@
             <p>風速: <%= @second_weather_data['wind']['speed'] %> m/s</p>
             <p>天気: <%= @second_weather_data['weather'][0]['description'] %></p>
             <img src="https://openweathermap.org/img/wn/<%= @second_weather_data['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
+            <% if @second_weather_data['rain'] && @second_weather_data['rain']['1h'] %>
+              <p>降水量: <%= @second_weather_data['rain']['1h'] %> mm</p>
+            <% end %>
           </div>
           <div class="col ml-auto">
             <div style='display: flex; flex-wrap: wrap;'>
@@ -62,7 +66,14 @@
               current_user&.constitution_id.to_i
             ) %>
             </div>
-
+            <div style='display: flex; flex-wrap: wrap;'>
+              <% if current_user %>
+                <% image_urls = display_clothes_photo(kelvin_to_celsius(@second_weather_data['main']['temp_max']), current_user.constitution_id.to_i, current_user) %>
+                <% image_urls.each do |image_url| %>
+                  <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>

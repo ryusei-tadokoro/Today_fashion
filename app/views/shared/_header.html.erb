@@ -47,6 +47,15 @@
                     <li class="nav-item">
                       <%= link_to t('nav.log_out'), destroy_user_session_path, class: "dropdown-item", method: :delete if user_signed_in? %>
                     </li>
+                    <li class="nav-item text-center mt-3">
+                        <p class="mb-2">Line友達追加お願いいたします！</p>
+                        <p class="mb-2">@079weaha</p>
+                        <%= image_tag 'QRcode.png', class: 'img-fluid', alt: 'Line QR Code' %>
+                    </li>
+                    <li class="nav-item text-center mt-3">
+                        <p class="mb-2">Lineで登録した方は</p>
+                        <p class="mb-2">天気予報を通知にてお知らせいたします(予定)</p>
+                    </li>
                   </ul>
               </div>
           </div>
