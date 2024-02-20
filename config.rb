@@ -1,1 +1,3 @@
-WEATHER_API_KEY=ENV["WEATHER_API_KEY"]
+# frozen_string_literal: true
+
+WEATHER_API_KEY = ENV.fetch('WEATHER_API_KEY', nil)

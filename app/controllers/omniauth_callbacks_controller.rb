@@ -1,4 +1,6 @@
-# ApplicationControllerをDevise::OmniauthCallbacksControllerに変更
+# frozen_string_literal: true
+
+# OmniauthCallbacksController manages the callbacks from various omniauth providers.
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line
     basic_action
@@ -7,35 +9,33 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
 
   def basic_action
-    @omniauth = request.env["omniauth.auth"]
+    @omniauth = request.env['omniauth.auth']
 
-    if @omniauth.present?
-      @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
+    return if @omniauth.blank?
 
-      # ユーザーのemailが空の場合、LINEから取得できる場合はそれを、できない場合は仮のemailを使用して新しいユーザーを作成
-      if @profile.email.blank?
-        email = @omniauth["info"]["email"].presence || fake_email(@omniauth["uid"], @omniauth["provider"])
-        @profile = current_user || User.create!(
-          provider: @omniauth["provider"],
-          uid: @omniauth["uid"],
-          email: email,
-          name: @omniauth["info"]["name"],
-          password: Devise.friendly_token[0, 20]
-        )
-      end
+    @profile = find_or_initialize_user
+    set_user_info if @profile.new_record?
+    @profile.save! if @profile.changed?
 
-      # ユーザーのプロフィール情報を更新
-      @profile.set_values(@omniauth)
-
-      # ログイン状態にする
-      sign_in(:user, @profile)
-    end
-
-    flash[:notice] = "ログインしました"
-    redirect_to root_path
+    sign_in_and_redirect
   end
 
-  def fake_email(uid, provider)
-    "#{uid}-#{provider}@example.com"
+  def find_or_initialize_user
+    User.find_or_initialize_by(provider: @omniauth['provider'], uid: @omniauth['uid'])
+  end
+
+  def set_user_info
+    email = @omniauth['info']['email'].presence || fake_email
+    @profile.assign_attributes(email:, name: @omniauth['info']['name'], password: Devise.friendly_token[0, 20])
+  end
+
+  def fake_email
+    "#{@omniauth['uid']}-#{@omniauth['provider']}@example.com"
+  end
+
+  def sign_in_and_redirect
+    sign_in(:user, @profile)
+    flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: 'LINE')
+    redirect_to root_path
   end
 end
