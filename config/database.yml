@@ -1,9 +1,6 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: todayfashion # PostgreSQLのユーザー名
-  password: <%= ENV['YOUR_LOCAL_DATABASE_PASSWORD'] %> # PostgreSQLのパスワード
   host: localhost
 
 development:
@@ -16,4 +13,6 @@ test:
 
 production:
   <<: *default
-  url: <%= ENV["DATABASE_URL"] %>
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
