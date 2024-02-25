@@ -11,7 +11,7 @@ gem 'rails', '~> 7.1.2'
 gem 'sprockets-rails'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 1.4'
+# gem 'sqlite3', '~> 1.4'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem 'puma', '>= 5.0'
@@ -51,6 +51,7 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
+  gem 'sqlite3', '~> 1.4'
 end
 
 group :development do
@@ -92,4 +93,6 @@ gem 'whenever', require: false
 
 gem 'dockerfile-rails', '>= 1.6', group: :development
 
-gem 'pg', '~> 1.5'
+group :production do
+  gem 'pg', '~> 1.5'
+end
