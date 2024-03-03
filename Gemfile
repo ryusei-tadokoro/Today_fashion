@@ -54,6 +54,11 @@ group :development, :test do
   gem 'sqlite3', '~> 1.4'
 end
 
+group :production do
+  gem 'pg', '~> 1.5'
+end
+
+
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
@@ -92,7 +97,3 @@ gem 'simplecov', require: false, group: :test
 gem 'whenever', require: false
 
 gem 'dockerfile-rails', '>= 1.6', group: :development
-
-group :production do
-  gem 'pg', '~> 1.5'
-end
