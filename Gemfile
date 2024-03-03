@@ -97,3 +97,4 @@ gem 'simplecov', require: false, group: :test
 gem 'whenever', require: false
 
 gem 'dockerfile-rails', '>= 1.6', group: :development
+gem 'google-cloud-storage', '~> 1.31', require: false
