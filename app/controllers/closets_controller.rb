@@ -28,13 +28,16 @@ class ClosetsController < ApplicationController
 
   # POST /closets or /closets.json
   def create
-    @closet = current_user.closets.new(closet_params)
-    respond_to do |format|
-      unless save_and_respond(format)
-        set_categories_and_subcategories
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @closet.errors, status: :unprocessable_entity }
-      end
+    result = ImageAnalyzer.analyze(params[:closet][:image])
+    if result[:error]
+      flash.now[:alert] = result[:error]
+      redirect_to new_closet_path and return
+    end
+    @closet = current_user.closets.new(closet_params.merge(name: result[:name]))
+    if @closet.save
+      redirect_to closet_url(@closet), notice: I18n.t('notices.closet_created')
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 

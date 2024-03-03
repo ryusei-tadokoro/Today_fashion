@@ -7,7 +7,7 @@ class VisionApiController < ApplicationController
     set_google_cloud_env
     image = params[:image].path
     image_annotator_client = Google::Cloud::Vision.image_annotator
-    response = image_annotator_client.label_detection(image:)
+    response = image_annotator_client.label_detection image: image
 
     if response.responses.any? && response.responses.first.label_annotations.any?
       first_label = response.responses.first.label_annotations.first.description
@@ -25,5 +25,5 @@ class VisionApiController < ApplicationController
   def set_google_cloud_env
     @google_cloud_project = ENV.fetch('GOOGLE_CLOUD_PROJECT', nil)
     @google_cloud_keyfile = ENV.fetch('GOOGLE_VISION_API_KEY', nil)
-  end
+  end  
 end
