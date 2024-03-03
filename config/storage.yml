@@ -6,6 +6,11 @@ local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
 
+google:
+  service: GCS
+  project: todayfashion
+  credentials: todayfashion-08e360ddfba2.json
+  bucket: todayfashion
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
 #   service: S3
