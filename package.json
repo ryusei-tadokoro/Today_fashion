@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/ryusei-tadokoro/today_fashion/issues"
   },
-  "homepage": "https://github.com/ryusei-tadokoro/today_fashion#readme"
+  "homepage": "https://github.com/ryusei-tadokoro/today_fashion#readme",
+  "engines": {
+    "node": "20.10.0"
+  }
 }
