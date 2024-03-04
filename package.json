@@ -1,6 +1,7 @@
 {
   "name": "package.json",
   "version": "1.0.0",
+  "type": "module",
   "description": "## サービス概要 tofa(today fashion)とは 今持っている服装やアクセサリー等を管理し、 その中で気温や自分の体調に合わせてコーディネートをしてくれるサービスです。",
   "main": "index.js",
   "directories": {
