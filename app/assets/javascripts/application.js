@@ -1,6 +1,5 @@
-//= require rails-ujs
-//= require jquery
-//= require_tree .
+import Rails from "@rails/ujs"; // rails-ujsをimportmap経由でロード
+import $ from "jquery"; // jQueryをimportmap経由でロード
 
 document.addEventListener("DOMContentLoaded", function() {
   var flashNotice = document.querySelector(".alert");
@@ -25,3 +24,5 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
+
+Rails.start(); // rails-ujsを初期化
