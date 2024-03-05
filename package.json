@@ -8,7 +8,6 @@
     "lib": "lib",
     "test": "test"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +23,9 @@
   "homepage": "https://github.com/ryusei-tadokoro/today_fashion#readme",
   "engines": {
     "node": "20.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "jquery": "^3.7.1"
   }
 }
