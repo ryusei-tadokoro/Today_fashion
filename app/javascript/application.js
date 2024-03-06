@@ -31,3 +31,4 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
+import * as bootstrap from "bootstrap"
