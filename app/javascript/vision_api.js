@@ -1,6 +1,6 @@
 $(function(){
   if(document.URL.match(/new/)) { // URLが適切なパスにマッチするか確認
-    $(document).on('change', 'input[type="file"]', function(e) {
+    $(document).on('change', 'input[type="file"]#user_image, input[type="file"]#image-upload', function(e) {
       e.preventDefault();
       var formData = new FormData();
       formData.append("image", e.target.files[0]);
