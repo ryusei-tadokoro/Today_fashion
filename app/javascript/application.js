@@ -1,12 +1,6 @@
-// TurboとStimulusをImportmapからimportする
-import "@hotwired/turbo-rails";
-import { Application } from "@hotwired/stimulus";
-import controllers from "controllers";
-
-// Stimulusの設定
-const application = Application.start();
-application.load(definitionsFromContext(controllers));
-
+// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
+import jquery from "jquery"
+window.$ = jquery
 
 document.addEventListener("DOMContentLoaded", function() {
   var flashNotice = document.querySelector(".alert");
