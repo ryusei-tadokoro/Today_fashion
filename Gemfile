@@ -101,5 +101,3 @@ gem 'dockerfile-rails', '>= 1.6', group: :development
 gem 'fog-aws'
 gem "aws-sdk-s3", require: false 
 
-gem "jsbundling-rails"
-gem "cssbundling-rails"
