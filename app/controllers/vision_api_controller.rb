@@ -23,7 +23,8 @@ class VisionApiController < ApplicationController
   private
 
   def set_google_cloud_env
-    @google_cloud_project = ENV.fetch('GOOGLE_CLOUD_PROJECT', nil)
-    @google_cloud_keyfile = ENV.fetch('GOOGLE_VISION_API_KEY', nil)
-  end
+    credentials = Rails.application.credentials
+    @google_cloud_project = credentials.dig(:google, :cloud_project)
+    @google_cloud_keyfile = credentials.dig(:google, :vision_api_key)
+  end  
 end
