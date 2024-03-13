@@ -6,8 +6,8 @@ class VisionApiController < ApplicationController
   def upload
     set_google_cloud_env
     image = params[:image].path
-    image_annotator_client = Google::Cloud::Vision.image_annotator
-    response = image_annotator_client.label_detection(image:)
+    image_annotator_client = Google::Cloud::Vision.image_annotator(credentials: @google_cloud_keyfile)
+    response = image_annotator_client.label_detection(image: image)
 
     if response.responses.any? && response.responses.first.label_annotations.any?
       first_label = response.responses.first.label_annotations.first.description
