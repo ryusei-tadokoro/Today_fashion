@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # OmniauthCallbacksController manages the callbacks from various omniauth providers.
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def line
@@ -37,5 +35,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     sign_in(:user, @profile)
     flash[:notice] = I18n.t('devise.omniauth_callbacks.success', kind: 'LINE')
     redirect_to root_path
+  end
+
+  def line_client_id
+    Rails.application.credentials.dig(:line, :client_id)
+  end
+
+  def line_client_secret
+    Rails.application.credentials.dig(:line, :client_secret)
   end
 end
