@@ -39,8 +39,9 @@ class PushLineJob < ApplicationJob
 
   def line_client
     @line_client ||= Line::Bot::Client.new do |config|
-      config.channel_secret = ENV.fetch('LINE_CHANNEL_SECRET', nil)
-      config.channel_token = ENV.fetch('LINE_CHANNEL_TOKEN', nil)
+      credentials = Rails.application.credentials
+      config.channel_secret = credentials.dig(:line, :channel_secret)
+      config.channel_token = credentials.dig(:line, :channel_token)
     end
   end
 end

@@ -6,7 +6,8 @@ class WeatherService
   base_uri 'api.openweathermap.org'
 
   def initialize(city)
-    @api_key = ENV.fetch('OPENWEATHERMAP_API_KEY', nil)
+    credentials = Rails.application.credentials
+    @api_key = credentials.dig(:openweathermap, :api_key)
     @options = { query: { q: "#{city},jp", appid: @api_key, lang: 'ja' } }
   end
 
