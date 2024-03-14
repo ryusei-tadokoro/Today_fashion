@@ -4,14 +4,13 @@ class VisionApiController < ApplicationController
   require 'google/cloud/vision/v1'
 
   def upload
-    set_google_cloud_env
+    set_google_cloud_credentials
     image = params[:image].path
-    image_annotator_client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new
+    image_annotator_client = Google::Cloud::Vision::V1::ImageAnnotator::Client.new(credentials: @google_cloud_credentials)
     response = image_annotator_client.label_detection(image: image)
 
     if response.responses.any? && response.responses.first.label_annotations.any?
       first_label = response.responses.first.label_annotations.first.description
-      # 必要に応じて、さらに多くのラベルを処理することも可能
       @label_data = { name: first_label }
     end
 
@@ -22,9 +21,11 @@ class VisionApiController < ApplicationController
 
   private
 
-  def set_google_cloud_env
+  def set_google_cloud_credentials
     credentials = Rails.application.credentials
-    @google_cloud_project = credentials.dig(:google, :cloud_project)
-    @google_cloud_keyfile = credentials.dig(:google, :vision_api_key)
-  end  
+    @google_cloud_credentials = {
+      project_id: credentials.dig(:google, :cloud_project),
+      keyfile: credentials.dig(:google, :vision_api_key)
+    }
+  end
 end
