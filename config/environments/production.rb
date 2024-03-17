@@ -79,7 +79,7 @@ Rails.application.configure do
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: 'https://todayfashion-2edb6aebb6e9.herokuapp.com' }
+  config.action_mailer.default_url_options = { host: 'https://www.todayfashion.jp/' }
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
@@ -90,8 +90,8 @@ Rails.application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'smtp.gmail.com',
-    user_name: ENV.fetch('GMAIL_ADDRESS', nil),
-    password: ENV.fetch('GMAIL_PASSWORD', nil),
+    user_name: Rails.application.credentials.gmail[:address],
+    password: Rails.application.credentials.gmail[:password],
     authentication: 'login'
   }
 

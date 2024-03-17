@@ -4,8 +4,8 @@ class CreateClosets < ActiveRecord::Migration[7.1]
   def change
     create_table :closets do |t|
       t.string :name
-      t.references :category, null: false, foreign_key: true
-      t.references :subcategory, null: false, foreign_key: true
+      t.references :category, foreign_key: true
+      t.references :subcategory, foreign_key: true
       t.date :purchase_date
       t.string :size
       t.string :color

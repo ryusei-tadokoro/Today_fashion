@@ -3,7 +3,7 @@
 categories_data = [
   { name: 'トップス' }, { name: 'ボトムス' }, { name: 'アウター' },
   { name: 'セットアップ' }, { name: 'ワンピース・サロペット' }, { name: 'シューズ' },
-  { name: 'バッグ' }, { name: 'アクセサリー' }, { name: 'その他' }
+  { name: 'バッグ' }, { name: 'アクセサリー' }, { name: 'その他' },{ name: '指定しない' }
 ]
 
 categories_data.each do |category_data|
@@ -70,7 +70,8 @@ subcategories_data = [
   { name: '着物・浴衣', category_id: 9 },
   { name: 'スポーツウェア', category_id: 9 },
   { name: 'イベント・衣装', category_id: 9 },
-  { name: 'その他', category_id: 9 }
+  { name: 'その他', category_id: 9 },
+  { name: '指定しない', category_id: 10 }
 ]
 
 subcategories_data.each do |subcategory_data|
