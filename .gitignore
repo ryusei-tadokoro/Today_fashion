@@ -36,5 +36,5 @@
 node_modules
 
 
-/config/todayfashion-08e360ddfba2.json
-config/todayfashion-*.json
+/config/todayfashion-*.json
+/config/credentials.yml.enc
