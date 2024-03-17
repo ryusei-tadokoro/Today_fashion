@@ -7,7 +7,6 @@ class Closet < ApplicationRecord
   belongs_to :subcategory, optional: true
 
   validates :name, presence: true
-  validates :category, presence: true
 
   def default_image
     ActionController::Base.helpers.asset_path('sample.png')
