@@ -1,22 +1,21 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <%= link_to root_path, class: 'navbar-brand' do %>
-      <%= image_tag 'title.png' , size: '200x40' %>
+      <%= image_tag 'title.png', size: '200x40' %>
     <% end %>
-    <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarBeforeLogin" aria-controls="navbarBeforeLogin" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <%= link_to t('nav.sign_up'), new_registration_path(:user), class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to t('nav.log_in'), new_user_session_path, class: "nav-link" %>
-          </li>
 
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse" id="navbarBeforeLogin">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <%= link_to '新規登録', new_registration_path(:user), class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'ログイン', new_user_session_path, class: 'nav-link' %>
+        </li>
+      </ul>
     </div>
   </nav>
 </header>
