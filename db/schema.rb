@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_010912) do
 
   create_table "closets", force: :cascade do |t|
     t.string "name"
-    t.integer "category_id", null: false
-    t.integer "subcategory_id", null: false
+    t.integer "category_id"
+    t.integer "subcategory_id"
     t.date "purchase_date"
     t.string "size"
     t.string "color"

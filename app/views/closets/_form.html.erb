@@ -31,12 +31,12 @@
 
       <div class="field">
         <%= f.label :category_id, t('activerecord.attributes.closet.category_id') %><br />
-        <%= f.collection_select :category_id, @categories, :id, :name, prompt: '選択してください' %>
+        <%= f.collection_select :category_id, @categories, :id, :name %>
       </div>
 
       <div class="field">
         <%= f.label :subcategory_id, t('activerecord.attributes.closet.subcategory_id') %><br />
-        <%= f.collection_select :subcategory_id, @subcategories, :id, :name, prompt: '選択してください', disabled: true %>
+        <%= f.collection_select :subcategory_id, @subcategories, :id, :name, disabled: true %>
       </div>
     </div>
 
