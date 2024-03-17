@@ -49,10 +49,10 @@ Rails.application.configure do
     enable_starttls_auto: true,
     address: 'smtp.gmail.com',
     port: 587,
-    domain: 'gmail.com',
-    user_name: ENV.fetch('GMAIL_ADDRESS', nil),
-    password: ENV.fetch('GMAIL_PASSWORD', nil),
-    authentication: 'plain'
+    domain: 'smtp.gmail.com',
+    user_name: Rails.application.credentials.gmail[:address],
+    password: Rails.application.credentials.gmail[:password],
+    authentication: 'login'
   }
 
   # Print deprecation notices to the Rails logger.
