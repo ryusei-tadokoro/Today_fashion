@@ -9,4 +9,4 @@
 //= link bg-masthead.jpg
 //= link bg-signup.jpg
 //= link demo-image-01.jpg
-//= link demo-image-0w.jpg
+//= link demo-image-02.jpg
