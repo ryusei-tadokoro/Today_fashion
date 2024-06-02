@@ -19,7 +19,7 @@
   </head>
 
   <body>
-    <div class="d-flex flex-column min-vh-100">
+    <div class="d-flex flex-column vh-100">
       <% flash.each do |key, message| %>
         <div class="alert alert-<%= key %>"><%= message %></div>
       <% end %>
@@ -29,15 +29,13 @@
           <% flash.each do |type, message| %>
             <%= content_tag(:div, message, class: "alert alert-#{type == 'notice' ? 'success' : 'danger'}") %>
           <% end %>
-          <%= yield %>
         </div>
       <% else %>
         <%= render 'shared/before_login_header' %> 
-        <div class="container flex-grow-1">
-          <%= yield %>
-        </div>
       <% end %>
-      
+      <main class="flex-grow-1 mb-auto">
+        <%= yield %>
+      </main>
       <%= render 'shared/footer' %>
     </div>
   </body>
