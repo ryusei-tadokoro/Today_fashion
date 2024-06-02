@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   end
   post '/callback' => 'linebot#callback'
 
-  root 'weather#index'
+  root 'home#index'
   devise_for :users, controllers: {
     # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
     registrations: 'users/registrations',
