@@ -1,6 +1,11 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import jquery from "jquery"
-window.$ = jquery
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import $ from 'jquery';
+import 'bootstrap';
+import './scripts.js';
+
+window.$ = $;
+window.jQuery = $;
 
 document.addEventListener("DOMContentLoaded", function() {
   var flashNotice = document.querySelector(".alert");
@@ -10,14 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   // vision_api.jsのコードをここに追加
-  if (document.URL.match(/new/)) { // URLが適切なパスにマッチするか確認
+  if (document.URL.match(/new/)) {
     $(document).on('change', 'input[type="file"]', function(e) {
       e.preventDefault();
       var formData = new FormData();
       formData.append("image", e.target.files[0]);
       $.ajax({
         type: 'POST',
-        url: '/vision_api/upload', // 適切なエンドポイントに変更
+        url: '/vision_api/upload',
         data: formData,
         dataType: 'json',
         processData: false,
@@ -27,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function() {
           }
       })
       .done(function(data){
-        $('#closet_name').val(data.name); // フォームフィールドにラベル名を設定
+        $('#closet_name').val(data.name);
         $('#closet_name').css('background-color', 'lightgreen');
       })
       .fail(function(){

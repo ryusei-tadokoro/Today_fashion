@@ -4,6 +4,7 @@ module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :set_prefectures, only: %i[new create edit update]
     before_action :set_constitutions, only: %i[new create edit update]
+    skip_before_action :verify_authenticity_token, only: [:create]
 
     def create
       build_resource(sign_up_params)
