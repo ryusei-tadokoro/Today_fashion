@@ -475,7 +475,7 @@ module ApplicationHelper
       when 7...11 then [17, 6, 8, 11, 35]
       when 11...15 then [17, 6, 2, 29, 11]
       when 15...18 then [7, 1, 10, 29]
-      when 18...22 then [20, 10, 29]
+      when 18...22 then [20, 1, 10, 29]
       when 22... then [1, 11, 29]
       end
 
@@ -486,7 +486,7 @@ module ApplicationHelper
       when 8...12 then [17, 6, 8, 11, 35]
       when 12...16 then [17, 6, 2, 29, 11]
       when 16...19 then [7, 1, 10, 29]
-      when 19...23 then [20, 10, 29]
+      when 19...23 then [20, 1, 10, 29]
       when 23... then [1, 11, 29]
       end
 
@@ -497,7 +497,7 @@ module ApplicationHelper
       when 9...13 then [17, 6, 8, 11, 35]
       when 13...17 then [17, 6, 2, 29, 11]
       when 17...20 then [7, 1, 10, 29]
-      when 20...24 then [20, 10, 29]
+      when 20...24 then [20, 1, 10, 29]
       when 24... then [1, 11, 29]
       end
 
@@ -519,7 +519,7 @@ module ApplicationHelper
       when 11...15 then [17, 6, 8, 11, 35]
       when 15...19 then [17, 6, 2, 29, 11]
       when 19...22 then [7, 1, 10, 29]
-      when 22...26 then [20, 10, 29]
+      when 22...26 then [20, ß1, 10, 29]
       when 26... then [1, 11, 29]
       end
 
