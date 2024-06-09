@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Grayscale - Start Bootstrap Theme</title>
-        <link rel="icon" type="image/x-icon" href="<%= asset_path 'favicon.ico' %>" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
-        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbo-track': 'reload' %>
+        <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -34,7 +34,7 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead" style="background-image: url('<%= asset_path 'todayfashion-01.jpg' %>');">
+        <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
@@ -58,7 +58,7 @@
                         </p>
                     </div>
                 </div>
-                <img class="img-fluid" src="<%= asset_path 'ipad.png' %>" alt="..." />
+                <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
             </div>
         </section>
         <!-- Projects-->
@@ -66,21 +66,17 @@
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
                 <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="<%= asset_path 'demo1.png' %>" alt="..." /></div>
+                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/img/bg-masthead.jpg" alt="..." /></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>毎日の天気と服装をサポートする</h4>
-                            <p class="text-black-50 mb-0">このアプリでは、本日の最高気温や最低気温、湿度などの情報をすぐに確認できます。さらに、雨が降る日には降水量も表示されるので、外出の計画に役立ちます。もう1つの場所を登録することで、出勤先や学校の天気も簡単にチェックできます。
-
-                            また、服装指数を確認して、その日の服装を決めることができます。さらに、服の写真を登録しておくことで、当日に着る服を提案してくれる機能も備えています。
-                            
-                            </p>
+                            <h4>Shoreline</h4>
+                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
                         </div>
                     </div>
                 </div>
                 <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="<%= asset_path 'demo-image-01.jpg' %>" alt="..." /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-01.jpg" alt="..." /></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
@@ -94,7 +90,7 @@
                 </div>
                 <!-- Project Two Row-->
                 <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="<%= asset_path 'demo-image-02.jpg' %>" alt="..." /></div>
+                    <div class="col-lg-6"><img class="img-fluid" src="assets/img/demo-image-02.jpg" alt="..." /></div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
