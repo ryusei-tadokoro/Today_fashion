@@ -78,4 +78,32 @@ class WeatherController < ApplicationController
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15
   end
+
+  def send_line_notification(message)
+    # LINE通知を送信するコードをここに追加します
+    # 例:
+    # line_api_endpoint = "https://api.line.me/v2/bot/message/push"
+    # line_access_token = "YOUR_LINE_ACCESS_TOKEN"
+    #
+    # headers = {
+    #   "Content-Type" => "application/json",
+    #   "Authorization" => "Bearer #{line_access_token}"
+    # }
+    #
+    # body = {
+    #   to: "USER_ID",
+    #   messages: [
+    #     {
+    #       type: "text",
+    #       text: message
+    #     }
+    #   ]
+    # }
+    #
+    # response = HTTParty.post(line_api_endpoint, headers: headers, body: body.to_json)
+    #
+    # unless response.success?
+    #   Rails.logger.error("Failed to send LINE notification: #{response.body}")
+    # end
+  end
 end
