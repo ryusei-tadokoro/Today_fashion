@@ -1,20 +1,24 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   resources :closets do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'
   end
   post '/callback' => 'linebot#callback'
 
-  root 'home#index'
   devise_for :users, controllers: {
-    # ↓ローカルに追加されたコントローラーを参照する(コントローラー名: "コントローラーの参照先")
     registrations: 'users/registrations',
     sessions: 'users/sessions',
     passwords: 'users/passwords',
     confirmations: 'users/confirmations',
     omniauth_callbacks: 'omniauth_callbacks'
   }
+
+  authenticated :user do
+    root 'weather#index', as: :authenticated_root
+  end
+
+  root 'home#index'
+
+  get 'home/index'
   get 'weather', to: 'weather#index', as: :weather
   get 'weather/show', to: 'weather#show', as: :show_weather
   get 'privacy_policy', to: 'static_pages#privacy_policy', as: :privacy_policy

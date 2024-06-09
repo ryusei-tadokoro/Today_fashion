@@ -6,7 +6,8 @@ require 'uri'
 class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
   before_action :load_prefecture_data, only: [:index]
-
+  before_action :authenticate_user!
+  
   def index
     user_prefecture_id = current_user&.prefecture_id
     user_second_prefecture_id = current_user&.second_prefecture_id

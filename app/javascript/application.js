@@ -2,7 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import $ from 'jquery';
 import 'bootstrap';
-import './scripts.js';
+import './scripts.js';  // 修正箇所
 
 window.$ = $;
 window.jQuery = $;
