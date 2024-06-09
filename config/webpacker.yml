@@ -1,13 +1,13 @@
 default: &default
-  source_path: app
-  source_entry_path: javascript/packs # ここがエントリーポイントのディレクトリを指す
+  source_path: app/javascript
+  source_entry_path: .
   public_root_path: public
   public_output_path: packs
   cache_path: tmp/cache/webpacker
   check_yarn_integrity: false
   webpack_compile_output: true
-  additional_paths: [] # resolved_pathsから変更
-  cache_manifest: true
+  resolved_paths: []
+  additional_paths: []
   extract_css: true
   static_assets_extensions:
     - .jpg
@@ -40,7 +40,6 @@ default: &default
 development:
   <<: *default
   compile: true
-  check_yarn_integrity: true
 
 test:
   <<: *default
