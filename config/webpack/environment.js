@@ -20,4 +20,19 @@ environment.plugins.append(
   })
 );
 
+// 追加の設定
+environment.splitChunks((config) => {
+  config.optimization.splitChunks = {
+    chunks: 'all',
+    cacheGroups: {
+      vendor: {
+        test: /[\\/]node_modules[\\/]/,
+        name: 'vendors',
+        chunks: 'all',
+      },
+    },
+  };
+  return config;
+});
+
 module.exports = environment;
