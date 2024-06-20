@@ -1,26 +1,30 @@
-<h2><%= t('devise_links.log_in') %></h2>
-
-<%= form_with model: @user, url: session_path(resource_name), local: true do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
-
-  <% if devise_mapping.rememberable? %>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container-fluid light-blue-container p-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-4"><%= t('devise_links.log_in') %></h2>
+      <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true, html: { class: 'needs-validation', novalidate: true } do |f| %>
+        <%= render "shared/error_messages", resource: resource %>
+        <div class="form-group">
+          <%= f.label :email, class: 'form-label' %><span class="text-danger">*</span>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password, class: 'form-label' %><span class="text-danger">*</span>
+          <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
+        </div>
+        <% if devise_mapping.rememberable? %>
+          <div class="form-check">
+            <%= f.check_box :remember_me, class: 'form-check-input' %>
+            <%= f.label :remember_me, class: 'form-check-label' %>
+          </div>
+        <% end %>
+        <div class="form-group mt-3">
+          <%= f.submit "ログイン" %>
+        </div>
+        <div class="form-group">
+          <%= render "shared/links" %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit "ログイン" %>
   </div>
-<% end %>
-
-<%= render "shared/links" %>
+</div>
