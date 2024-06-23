@@ -48,10 +48,10 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.email = auth.info.email
-      user.password = Devise.friendly_token[0, 20]
-      # 必要に応じて他のフィールドを設定
-    end
+    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    user.email = auth.info.email || "#{auth.uid}-#{auth.provider}@example.com"
+    user.password = Devise.friendly_token[0, 20] if user.new_record?
+    user.save
+    user
   end
 end
