@@ -3,6 +3,7 @@
     <div class="col-md-8 offset-md-2">
       <h2 class="mb-4"><%= t('devise_links.log_in') %></h2>
       <%= form_with model: resource, as: resource_name, url: session_path(resource_name), local: true, html: { class: 'needs-validation', novalidate: true } do |f| %>
+        <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
         <%= render "shared/error_messages", resource: resource %>
         <div class="form-group">
           <%= f.label :email, class: 'form-label' %><span class="text-danger">*</span>

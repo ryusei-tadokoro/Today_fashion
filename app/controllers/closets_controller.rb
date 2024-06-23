@@ -4,6 +4,8 @@
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
   before_action :set_categories_and_subcategories, only: %i[new edit]
+  before_action :authenticate_user!
+  after_action :verify_authorized, except: :index
 
   # GET /closets or /closets.json
   def index
@@ -24,7 +26,9 @@ class ClosetsController < ApplicationController
   end
 
   # GET /closets/1/edit
-  def edit; end
+  def edit
+    authorize @closet
+  end
 
   # POST /closets or /closets.json
   def create
@@ -40,8 +44,8 @@ class ClosetsController < ApplicationController
 
   # PATCH/PUT /closets/1 or /closets/1.json
   def update
+    authorize @closet
     update_params = closet_update_params
-
     if @closet.update(update_params)
       redirect_to closet_url(@closet), notice: t('.success')
     else
@@ -51,6 +55,7 @@ class ClosetsController < ApplicationController
 
   # DELETE /closets/1 or /closets/1.json
   def destroy
+    authorize @closet
     @closet.destroy
     redirect_to closets_url, notice: t('.success')
   end
