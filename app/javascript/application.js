@@ -1,3 +1,4 @@
+// app/javascript/application.js
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import $ from 'jquery';
@@ -35,5 +36,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   $(document).on('change', '#user_image, #image-upload', function() {
     previewImage(this);
+  });
+
+  // CSRFトークンをヘッダーに設定
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': token
+    }
   });
 });
