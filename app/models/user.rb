@@ -16,6 +16,7 @@ class User < ApplicationRecord
   validates :password, presence: true, if: :password_required?
 
   mount_uploader :image, ImageUploader
+
   def default_image
     ActionController::Base.helpers.asset_path('default_image.png')
   end
@@ -44,5 +45,13 @@ class User < ApplicationRecord
   def password_required?
     # 新しいパスワードが存在する場合にのみバリデーションを適用する
     new_record? || password.present? || password_confirmation.present?
+  end
+
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      # 必要に応じて他のフィールドを設定
+    end
   end
 end

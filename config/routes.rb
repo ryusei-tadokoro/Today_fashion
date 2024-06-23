@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     passwords: 'users/passwords',
     confirmations: 'users/confirmations',
-    omniauth_callbacks: 'omniauth_callbacks'
+    omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
   authenticated :user do
