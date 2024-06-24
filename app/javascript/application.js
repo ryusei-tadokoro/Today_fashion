@@ -2,7 +2,7 @@ import "core-js/stable";
 import "regenerator-runtime/runtime";
 import $ from 'jquery';
 import 'bootstrap';
-import(/* webpackChunkName: "scripts" */ './scripts.js');
+import('./scripts.js');
 
 window.$ = $;
 window.jQuery = $;
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   if (document.URL.match(/new/)) {
-    import(/* webpackChunkName: "vision_api" */ './vision_api.js').then(module => {
+    import('./vision_api.js').then(module => {
       const visionAPI = module.default;
       visionAPI();
     });
@@ -35,5 +35,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
   $(document).on('change', '#user_image, #image-upload', function() {
     previewImage(this);
+  });
+
+  // CSRFトークンをヘッダーに設定
+  const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': token
+    }
   });
 });
