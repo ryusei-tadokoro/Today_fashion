@@ -6,23 +6,27 @@ class ClosetsController < ApplicationController
   before_action :set_categories_and_subcategories, only: %i[new edit]
   before_action :authenticate_user!
   after_action :verify_authorized, except: :index
+  after_action :verify_policy_scoped, only: :index
 
   # GET /closets or /closets.json
   def index
     if user_signed_in?
       @user = current_user
-      @closets = @user.closets
+      @closets = policy_scope(@user.closets)
     else
       redirect_to new_user_session_path, alert: I18n.t('alerts.login_required')
     end
   end
 
   # GET /closets/1 or /closets/1.json
-  def show; end
+  def show
+    authorize @closet
+  end
 
   # GET /closets/new
   def new
     @closet = Closet.new
+    authorize @closet
   end
 
   # GET /closets/1/edit
@@ -33,6 +37,7 @@ class ClosetsController < ApplicationController
   # POST /closets or /closets.json
   def create
     @closet = current_user.closets.new(closet_params)
+    authorize @closet
     respond_to do |format|
       unless save_and_respond(format)
         set_categories_and_subcategories

@@ -3,12 +3,10 @@
 //= link_tree ../../javascript .js
 //= link_tree ../../../vendor/javascript .js
 //= link application.css
-//= link application.js
-//= link closet_form.js
 //= link todayfashion-01.jpg
 //= link todayfashion-02.png
 //= link todayfashion-03.png
 //= link todayfashion-04.png
 //= link todayfashion-05.png
-//= link styles.scss
 //= link favicon.ico
+//= link_tree ../builds

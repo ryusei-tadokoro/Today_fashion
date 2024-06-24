@@ -1,28 +1,21 @@
-# frozen_string_literal: true
-
-require 'httparty'
-require 'uri'
-
 class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
   before_action :load_prefecture_data, only: [:index]
   before_action :authenticate_user!
-  
+  after_action :verify_authorized, except: [:index, :show]
+  after_action :verify_policy_scoped, only: :index
+
   def index
+    skip_policy_scope
     user_prefecture_id = current_user&.prefecture_id
     user_second_prefecture_id = current_user&.second_prefecture_id
 
-    # デフォルトの都市とセカンドの都市を取得
     default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
     second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
 
-    # デフォルトの都市の天気データを取得
     @weather_data = fetch_weather_data(default_city)
-
-    # セカンドの都市の天気データを取得
     @second_weather_data = fetch_weather_data(second_city)
 
-    # デフォルトの都市とセカンドの都市のどちらか一方でもデータが存在すれば成功とみなす
     flash.now[:alert] = '天気情報の取得に失敗しました。' unless @weather_data || @second_weather_data
   end
 
@@ -33,7 +26,6 @@ class WeatherController < ApplicationController
       @weather = extract_weather_data(@weather_data, rainfall)
       fetch_and_update_weather_forecast(params[:city])
 
-      # 降水量がある場合はLINE通知を送信
       send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。") if rainfall.positive?
     else
       redirect_to action: :index, alert: '天気情報の取得に失敗しました。'
@@ -81,29 +73,5 @@ class WeatherController < ApplicationController
 
   def send_line_notification(message)
     # LINE通知を送信するコードをここに追加します
-    # 例:
-    # line_api_endpoint = "https://api.line.me/v2/bot/message/push"
-    # line_access_token = "YOUR_LINE_ACCESS_TOKEN"
-    #
-    # headers = {
-    #   "Content-Type" => "application/json",
-    #   "Authorization" => "Bearer #{line_access_token}"
-    # }
-    #
-    # body = {
-    #   to: "USER_ID",
-    #   messages: [
-    #     {
-    #       type: "text",
-    #       text: message
-    #     }
-    #   ]
-    # }
-    #
-    # response = HTTParty.post(line_api_endpoint, headers: headers, body: body.to_json)
-    #
-    # unless response.success?
-    #   Rails.logger.error("Failed to send LINE notification: #{response.body}")
-    # end
   end
 end

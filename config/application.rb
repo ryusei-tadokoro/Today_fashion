@@ -26,5 +26,7 @@ module TodayFashion
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.i18n.default_locale = :ja
+    config.action_controller.forgery_protection_origin_check = false
+
   end
 end

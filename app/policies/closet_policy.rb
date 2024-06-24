@@ -1,4 +1,16 @@
 class ClosetPolicy < ApplicationPolicy
+  def show?
+    user.present? && user.id == record.user_id
+  end
+
+  def new?
+    user.present?
+  end
+
+  def create?
+    user.present?
+  end
+
   def update?
     user.present? && user.id == record.user_id
   end
@@ -12,9 +24,8 @@ class ClosetPolicy < ApplicationPolicy
   end
 
   class Scope < ApplicationPolicy::Scope
-    # NOTE: Be explicit about which records you allow access to!
-    # def resolve
-    #   scope.all
-    # end
+    def resolve
+      scope.where(user_id: user.id)
+    end
   end
 end

@@ -4,10 +4,8 @@
   "description": "サービス概要 tofa(today fashion)とは...",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "precompile": "NODE_OPTIONS=--openssl-legacy-provider rails assets:precompile",
-    "build": "node esbuild.config.js",
-    "dev": "node esbuild.config.js --watch"
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
+    "dev": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --watch --public-path=/assets"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
@@ -18,7 +16,9 @@
     "minimatch": "^9.0.4",
     "process": "^0.11.10",
     "sass": "^1.77.4",
-    "watchpack-chokidar2": "^2.0.1"
+    "watchpack-chokidar2": "^2.0.1",
+    "core-js": "^3.30.0",
+    "regenerator-runtime": "^0.13.11"
   },
   "devDependencies": {
     "esbuild": "^0.14.0",
