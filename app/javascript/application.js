@@ -12,10 +12,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (flashNotice) {
     alert(flashNotice.textContent.trim());
+    flashNotice.remove(); // アラートが表示された後に要素を削除
   }
 
   if (document.URL.match(/new/)) {
-    import('./vision_api.js').then(module => {
+    import(/* webpackChunkName: "vision_api" */ './vision_api.js').then(module => {
       const visionAPI = module.default;
       visionAPI();
     });
