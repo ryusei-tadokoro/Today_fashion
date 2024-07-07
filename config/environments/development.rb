@@ -88,7 +88,7 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.hosts << "4287-61-87-59-118.ngrok-free.app"
+  config.hosts << "https://www.todayfashion.jp"
 
   config.reset_password_within = 1.hour
 end
