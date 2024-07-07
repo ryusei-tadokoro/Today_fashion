@@ -11,14 +11,8 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @omniauth.present?
       @profile = User.find_or_initialize_by(provider: @omniauth["provider"], uid: @omniauth["uid"])
       if @profile.email.blank?
-        email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : fake_email(@omniauth["uid"], @omniauth["provider"])
-        @profile = current_user || User.create!(
-          provider: @omniauth["provider"], 
-          uid: @omniauth["uid"], 
-          email: email, 
-          name: @omniauth["info"]["name"], 
-          password: Devise.friendly_token[0, 20]
-        )
+        email = @omniauth["info"]["email"] ? @omniauth["info"]["email"] : "#{@omniauth["uid"]}-#{@omniauth["provider"]}@example.com"
+        @profile = current_user || User.create!(provider: @omniauth["provider"], uid: @omniauth["uid"], email: email, name: @omniauth["info"]["name"], password: Devise.friendly_token[0, 20])
       end
       @profile.set_values(@omniauth)
       sign_in(:user, @profile)
@@ -29,6 +23,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def fake_email(uid, provider)
-    "#{uid}-#{provider}@example.com"
+    "#{auth.uid}-#{auth.provider}@example.com"
   end
 end
