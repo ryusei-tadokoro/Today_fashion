@@ -112,6 +112,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-  config.hosts << "https://www.todayfashion.jp"
+  config.hosts << "www.todayfashion.jp"
+  config.hosts << "todayfashion-5598de5b86c2.herokuapp.com"
 
 end
