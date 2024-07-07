@@ -12,6 +12,11 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
   }
 
+  devise_scope :user do
+    get 'users/sign_up/:step', to: 'users/registrations#new', as: :new_user_registration_step
+    post 'users/sign_up/:step', to: 'users/registrations#create'
+  end
+
   authenticated :user do
     root 'weather#index', as: :authenticated_root
   end

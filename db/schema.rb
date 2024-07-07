@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_010912) do
 
   create_table "subcategories", force: :cascade do |t|
     t.string "name"
-    t.integer "category_id", null: false
+    t.integer "category_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_subcategories_on_category_id"

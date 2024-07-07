@@ -11,8 +11,11 @@ class User < ApplicationRecord
   belongs_to :constitution
   has_many :closets, dependent: :destroy
 
-  validates :password, presence: true, if: :password_required?
-  validates :name, presence: true # nameフィールドにバリデーションを追加
+  validates :name, presence: true, if: -> { validation_context == :step1 || validation_context.nil? }
+  validates :email, presence: true, if: -> { validation_context == :step1 || validation_context.nil? }
+  validates :password, presence: true, length: { minimum: 6 }, if: -> { validation_context == :step2 || validation_context.nil? }
+  validates :password_confirmation, presence: true, if: -> { validation_context == :step2 || validation_context.nil? }
+  validates :prefecture_id, presence: true, if: -> { validation_context == :step3 || validation_context.nil? }
 
   mount_uploader :image, ImageUploader
 

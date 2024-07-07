@@ -1,0 +1,22 @@
+<!-- app/views/users/registrations/step1.html.erb -->
+<div class="container-fluid light-blue-container p-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-4"><%= t('sign_up.title') %></h2>
+      <%= form_with model: resource, url: new_user_registration_step_path(step: 'step1'), local: true, html: { class: 'needs-validation', novalidate: true } do |f| %>
+        <%= render "shared/error_messages", resource: resource %>
+        <div class="form-group">
+          <%= f.label :name, class: 'form-label' %><span class="text-danger">*</span>
+          <%= f.text_field :name, class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.label :email, class: 'form-label' %><span class="text-danger">*</span>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+        </div>
+        <div>
+          <%= f.submit 'Next', class: 'btn btn-primary' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
