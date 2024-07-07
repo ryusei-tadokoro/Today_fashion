@@ -1,8 +1,12 @@
-# config/routes.rb
 Rails.application.routes.draw do
   resources :closets do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'
+    collection do
+      get 'new/step1', to: 'closets#new_step1', as: 'new_step1'
+      post 'create/step', to: 'closets#create_step', as: 'create_step'
+    end
   end
+
   post '/callback' => 'linebot#callback'
 
   devise_for :users, controllers: {
@@ -16,7 +20,6 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/sign_up/:step', to: 'users/registrations#new', as: :new_user_registration_step
     post 'users/sign_up/:step', to: 'users/registrations#create'
-    get 'users/cancel_account', to: 'users/registrations#cancel_account', as: 'cancel_account_user'
   end
 
   authenticated :user do
