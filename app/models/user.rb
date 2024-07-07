@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -14,6 +12,7 @@ class User < ApplicationRecord
   has_many :closets, dependent: :destroy
 
   validates :password, presence: true, if: :password_required?
+  validates :name, presence: true # nameフィールドにバリデーションを追加
 
   mount_uploader :image, ImageUploader
 
@@ -34,7 +33,7 @@ class User < ApplicationRecord
     credentials['refresh_token']
     credentials['secret']
     credentials.to_json
-    info['name']
+    self.name = info['name'] # nameフィールドに値を設定
   end
 
   def set_values_by_raw_info(raw_info)
@@ -51,6 +50,7 @@ class User < ApplicationRecord
     user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
     user.email = auth.info.email || "#{auth.uid}-#{auth.provider}@example.com"
     user.password = Devise.friendly_token[0, 20] if user.new_record?
+    user.name = auth.info.name # nameフィールドに値を設定
     user.save
     user
   end
