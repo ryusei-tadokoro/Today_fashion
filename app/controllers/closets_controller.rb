@@ -20,31 +20,28 @@ class ClosetsController < ApplicationController
     authorize @closet
   end
 
-  # GET /closets/new/step1
   def new_step1
     @closet = Closet.new
     authorize @closet
-    render 'new/step1'
+    render 'closets/new_step1'
   end
 
-  # GET /closets/new/step2
   def new_step2
     @closet = Closet.new(closet_params)
-    render 'new/step2'
+    render 'closets/new_step2'
   end
 
-  # POST /closets/create/step
   def create_step
     if params[:step] == 'step1'
       @closet = Closet.new(closet_params)
-      render 'new/step2'
+      render 'closets/new_step2'
     elsif params[:step] == 'step2'
       @closet = current_user.closets.new(closet_params)
       authorize @closet
       if @closet.save
         redirect_to @closet, notice: 'Closet was successfully created.'
       else
-        render 'new/step1'
+        render 'closets/new_step1'
       end
     end
   end

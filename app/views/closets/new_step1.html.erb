@@ -1,5 +1,5 @@
 <h1>Step 1: Basic Information</h1>
-<%= form_with(model: @closet, url: create_step_path(step: 'step1'), local: true) do |f| %>
+<%= form_with(model: @closet, url: create_step_closets_path(step: 'step1'), local: true) do |f| %>
   <% if @closet.errors.any? %>
     <div class="alert alert-danger">
       <h4 class="alert-heading"><%= pluralize(@closet.errors.count, "つのエラー") %> 登録できませんでした:</h4>
@@ -11,10 +11,6 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= f.label :name, t('activerecord.attributes.closet.name'), class: 'form-label' %>
-    <%= f.text_field :name, class: 'form-control' %>
-  </div>
 
   <div class="mb-3">
     <%= f.label :image, t('activerecord.attributes.closet.image'), class: 'form-label' %>
@@ -25,6 +21,11 @@
       <%= image_tag 'sample.png', class: 'fashion_image mt-2', alt: 'default_icon', id: 'preview-image' %>
     <% end %>
   </div>
+
+  <div class="mb-3">
+  <%= f.label :name, t('activerecord.attributes.closet.name'), class: 'form-label' %>
+  <%= f.text_field :name, class: 'form-control' %>
+</div>
 
   <div class="mb-3">
     <%= f.label :category_id, t('activerecord.attributes.closet.category_id'), class: 'form-label' %>
