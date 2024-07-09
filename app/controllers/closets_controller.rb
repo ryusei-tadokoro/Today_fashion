@@ -2,7 +2,7 @@ class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
   before_action :set_categories_and_subcategories, only: %i[new_step1 new_step2 edit]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: :index
+  after_action :verify_authorized, except: %i[index subcategories_for_category]
   after_action :verify_policy_scoped, only: :index
 
   def index
@@ -31,27 +31,35 @@ class ClosetsController < ApplicationController
   end
 
   def create_step
+    set_categories_and_subcategories
+    Rails.logger.debug "Step: #{params[:step]}"
+    Rails.logger.debug "Closet Params: #{closet_params.inspect}"
+  
     case params[:step]
     when 'step1'
       @closet = Closet.new(closet_params)
-      authorize @closet
+      @closet.user = current_user
+      authorize @closet, :create_step?
       if @closet.valid?
         session[:closet_step1] = closet_params
         redirect_to new_step2_closets_path
       else
+        Rails.logger.debug "Errors: #{@closet.errors.full_messages}"
         render 'closets/new_step1'
       end
     when 'step2'
+      Rails.logger.debug "Session Closet Params: #{session[:closet_step1].inspect}"
       @closet = current_user.closets.new(session[:closet_step1].merge(closet_params))
-      authorize @closet
+      authorize @closet, :create_step?
       if @closet.save
         session.delete(:closet_step1)
         redirect_to @closet, notice: 'Closet was successfully created.'
       else
+        Rails.logger.debug "Errors: #{@closet.errors.full_messages}"
         render 'closets/new_step2'
       end
     end
-  end
+  end  
 
   def edit
     authorize @closet
@@ -75,6 +83,8 @@ class ClosetsController < ApplicationController
 
   def subcategories_for_category
     category_id = params[:category_id]
+    @category = Category.find(category_id)
+    authorize @category, :show?
     subcategories = Subcategory.where(category_id: category_id)
     render json: subcategories
   end

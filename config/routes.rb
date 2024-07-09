@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'
     collection do
       get 'new/step1', to: 'closets#new_step1', as: 'new_step1'
+      get 'new/step2', to: 'closets#new_step2', as: 'new_step2'
       post 'create/step', to: 'closets#create_step', as: 'create_step'
     end
   end

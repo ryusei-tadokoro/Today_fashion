@@ -7,6 +7,10 @@ class ClosetPolicy < ApplicationPolicy
     user.present?
   end
 
+  def create_step?
+    create?
+  end
+
   def update?
     user.present? && user.id == record.user_id
   end
