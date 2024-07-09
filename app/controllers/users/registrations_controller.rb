@@ -1,4 +1,3 @@
-# app/controllers/users/registrations_controller.rb
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :set_prefectures, only: %i[new create edit update]
@@ -50,7 +49,7 @@ module Users
       @user = current_user
     end
 
-    def destroy
+    def destroy_account
       @user = current_user
       @user.destroy
       redirect_to root_path, notice: 'Account successfully deleted.'

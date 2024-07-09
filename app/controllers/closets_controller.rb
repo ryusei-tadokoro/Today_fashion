@@ -5,7 +5,6 @@ class ClosetsController < ApplicationController
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
-  # GET /closets or /closets.json
   def index
     if user_signed_in?
       @user = current_user
@@ -15,7 +14,6 @@ class ClosetsController < ApplicationController
     end
   end
 
-  # GET /closets/1 or /closets/1.json
   def show
     authorize @closet
   end
@@ -27,31 +25,38 @@ class ClosetsController < ApplicationController
   end
 
   def new_step2
-    @closet = Closet.new(closet_params)
+    @closet = Closet.new(session[:closet_step1])
+    authorize @closet
     render 'closets/new_step2'
   end
 
   def create_step
-    if params[:step] == 'step1'
+    case params[:step]
+    when 'step1'
       @closet = Closet.new(closet_params)
-      render 'closets/new_step2'
-    elsif params[:step] == 'step2'
-      @closet = current_user.closets.new(closet_params)
       authorize @closet
-      if @closet.save
-        redirect_to @closet, notice: 'Closet was successfully created.'
+      if @closet.valid?
+        session[:closet_step1] = closet_params
+        redirect_to new_step2_closets_path
       else
         render 'closets/new_step1'
+      end
+    when 'step2'
+      @closet = current_user.closets.new(session[:closet_step1].merge(closet_params))
+      authorize @closet
+      if @closet.save
+        session.delete(:closet_step1)
+        redirect_to @closet, notice: 'Closet was successfully created.'
+      else
+        render 'closets/new_step2'
       end
     end
   end
 
-  # GET /closets/1/edit
   def edit
     authorize @closet
   end
 
-  # PATCH/PUT /closets/1 or /closets/1.json
   def update
     authorize @closet
     update_params = closet_update_params
@@ -62,7 +67,6 @@ class ClosetsController < ApplicationController
     end
   end
 
-  # DELETE /closets/1 or /closets/1.json
   def destroy
     authorize @closet
     @closet.destroy

@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get 'users/sign_up/:step', to: 'users/registrations#new', as: :new_user_registration_step
     post 'users/sign_up/:step', to: 'users/registrations#create'
+    get 'users/cancel_account', to: 'users/registrations#cancel_account', as: :cancel_account_user
+    delete 'users/destroy_account', to: 'users/registrations#destroy_account'
   end
 
   authenticated :user do
