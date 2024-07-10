@@ -26,3 +26,22 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 });
+
+function loadSubcategories(categoryId) {
+  fetch(`/closets/subcategories_for_category/${categoryId}`)
+    .then(response => response.json())
+    .then(data => {
+      const subcategorySelect = document.getElementById("closet_subcategory_id");
+      subcategorySelect.innerHTML = '<option value="">選択してください</option>';
+      data.forEach(subcategory => {
+        const option = document.createElement("option");
+        option.value = subcategory.id;
+        option.text = subcategory.name;
+        subcategorySelect.appendChild(option);
+      });
+      subcategorySelect.disabled = false;
+    })
+    .catch(error => console.error("Error fetching subcategories:", error));
+}
+
+window.loadSubcategories = loadSubcategories; // グローバルスコープに追加

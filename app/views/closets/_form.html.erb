@@ -32,12 +32,12 @@
 
       <div class="mb-3">
         <%= f.label :category_id, t('activerecord.attributes.closet.category_id'), class: 'form-label' %>
-        <%= f.collection_select :category_id, @categories, :id, :name, {}, { class: 'form-control' } %>
+        <%= f.collection_select :category_id, @categories, :id, :name, {}, { class: 'form-control', onchange: 'loadSubcategories(this.value)' } %>
       </div>
 
       <div class="mb-3">
         <%= f.label :subcategory_id, t('activerecord.attributes.closet.subcategory_id'), class: 'form-label' %>
-        <%= f.collection_select :subcategory_id, @subcategories, :id, :name, {}, { class: 'form-control', disabled: true } %>
+        <%= f.collection_select :subcategory_id, @subcategories, :id, :name, {}, { class: 'form-control' } %>
       </div>
     </div>
 
