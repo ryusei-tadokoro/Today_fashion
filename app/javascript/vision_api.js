@@ -17,8 +17,7 @@ export default function visionAPI() {
       }
     })
     .done(function(data) {
-      const translatedName = `${data.name} (${data.translated_name})`;
-      $('#closet_name').val(translatedName);
+      $('#closet_name').val(data.translated_name);
       $('#closet_name').css('background-color', 'lightgreen');
     })
     .fail(function() {
