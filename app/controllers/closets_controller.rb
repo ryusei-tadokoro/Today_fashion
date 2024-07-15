@@ -1,10 +1,11 @@
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
-  before_action :set_categories_and_subcategories, only: %i[new_step1 new_step2 edit]
+  before_action :set_categories_and_subcategories, only: %i[new edit]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: %i[index subcategories_for_category]
+  after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
 
+  # GET /closets or /closets.json
   def index
     if user_signed_in?
       @user = current_user
@@ -14,57 +15,39 @@ class ClosetsController < ApplicationController
     end
   end
 
+  # GET /closets/1 or /closets/1.json
   def show
     authorize @closet
   end
 
-  def new_step1
+  # GET /closets/new
+  def new
     @closet = Closet.new
     authorize @closet
-    render 'closets/new_step1'
   end
 
-  def new_step2
-    @closet = Closet.new(session[:closet_step1])
-    authorize @closet
-    render 'closets/new_step2'
-  end
-
-  def create_step
-    set_categories_and_subcategories
-    Rails.logger.debug "Step: #{params[:step]}"
-    Rails.logger.debug "Closet Params: #{closet_params.inspect}"
-  
-    case params[:step]
-    when 'step1'
-      @closet = Closet.new(closet_params)
-      @closet.user = current_user
-      authorize @closet, :create_step?
-      if @closet.valid?
-        session[:closet_step1] = closet_params
-        redirect_to new_step2_closets_path
-      else
-        Rails.logger.debug "Errors: #{@closet.errors.full_messages}"
-        render 'closets/new_step1'
-      end
-    when 'step2'
-      Rails.logger.debug "Session Closet Params: #{session[:closet_step1].inspect}"
-      @closet = current_user.closets.new(session[:closet_step1].merge(closet_params))
-      authorize @closet, :create_step?
-      if @closet.save
-        session.delete(:closet_step1)
-        redirect_to @closet, notice: 'Closet was successfully created.'
-      else
-        Rails.logger.debug "Errors: #{@closet.errors.full_messages}"
-        render 'closets/new_step2'
-      end
-    end
-  end  
-
+  # GET /closets/1/edit
   def edit
     authorize @closet
   end
 
+  # POST /closets or /closets.json
+  def create
+    @closet = current_user.closets.new(closet_params)
+    authorize @closet
+    respond_to do |format|
+      if @closet.save
+        format.html { redirect_to closet_url(@closet), notice: t('.success') }
+        format.json { render :show, status: :created, location: @closet }
+      else
+        set_categories_and_subcategories
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @closet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /closets/1 or /closets/1.json
   def update
     authorize @closet
     update_params = closet_update_params
@@ -75,6 +58,7 @@ class ClosetsController < ApplicationController
     end
   end
 
+  # DELETE /closets/1 or /closets/1.json
   def destroy
     authorize @closet
     @closet.destroy
@@ -83,8 +67,6 @@ class ClosetsController < ApplicationController
 
   def subcategories_for_category
     category_id = params[:category_id]
-    @category = Category.find(category_id)
-    authorize @category, :show?
     subcategories = Subcategory.where(category_id: category_id)
     render json: subcategories
   end
@@ -103,8 +85,8 @@ class ClosetsController < ApplicationController
   def closet_update_params
     params.require(:closet).permit(
       :name, :category_id, :subcategory_id, :purchase_date, :size, :color,
-      :purchase_location, :price, :usage_frequency, :season, :other_comments
-    ).merge(image: params[:closet][:image].presence || @closet.image)
+      :purchase_location, :price, :usage_frequency, :season, :other_comments, :image
+    )
   end
 
   def set_categories_and_subcategories

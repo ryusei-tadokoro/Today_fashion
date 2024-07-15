@@ -1,14 +1,12 @@
+import Rails from "@rails/ujs";
+Rails.start();
+
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import Rails from "@rails/ujs";
 import $ from 'jquery';
 import 'bootstrap';
 import './scripts.js';
 import './closet_form.js';
-
-if (!Rails.started) {
-  Rails.start();
-}
 
 window.$ = $;
 window.jQuery = $;

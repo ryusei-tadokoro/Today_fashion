@@ -52,20 +52,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  function updateImage(input) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      document.getElementById('preview-image').src = e.target.result;
-    };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-
-  function removeImage() {
-    document.getElementById('preview-image').src = '';
-    document.getElementById('image-upload').value = '';
-  }
-</script>

@@ -39,7 +39,7 @@ module Users
 
       if update_resource(@user, user_params)
         bypass_sign_in(@user)
-        redirect_to root_path, notice: 'Account successfully updated.'
+        redirect_to root_path, notice: 'アカウントを更新しました.'
       else
         render :edit
       end
@@ -52,7 +52,7 @@ module Users
     def destroy_account
       @user = current_user
       @user.destroy
-      redirect_to root_path, notice: 'Account successfully deleted.'
+      redirect_to root_path, notice: 'アカウントは削除されました.またのご利用をお待ちしております。'
     end
 
     protected
