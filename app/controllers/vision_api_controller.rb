@@ -18,7 +18,11 @@ class VisionApiController < ApplicationController
     # レスポンスから最初のラベルの説明を取得
     if response.responses.any? && response.responses.first.label_annotations.any?
       first_label = response.responses.first.label_annotations.first.description
-      @label_data = { name: first_label }
+
+      # Deepl翻訳機能を使用してラベルを翻訳
+      translated_label = DeeplTranslator.new(first_label, 'JA').translate
+
+      @label_data = { name: first_label, translated_name: translated_label }
     end
 
     # JSON形式でレスポンスを返す

@@ -16,11 +16,12 @@ export default function visionAPI() {
         'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
       }
     })
-    .done(function(data){
-      $('#closet_name').val(data.name);
+    .done(function(data) {
+      const translatedName = `${data.name} (${data.translated_name})`;
+      $('#closet_name').val(translatedName);
       $('#closet_name').css('background-color', 'lightgreen');
     })
-    .fail(function(){
+    .fail(function() {
       alert('画像の読み込みに失敗しました');
     });
   });
