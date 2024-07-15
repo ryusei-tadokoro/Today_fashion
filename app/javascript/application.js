@@ -1,12 +1,14 @@
-import Rails from "@rails/ujs";
-Rails.start();
+// app/javascript/application.js
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-import $ from 'jquery';
-import 'bootstrap';
-import './scripts.js';
-import './closet_form.js';
+import Rails from "@rails/ujs";
+import $ from "jquery";
+import "bootstrap";
+import "./scripts"; // scripts.js
+import "./closet_form"; // closet_form.js
+
+Rails.start();
 
 window.$ = $;
 window.jQuery = $;
@@ -20,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 
   if (document.URL.match(/new/)) {
-    import(/* webpackChunkName: "vision_api" */ './vision_api.js').then(module => {
+    import(/* webpackChunkName: "vision_api" */ './vision_api').then(module => {
       const visionAPI = module.default;
       visionAPI();
     });
