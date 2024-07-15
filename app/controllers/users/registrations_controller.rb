@@ -21,7 +21,7 @@ module Users
         if @step == 'step2'
           @user.save
           sign_in(@user)
-          redirect_to root_path, notice: 'Successfully registered.'
+          redirect_to root_path, notice: 'アカウント登録完了しました。さあ！始めよう!!'
         else
           redirect_to new_user_registration_step_path(step: next_step(@step))
         end
@@ -49,10 +49,13 @@ module Users
       @user = current_user
     end
 
-    def destroy_account
+    def destroy
       @user = current_user
-      @user.destroy
-      redirect_to root_path, notice: 'アカウントは削除されました.またのご利用をお待ちしております。'
+      if @user.destroy
+        redirect_to root_path, notice: 'アカウントは削除されました。'
+      else
+        redirect_to cancel_account_user_path, alert: 'アカウント削除に失敗しました。'
+      end
     end
 
     protected
