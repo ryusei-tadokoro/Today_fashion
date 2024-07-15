@@ -58,3 +58,4 @@ gem 'aws-sdk-s3', require: false
 gem 'memory_profiler'
 gem 'pundit'
 gem 'jsbundling-rails'
+gem "meta-tags"
