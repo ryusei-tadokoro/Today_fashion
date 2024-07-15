@@ -53,6 +53,5 @@ document.addEventListener("DOMContentLoaded", function() {
   // ここでjQueryのオブジェクトに対して$.eachを使用します。
   $('[data-refresh-csrf]').each(function() {
     var element = $(this);
-    // 必要な処理をここに追加します
   });
 });
