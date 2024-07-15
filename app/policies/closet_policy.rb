@@ -3,12 +3,12 @@ class ClosetPolicy < ApplicationPolicy
     user.present? && user.id == record.user_id
   end
 
-  def new?
+  def create?
     user.present?
   end
 
-  def create?
-    user.present?
+  def create_step?
+    create?
   end
 
   def update?
@@ -21,6 +21,14 @@ class ClosetPolicy < ApplicationPolicy
 
   def destroy?
     user.present? && user.id == record.user_id
+  end
+
+  def new_step1?
+    user.present?
+  end
+
+  def new_step2?
+    user.present?
   end
 
   class Scope < ApplicationPolicy::Scope

@@ -13,5 +13,6 @@ build({
     '.js': 'jsx'
   },
   external: ['core-js/stable', 'regenerator-runtime/runtime'],
-  plugins: []
+  plugins: [],
+  sourcemap: false // ソースマップの生成を無効にします
 }).catch(() => process.exit(1));

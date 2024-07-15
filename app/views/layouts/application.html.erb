@@ -22,9 +22,6 @@
 
   <body>
     <div class="d-flex flex-column vh-100">
-      <% flash.each do |key, message| %>
-        <div class="alert alert-<%= key %>"><%= message %></div>
-      <% end %>
       <% if user_signed_in? %>
         <%= render 'shared/header' %> 
         <div class="container flex-grow-1" style="padding-top: 90px;">

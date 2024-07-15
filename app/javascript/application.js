@@ -1,8 +1,12 @@
+import Rails from "@rails/ujs";
+Rails.start();
+
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import $ from 'jquery';
 import 'bootstrap';
-import('./scripts.js');
+import './scripts.js';
+import './closet_form.js';
 
 window.$ = $;
 window.jQuery = $;
@@ -25,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
   function previewImage(input) {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
-      
+
       reader.onload = function (e) {
         $('#preview-image').attr('src', e.target.result);
       }
-      
+
       reader.readAsDataURL(input.files[0]);
     }
   }
@@ -44,5 +48,10 @@ document.addEventListener("DOMContentLoaded", function() {
     headers: {
       'X-CSRF-Token': token
     }
+  });
+
+  // ここでjQueryのオブジェクトに対して$.eachを使用します。
+  $('[data-refresh-csrf]').each(function() {
+    var element = $(this);
   });
 });

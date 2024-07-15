@@ -91,4 +91,6 @@ Rails.application.configure do
   config.hosts << "https://www.todayfashion.jp"
 
   config.reset_password_within = 1.hour
+  config.assets.debug = true
+  config.assets.compile = true
 end

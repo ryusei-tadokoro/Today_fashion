@@ -1,65 +1,54 @@
-<h2><%= t('edit_user.title') %></h2>
+<!-- app/views/devise/registrations/edit.html.erb -->
+<div class="container-fluid light-blue-container p-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h2 class="mb-4"><%= t('edit_user.title') %></h2>
+      <%= form_with(model: @user, url: registration_path(resource_name), local: true, html: { class: 'needs-validation', novalidate: true }) do |f| %>
+        <%= render "shared/error_messages", resource: @user %>
 
-<%= form_with(model: resource, url: registration_path(resource_name), local: true) do |f| %>
-  <%= render "shared/error_messages", resource: resource %>
+        <div class="form-group">
+          <%= f.label :image, class: 'form-label' %><br/>
+          <%= f.file_field :image, id: "image-upload", onchange: "updateImage(this);", class: 'form-control' %>
+          <% if @user.image? %>
+            <%= image_tag @user.image.url, class: 'icon_image', id: 'preview-image' %>
+          <% else %>
+            <%= image_tag 'default_image.png', class: 'icon_image', alt: 'Default Image', id: 'preview-image' %>
+          <% end %>
+        </div><br />
 
-  <div class="field">
-    <%= f.label :image %><br/>
-    <%= f.file_field :image, id: "image-upload", onchange: "updateImage(this);" %>
-    <% if resource.image? %>
-      <%= image_tag resource.image.url, class: 'icon_image', id: 'preview-image' %>
-    <% else %>
-      <%= image_tag 'default_image.png', class: 'icon_image', alt: 'Default Image', id: 'preview-image' %>
-    <% end %>
-  </div><br />
+        <div class="form-group">
+          <%= f.label :name, class: 'form-label' %><br />
+          <%= f.text_field :name, class: 'form-control' %>
+        </div><br />
 
+        <div class="form-group">
+          <%= f.label :prefecture_id, class: 'form-label' %><br />
+          <%= f.collection_select :prefecture_id, @prefectures, :id, :name, { prompt: '選択してください' }, { class: 'form-select' } %>
+        </div><br />
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div><br />
+        <div class="form-group">
+          <%= f.label :second_prefecture_id, class: 'form-label' %><br />
+          <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, { prompt: '選択してください' }, { class: 'form-select' } %>
+        </div><br />
 
-  <div class="field">
-    <%= f.label :prefecture_id %><br />
-    <%= f.collection_select :prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
-  </div><br />
+        <div class="form-group">
+          <%= f.label :constitution_id, class: 'form-label' %><br />
+          <%= f.collection_select :constitution_id, @constitutions, :id, :name, { prompt: '選択してください' }, { class: 'form-select' } %>
+        </div><br />
 
-  <div class="field">
-    <%= f.label :second_prefecture_id %><br />
-    <%= f.collection_select :second_prefecture_id, @prefectures, :id, :name, prompt: '選択してください' %>
-  </div><br />
+        <div class="form-group">
+          <%= f.submit t('edit_user.update'), class: 'btn btn-primary' %>
+        </div><br />
+      <% end %>
 
-  <div class="field">
-    <%= f.label :constitution_id %><br />
-    <%= f.collection_select :constitution_id, @constitutions, :id, :name, prompt: '選択してください' %>
-  </div><br />
+      <h3 class="mt-4"><%= t('edit_user.cancel_account') %></h3><br />
 
-  <div class="actions">
-    <%= f.submit t('edit_user.update') %>
-  </div><br />
-<% end %>
+      <div><%= t('edit_user.unhappy') %> </br>
+        <%= link_to t('edit_user.cancel_account_button'), cancel_account_user_path, class: 'btn btn-danger' %>
+      </div>
+      <br />
 
-<script>
-  function updateImage(input) {
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-      document.getElementById('preview-image').src = e.target.result;
-    };
-
-    reader.readAsDataURL(input.files[0]);
-  }
-
-  function removeImage() {
-    document.getElementById('preview-image').src = '';
-    document.getElementById('image-upload').value = '';
-  }
-</script>
-
-<h3><%= t('edit_user.cancel_account') %></h3><br />
-
-<div><%= t('edit_user.unhappy') %> <%= button_to t('edit_user.cancel_account_button'), registration_path(resource_name), data: { confirm: t('edit_user.confirmation_message'), turbo_confirm: t('edit_user.confirmation_message') }, method: :delete %></div>
-<br />
-
-<%= link_to "トップページへ戻る", root_path, class: 'nav-item' %>
-
+      <%= link_to "トップページへ戻る", root_path, class: 'btn btn-secondary' %>
+    </div>
+  </div>
+</div>

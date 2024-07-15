@@ -1,0 +1,15 @@
+<!-- app/views/users/registrations/cancel_account.html.erb -->
+<div class="container-fluid light-blue-container p-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2 text-center">
+      <h1>本当にアカウント削除しますか？</h1>
+      <p>
+        アカウント削除すると、会員登録情報や<br>
+        これまでの登録した服が閲覧できなくなり、完全に削除されます。<br>
+        アカウント削除する場合は、「アカウント削除する」をクリックしてください。
+      </p>
+      <%= link_to "アカウント削除しない", edit_user_registration_path, class: "btn btn-primary ms-3" %>
+      <%= link_to "アカウント削除する", users_destroy_account_path, method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-danger ms-3" %>
+    </div>
+  </div>
+</div>
