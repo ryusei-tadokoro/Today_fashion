@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全国の天気と服装指数</title>
+  <script src="https://yugokimura.github.io/jmap/dist/jmap.min.js"></script>
+  <link rel="stylesheet" href="https://yugokimura.github.io/jmap/dist/jmap.min.css">
+</head>
+<body>
+  <div id="jmap" style="width: 100%; height: 90vh;"></div>
+  <%= javascript_include_tag 'application' %>
+  <script>
+    window.PREFECTURES = <%= @prefectures.to_json %>;
+  </script>
+</body>
+</html>
+

@@ -11,3 +11,4 @@
 //= link todayfashion-icon.png
 //= link favicon.ico
 //= link_tree ../builds
+//= link japan_map.js

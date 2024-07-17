@@ -11,7 +11,7 @@
             <%= form.select :city, options_for_select(@prefecture_data), prompt: "都道府県を選択してください" %>
             <%= form.submit "天気を検索" %>
           <% end %>
-        <% end %>
+          <% end %>
         
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
               <% if user_signed_in? && current_user.image? %>
@@ -43,6 +43,9 @@
                     </li>
                     <li class="nav-item">
                       <%= link_to "マイ クローゼット", closets_path, class: "dropdown-item" %>
+                    </li>
+                    <li class="nav-item">
+                      <%= link_to "日本地図で天気確認", map_weather_path, class: "dropdown-item" %>
                     </li>
                     <li class="nav-item">
                       <%= link_to t('nav.log_out'), destroy_user_session_path, class: "dropdown-item", method: :delete if user_signed_in? %>

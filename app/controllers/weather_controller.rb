@@ -1,8 +1,8 @@
 class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
-  before_action :load_prefecture_data, only: [:index]
+  before_action :load_prefecture_data, only: [:index, :map]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: [:index, :show]
+  after_action :verify_authorized, except: [:index, :show, :map]
   after_action :verify_policy_scoped, only: :index
 
   def index
@@ -30,6 +30,10 @@ class WeatherController < ApplicationController
     else
       redirect_to action: :index, alert: '天気情報の取得に失敗しました。'
     end
+  end
+
+  def map
+    @prefectures = Prefecture.all
   end
 
   private
