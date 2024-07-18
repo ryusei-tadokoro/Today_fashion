@@ -1,13 +1,8 @@
-<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-<%= javascript_include_tag 'jquery.japan-map.min.js' %>
 <div id="map-container"></div>
 <script>
-  $(function(){
-    $("#map-container").japanMap({
-      width: 600,
-      onSelect: function(data){
-        alert(data.name);
-      }
-    });
-  });
+var d = new jpmap.japanMap(document.getElementById("my-map"), {
+    onSelect: function(data){
+      alert(data.name);
+  }
+});
 </script>
