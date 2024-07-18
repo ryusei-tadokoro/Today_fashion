@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   get 'home/index'
   get 'weather', to: 'weather#index', as: :weather
   get 'weather/show', to: 'weather#show', as: :show_weather
+  get 'weather/map', to: 'weather#map', as: :map_weather
   get 'privacy_policy', to: 'static_pages#privacy_policy', as: :privacy_policy
   get 'terms_of_service', to: 'static_pages#terms_of_service', as: :terms_of_service
   post 'vision_api/upload', to: 'vision_api#upload'

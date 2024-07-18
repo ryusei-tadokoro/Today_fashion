@@ -1,6 +1,6 @@
 class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
-  before_action :load_prefecture_data, only: [:index]
+  before_action :load_prefecture_data, only: [:index, :map]
   before_action :authenticate_user!
   after_action :verify_authorized, except: [:index, :show]
   after_action :verify_policy_scoped, only: :index
@@ -32,6 +32,11 @@ class WeatherController < ApplicationController
     end
   end
 
+  def map
+    authorize :weather, :map?
+    @map_prefs = Prefecture.all.map { |pref| pref.name }
+  end
+
   private
 
   def validate_city
@@ -58,7 +63,7 @@ class WeatherController < ApplicationController
       humidity: weather_data['main']['humidity'],
       wind_speed: weather_data['wind']['speed'],
       description: weather_data['weather'][0]['description'],
-      rainfall:
+      rainfall: rainfall
     }
   end
 
