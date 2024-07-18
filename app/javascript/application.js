@@ -7,7 +7,6 @@ import "./scripts"; // scripts.js
 import "./closet_form"; // closet_form.js
 import './map';
 
-
 if (typeof Rails !== 'undefined') {
   Rails.start();
 }
