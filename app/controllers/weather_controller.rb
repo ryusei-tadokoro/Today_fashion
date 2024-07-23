@@ -32,6 +32,16 @@ class WeatherController < ApplicationController
     end
   end
 
+  def map
+    city_name = params[:city_name]
+    @weather_data = fetch_weather_data(city_name)
+    if @weather_data
+      authorize @weather_data, policy_class: WeatherDataPolicy
+    else
+      redirect_to action: :index, alert: '天気情報の取得に失敗しました。'
+    end
+  end
+
   private
 
   def validate_city

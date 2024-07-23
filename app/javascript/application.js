@@ -3,8 +3,9 @@ import "regenerator-runtime/runtime";
 import Rails from "@rails/ujs";
 import $ from "jquery";
 import "bootstrap";
-import "./scripts"; // scripts.js
-import "./closet_form"; // closet_form.js
+import "./scripts";
+import "./closet_form";
+import "./jquery.japan-map.js";
 
 if (typeof Rails !== 'undefined') {
   Rails.start();
@@ -20,7 +21,7 @@ $(document).ready(function() {
     flashNotice.remove(); // アラートが表示された後に要素を削除
   }
   if (document.URL.match(/new/)) {
-    import(/* webpackChunkName: "vision_api" */ './vision_api').then(module => {
+    import('./vision_api').then(module => {
       const visionAPI = module.default;
       visionAPI();
     });
