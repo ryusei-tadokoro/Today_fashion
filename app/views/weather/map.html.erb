@@ -2,24 +2,8 @@
 <html>
 <head>
     <title>Japan Map - EXAMPLE 1</title>
-    <!-- jQueryのCDNを追加 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- 開発用または本番用のスクリプトタグを選択して使用 -->
-    <!-- 開発中は非圧縮版を使用 -->
-    <script src="./jquery.japan-map.js"></script>
-    <!-- 本番環境では圧縮版を使用 -->
-    <!-- <script src="./jquery.japan-map.min.js"></script> -->
-    <script>
-        $(function(){
-            $("#map-container").japanMap({
-                onSelect : function(data){
-                    alert(data.name);
-                }
-            });
-        });
-    </script>
 </head>
 <body>
-<div id="map-container"></div>
+    <div id="map-container"></div>
 </body>
 </html>

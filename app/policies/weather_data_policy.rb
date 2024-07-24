@@ -7,7 +7,6 @@ class WeatherDataPolicy
   end
 
   def map?
-    # ここに認可ロジックを実装します。例:
     user.admin? || weather_data['name'] == '新宮市'
   end
 end

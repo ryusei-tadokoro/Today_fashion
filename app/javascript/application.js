@@ -5,7 +5,7 @@ import $ from "jquery";
 import "bootstrap";
 import "./scripts";
 import "./closet_form";
-import "./jquery.japan-map.js";
+import "./jquery.japan-map"; // Ensure jquery.japan-map is after jQuery import
 
 if (typeof Rails !== 'undefined') {
   Rails.start();
@@ -18,7 +18,7 @@ $(document).ready(function() {
   var flashNotice = document.querySelector(".alert");
   if (flashNotice) {
     alert(flashNotice.textContent.trim());
-    flashNotice.remove(); // アラートが表示された後に要素を削除
+    flashNotice.remove(); // Remove element after showing the alert
   }
   if (document.URL.match(/new/)) {
     import('./vision_api').then(module => {
@@ -43,7 +43,7 @@ $(document).ready(function() {
     previewImage(this);
   });
 
-  // CSRFトークンをヘッダーに設定
+  // Set CSRF token in headers
   const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   $.ajaxSetup({
     headers: {
@@ -51,12 +51,6 @@ $(document).ready(function() {
     }
   });
 
-  // ここでjQueryのオブジェクトに対して.eachを使用します。
-  $('[data-refresh-csrf]').each(function() {
-    var element = $(this);
-  });
-
-  // カスタム削除確認ダイアログ
   $('a[data-method="delete"]').each(function(index, element) {
     $(element).on('click', function(event) {
       event.preventDefault();
@@ -86,4 +80,13 @@ $(document).ready(function() {
       }
     });
   });
+
+  // Initialize JapanMap
+  if (document.getElementById("map-container")) {
+    $("#map-container").japanMap({
+      onSelect: function(data) {
+        alert(data.name);
+      }
+    });
+  }
 });
