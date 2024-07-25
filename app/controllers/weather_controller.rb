@@ -32,6 +32,10 @@ class WeatherController < ApplicationController
     end
   end
 
+  def map
+    authorize :weather, :map?
+  end
+
   private
 
   def validate_city

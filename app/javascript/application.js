@@ -5,6 +5,7 @@ import $ from "jquery";
 import "bootstrap";
 import "./scripts"; // scripts.js
 import "./closet_form"; // closet_form.js
+import "./jquery.japan-map"; 
 
 if (typeof Rails !== 'undefined') {
   Rails.start();

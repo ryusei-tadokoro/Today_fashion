@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Japan Map Example</title>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="
+    crossorigin="anonymous"></script>
+  <style>
+    /* 必要に応じてスタイルを追加 */
+    #map-container {
+      width: 100%;
+      height: 600px; /* 適切な高さを指定 */
+    }
+  </style>
+</head>
+<body>
+
+<div id="map-container"></div>
+
+<script>
+  ;(function($){
+    "use strict";
+
+    // Define the prefectures and map data below as per your requirements
+    var definition_of_allJapan = {/* 全日本のデータをここに定義 */};
+    var definition_of_prefectures = {/* 県データをここに定義 */};
+
+    $.fn.japanMap = function(options){
+        var target = $(this);
+
+        for (var option in options)
+            if (options.hasOwnProperty(option) && options[option] == null) options[option] = undefined;
+
+        options = $.extend({
+            type                : "canvas",
+            selection           : "prefecture",
+            width               : null,
+            height              : null,
+            color               : "#a0a0a0",
+            hoverColor          : null,
+            backgroundColor     : "transparent",
+            borderLineColor     : "#ffffff",
+            borderLineWidth     : 0.25,
+            lineColor           : "#a0a0a0",
+            lineWidth           : 1,
+            drawsBoxLine        : true,
+            showsPrefectureName : false,
+            prefectureNameType  : "full",
+            showsAreaName       : false,
+            areaNameType        : "full",
+            areas               : definition_of_allJapan,
+            prefectures         : definition_of_prefectures,
+            movesIslands        : false,
+            font                : "Arial",
+            fontSize            : null,
+            fontColor           : null,
+            fontShadowColor     : null,
+            onSelect            : function(){},
+            onHover             : function(){}
+        }, options);
+
+        var map;
+        map = new MapCanvas(options);
+        target.append(map.element);
+        map.render();
+        map.addEvent();
+
+        return target;
+    };
+
+    // Base Class and other helper functions
+    // (省略していますが、あなたが提供した元のコードをここに含めてください)
+
+    // Add jQuery plugin initialization
+    $(function(){
+        $("#map-container").japanMap({
+            onSelect : function(data){
+                alert(data.name);
+            }
+        });
+    });
+
+  })(jQuery);
+</script>
+
+</body>
+</html>
