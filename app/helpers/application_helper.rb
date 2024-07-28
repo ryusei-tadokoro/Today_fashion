@@ -528,6 +528,29 @@ module ApplicationHelper
     end
   end
 
+  def get_clothing_icons(temperature)
+    case temperature
+    when ...5
+      [image_tag('knitcap_down.png', size: '50x50')]
+    when 5...9
+      [image_tag('down.png', size: '50x50')]
+    when 9...13
+      [image_tag('chester_coat.png', size: '50x50')]
+    when 13...17
+      [image_tag('flight_jacket.png', size: '50x50')]
+    when 17...20
+      [image_tag('cardigan.png', size: '50x50')]
+    when 20...24
+      [image_tag('parker.png', size: '50x50')]
+    when 24...28
+      [image_tag('cloth_longt.png', size: '50x50')]
+    when 28...33
+      [image_tag('fashion_tshirt1_white.png', size: '50x50')]
+    else
+      [image_tag('hat_kankan_T-shirt.png', size: '50x50')]
+    end
+  end
+
   def default_meta_tags
     {
       site: 'TodayFashion',
