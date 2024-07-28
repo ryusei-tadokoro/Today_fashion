@@ -1,3 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Japan Map Example</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+</head>
+<body>
+
 <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
-<script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
-<div id="map-container"></div>
+<div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
+<img class="img-fluid img-small" src="<%= asset_path 'todayfashion-07.png' %>" alt="..." />
+
+</body>
+</html>
