@@ -36,6 +36,10 @@
           fontSize : 12,
           fontColor : "areaColor",
           fontShadowColor : "black",
+          onHover: function(data){
+              var prefectures = data.prefectures ? data.prefectures.join(", ") : "不明";
+              $("#text").text(data.name + " " + prefectures).show();
+          },
           onSelect : function(data){
               var url = showWeatherPath + "?city=" + encodeURIComponent(data.name);
               window.location.href = url;
