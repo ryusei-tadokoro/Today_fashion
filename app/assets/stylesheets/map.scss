@@ -3,6 +3,14 @@
   height: 600px; /* 適切な高さを指定 */
 }
 
+#text {
+  padding: 10px;
+  width: 800px;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  display: none;
+}
+
 .img-small {
   width: 650px; /* 必要なサイズを指定 */
   height: auto;

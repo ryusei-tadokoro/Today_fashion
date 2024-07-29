@@ -37,7 +37,7 @@
           fontColor : "areaColor",
           fontShadowColor : "black",
           onHover: function(data){
-            $("#text").text(data.name ).show();
+            $("#text").text(data.name).css("background-color", data.area.hoverColor).show();
           },
           onSelect : function(data){
               var url = showWeatherPath + "?city=" + encodeURIComponent(data.name);
