@@ -15,3 +15,24 @@
   width: 650px; /* 必要なサイズを指定 */
   height: auto;
 }
+
+.left-column {
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
+
+.right-column {
+  width: 50%;
+  float: left;
+  padding: 10px;
+}
+
+.card-text {
+  font-size: 0.8rem; /* テキストサイズを小さく設定 */
+}
+
+.weather-icon {
+  width: 50px; /* 画像の幅を設定 */
+  height: 50px; /* 画像の高さを設定 */
+}

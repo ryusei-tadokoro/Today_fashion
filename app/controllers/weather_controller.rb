@@ -42,6 +42,14 @@ class WeatherController < ApplicationController
 
   def map
     authorize :weather, :map?
+    prefecture_ids = [1, 4, 13, 23, 15, 26, 34, 39, 40, 46, 47]
+    prefectures = Prefecture.where(id: prefecture_ids)
+  
+    @weather_data = prefectures.map do |prefecture|
+      { name: prefecture.name, weather: fetch_weather_data(prefecture.name) }
+    end
+  
+    flash.now[:alert] = '天気情報の取得に失敗しました。' if @weather_data.any? { |data| data[:weather].nil? }
   end
 
   private
@@ -58,6 +66,11 @@ class WeatherController < ApplicationController
   def fetch_weather_data(city)
     response = WeatherService.new(city).fetch_weather
     response.success? ? response.parsed_response : nil
+  end
+
+  def fetch_temperature(location)
+    # 各都道府県の気温データを取得するロジックをここに記述
+    # 例: WeatherService.get_temperature(location)
   end
 
   def extract_weather_data(weather_data, rainfall)

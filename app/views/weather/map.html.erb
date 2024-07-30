@@ -7,20 +7,41 @@
 </head>
 <body>
 
-<p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
-<div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
-<p id="text"></p>
-<div style='display: flex; flex-wrap: wrap;'>
-  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+<div class="left-column">
+  <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
+  <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
+  <p id="text"></p>
+  <div style='display: flex; flex-wrap: wrap;'>
+    <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+  </div>
 </div>
 
-<div style='display: flex; flex-wrap: wrap;'>
-  <p>服装指数:</p>
-  <% if @weather %>
-    <%= get_clothing_icons(@weather[:temp_celsius], current_user.constitution_id).join(' ').html_safe %>
-  <% else %>
-    <p>天気情報が利用できません。</p>
-  <% end %>
+<div class="right-column">
+  <div class="container">
+    <div class="row">
+      <% @weather_data.each do |data| %>
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h9 class="card-title"><%= data[:name] %></h9>
+              <% if data[:weather] %>
+                <p class="card-text">気温: <%= kelvin_to_celsius(data[:weather]['main']['temp_max']).round(1) %> °C / <%= kelvin_to_celsius(data[:weather]['main']['temp_min']).round(1) %> °C</p>
+                <p class="card-text">湿度: <%= data[:weather]['main']['humidity'] %> %</p>
+                <p class="card-text">風速: <%= data[:weather]['wind']['speed'] %> m/s</p>
+                <p class="card-text">天気: <%= data[:weather]['weather'][0]['description'] %></p>
+                <img src="https://openweathermap.org/img/wn/<%= data[:weather]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="card-img-bottom weather-icon">
+                <% if data[:weather]['rain'] && data[:weather]['rain']['1h'] %>
+                  <p class="card-text">降水量: <%= data[:weather]['rain']['1h'] %> mm</p>
+                <% end %>
+              <% else %>
+                <p class="card-text">天気情報の取得に失敗しました。</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 </body>
