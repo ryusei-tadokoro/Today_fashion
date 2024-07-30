@@ -10,8 +10,18 @@
 <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
 <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
 <p id="text"></p>
-<img class="img-fluid img-small" src="<%= asset_path 'todayfashion-07.png' %>" alt="...">
+<div style='display: flex; flex-wrap: wrap;'>
+  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+</div>
 
+<div style='display: flex; flex-wrap: wrap;'>
+  <p>服装指数:</p>
+  <% if @weather %>
+    <%= get_clothing_icons(@weather[:temp_celsius], current_user.constitution_id).join(' ').html_safe %>
+  <% else %>
+    <p>天気情報が利用できません。</p>
+  <% end %>
+</div>
 
 </body>
 </html>

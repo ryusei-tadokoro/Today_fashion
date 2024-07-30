@@ -8,7 +8,6 @@
 //= link todayfashion-03.png
 //= link todayfashion-04.png
 //= link todayfashion-05.png
-//= link todayfashion-07.png
 //= link todayfashion-icon.png
 //= link favicon.ico
 //= link_tree ../builds

@@ -464,6 +464,25 @@ module ApplicationHelper
     end.compact
   end
 
+  def clothing_index(constitution_id)
+    clothing_index_tag = []
+    case constitution_id
+    when 1 # 暑がり
+      clothing_index_tag << image_tag('clothing_index1.png')
+    when 2 # やや暑がり
+      clothing_index_tag << image_tag('clothing_index2.png')
+    when 3 # 標準
+      clothing_index_tag << image_tag('clothing_index3.png')
+    when 4 # やや寒がり
+      clothing_index_tag << image_tag('clothing_index4.png')
+    when 5 # 寒がり
+      clothing_index_tag << image_tag('clothing_index5.png')
+    else
+      clothing_index_tag << '**新規登録またはログインを行い,体質設定を行なってください**'
+    end
+    clothing_index_tag
+  end
+
   def get_clothing_icons(temperature, constitution_id)
     icon_tag = []
     case constitution_id
@@ -573,6 +592,7 @@ module ApplicationHelper
 
     icon_tag
   end
+
 
   private
 
