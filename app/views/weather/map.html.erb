@@ -20,7 +20,7 @@
   <div class="container">
     <div class="row">
       <% @weather_data.each do |data| %>
-        <div class="col-md-4 mb-4">
+        <div class="col-md-2 mb-2">
           <div class="card">
             <div class="card-body">
               <h9 class="card-title"><%= data[:name] %></h9>
@@ -36,6 +36,10 @@
               <% else %>
                 <p class="card-text">天気情報の取得に失敗しました。</p>
               <% end %>
+              <% temp_celsius = kelvin_to_celsius(data[:weather]['main']['temp_max']).round(1) %>
+              <p class="card-text">
+                <%= get_clothing_icons(temp_celsius, current_user.constitution_id).join(' ').html_safe %>
+              </p>
             </div>
           </div>
         </div>
