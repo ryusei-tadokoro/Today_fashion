@@ -46,10 +46,14 @@ class WeatherController < ApplicationController
     prefectures = Prefecture.where(id: prefecture_ids)
   
     @weather_data = prefectures.map do |prefecture|
-      { name: prefecture.name, weather: fetch_weather_data(prefecture.name) }
+      weather = fetch_weather_data(prefecture.name)
+      forecasts = weather.present? && weather['list'].present? ? weather['list'].select { |forecast| Time.at(forecast['dt']) <= Time.now + 24.hours } : []
+      { name: prefecture.name, weather: weather, forecasts: forecasts }
     end
   
-    flash.now[:alert] = '天気情報の取得に失敗しました。' if @weather_data.any? { |data| data[:weather].nil? }
+    if @weather_data.any? { |data| data[:weather].nil? }
+      flash.now[:alert] = '一部の天気情報の取得に失敗しました。'
+    end
   end
 
   private
@@ -94,6 +98,16 @@ class WeatherController < ApplicationController
 
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15
+  end
+
+  def fetch_weather_data(city_name)
+    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast", query: { q: city_name, appid: ENV['WEATHER_API_KEY'], units: 'metric', lang: 'ja' })
+    if response.success?
+      response.parsed_response
+    else
+      Rails.logger.error "Failed to fetch weather data for #{city_name}: #{response.message}"
+      nil
+    end
   end
 
   def send_line_notification(message)

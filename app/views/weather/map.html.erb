@@ -20,26 +20,37 @@
   <div class="container">
     <div class="row">
       <% @weather_data.each do |data| %>
-        <div class="col-md-2 mb-2">
+        <div class="col-md-12 mb-2">
           <div class="card">
-            <div class="card-body">
-              <h9 class="card-title"><%= data[:name] %></h9>
-              <% if data[:weather] %>
-                <p class="card-text">気温: <%= kelvin_to_celsius(data[:weather]['main']['temp_max']).round(1) %> °C / <%= kelvin_to_celsius(data[:weather]['main']['temp_min']).round(1) %> °C</p>
-                <p class="card-text">湿度: <%= data[:weather]['main']['humidity'] %> %</p>
-                <p class="card-text">風速: <%= data[:weather]['wind']['speed'] %> m/s</p>
-                <p class="card-text">天気: <%= data[:weather]['weather'][0]['description'] %></p>
-                <img src="https://openweathermap.org/img/wn/<%= data[:weather]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="card-img-bottom weather-icon">
-                <% if data[:weather]['rain'] && data[:weather]['rain']['1h'] %>
-                  <p class="card-text">降水量: <%= data[:weather]['rain']['1h'] %> mm</p>
-                <% end %>
+            <div class="card-header py-1">
+              <h6 class="card-title mb-0" style="font-size: 0.9rem;"><%= data[:name] %></h6> <!-- タイトルのサイズを小さく -->
+            </div>
+            <div class="card-body p-1"> <!-- パディングを小さく -->
+              <% if data[:weather] && data[:weather]['list'] %>
+                <% current_time = Time.now %>
+                <% forecasts = data[:weather]['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
+                <div class="row flex-nowrap overflow-auto">
+                  <% forecasts.each do |forecast| %>
+                    <div class="col-md-3 mb-1" style="flex: 0 0 auto;">
+                      <div class="card">
+                        <div class="card-body p-1"> <!-- パディングを小さく -->
+                          <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
+                          <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="img-fluid" style="width: 40px; height: 40px;"> <!-- 画像のサイズを小さく -->
+                          <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
+                            <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p> <!-- テキストサイズを小さく -->
+                          <% end %>
+                          <div style='display: flex; flex-wrap: wrap;'>
+                            <p style="font-size: 0.7rem;">服装指数:</p> <!-- テキストサイズを小さく -->
+                            <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
               <% else %>
-                <p class="card-text">天気情報の取得に失敗しました。</p>
+                <p>天気情報が取得できませんでした。</p>
               <% end %>
-              <% temp_celsius = kelvin_to_celsius(data[:weather]['main']['temp_max']).round(1) %>
-              <p class="card-text">
-                <%= get_clothing_icons(temp_celsius, current_user.constitution_id).join(' ').html_safe %>
-              </p>
             </div>
           </div>
         </div>
