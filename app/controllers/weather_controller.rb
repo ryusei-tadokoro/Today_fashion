@@ -13,8 +13,8 @@ class WeatherController < ApplicationController
     default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
     second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
 
-    @weather_data = fetch_weather_service_data(default_city)
-    @second_weather_data = fetch_weather_service_data(second_city)
+    @weather_data = fetch_weather_api_data(default_city)
+    @second_weather_data = fetch_weather_api_data(second_city)
 
     flash.now[:alert] = '天気情報の取得に失敗しました。' unless @weather_data || @second_weather_data
   end
@@ -67,7 +67,6 @@ class WeatherController < ApplicationController
 
   def fetch_weather_api_data(city_name)
     api_key = Rails.application.credentials.dig(:openweathermap, :api_key)
-    Rails.logger.debug "Using API Key: #{api_key}"
     response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast", query: { q: city_name, appid: api_key, units: 'metric', lang: 'ja' })
     if response.success?
       response.parsed_response
@@ -76,7 +75,6 @@ class WeatherController < ApplicationController
       nil
     end
   end
-  
 
   def fetch_temperature(location)
   end
