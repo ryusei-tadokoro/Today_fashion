@@ -20,14 +20,7 @@ class WeatherController < ApplicationController
   end
 
   def show
-    user_prefecture_id = current_user&.prefecture_id
-    user_second_prefecture_id = current_user&.second_prefecture_id
-  
-    default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
-    second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
-  
     @weather_data = fetch_weather_service_data(params[:city] || default_city)
-    @second_weather_data = fetch_weather_service_data(second_city)
   
     if @weather_data
       rainfall = @weather_data.dig('rain', '1h') || @weather_data.dig('rain', '3h') || 0
