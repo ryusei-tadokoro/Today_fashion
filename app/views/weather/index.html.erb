@@ -82,3 +82,8 @@
 <% else %>
   <p>天気情報がありません。</p>
 <% end %></br>
+
+
+<div style='display: flex; flex-wrap: wrap;'>
+  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+</div>

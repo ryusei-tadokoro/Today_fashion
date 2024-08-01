@@ -23,9 +23,9 @@
         <div class="col-md-12 mb-2">
           <div class="card">
             <div class="card-header py-1">
-              <h6 class="card-title mb-0" style="font-size: 0.9rem;"><%= data[:name] %></h6> <!-- タイトルのサイズを小さく -->
+              <h6 class="card-title mb-0" style="font-size: 0.9rem;"><%= data[:name] %></h6> 
             </div>
-            <div class="card-body p-1"> <!-- パディングを小さく -->
+            <div class="card-body p-1"> 
               <% if data[:weather] && data[:weather]['list'] %>
                 <% current_time = Time.now %>
                 <% forecasts = data[:weather]['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
@@ -33,14 +33,14 @@
                   <% forecasts.each do |forecast| %>
                     <div class="col-md-3 mb-1" style="flex: 0 0 auto;">
                       <div class="card">
-                        <div class="card-body p-1"> <!-- パディングを小さく -->
+                        <div class="card-body p-1"> 
                           <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
                           <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="img-fluid" style="width: 40px; height: 40px;"> <!-- 画像のサイズを小さく -->
                           <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
-                            <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p> <!-- テキストサイズを小さく -->
+                            <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p> 
                           <% end %>
                           <div style='display: flex; flex-wrap: wrap;'>
-                            <p style="font-size: 0.7rem;">服装指数:</p> <!-- テキストサイズを小さく -->
+                            <p style="font-size: 0.7rem;">服装指数:</p>
                             <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
                           </div>
                         </div>

@@ -13,8 +13,8 @@ class WeatherController < ApplicationController
     default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
     second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
 
-    @weather_data = fetch_weather_data(default_city)
-    @second_weather_data = fetch_weather_data(second_city)
+    @weather_data = fetch_weather_service_data(default_city)
+    @second_weather_data = fetch_weather_service_data(second_city)
 
     flash.now[:alert] = '天気情報の取得に失敗しました。' unless @weather_data || @second_weather_data
   end
@@ -26,8 +26,8 @@ class WeatherController < ApplicationController
     default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
     second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
   
-    @weather_data = fetch_weather_data(params[:city] || default_city)
-    @second_weather_data = fetch_weather_data(second_city)
+    @weather_data = fetch_weather_service_data(params[:city] || default_city)
+    @second_weather_data = fetch_weather_service_data(second_city)
   
     if @weather_data
       rainfall = @weather_data.dig('rain', '1h') || @weather_data.dig('rain', '3h') || 0
@@ -46,7 +46,7 @@ class WeatherController < ApplicationController
     prefectures = Prefecture.where(id: prefecture_ids)
   
     @weather_data = prefectures.map do |prefecture|
-      weather = fetch_weather_data(prefecture.name)
+      weather = fetch_weather_api_data(prefecture.name)
       forecasts = weather.present? && weather['list'].present? ? weather['list'].select { |forecast| Time.at(forecast['dt']) <= Time.now + 24.hours } : []
       { name: prefecture.name, weather: weather, forecasts: forecasts }
     end
@@ -67,14 +67,25 @@ class WeatherController < ApplicationController
     @prefecture_data = CSV.read(csv_path, headers: true).map { |row| [row['prefecture'], row['english']] }
   end
 
-  def fetch_weather_data(city)
+  def fetch_weather_service_data(city)
     response = WeatherService.new(city).fetch_weather
     response.success? ? response.parsed_response : nil
   end
 
+  def fetch_weather_api_data(city_name)
+    api_key = Rails.application.credentials.dig(:openweathermap, :api_key)
+    Rails.logger.debug "Using API Key: #{api_key}"
+    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast", query: { q: city_name, appid: api_key, units: 'metric', lang: 'ja' })
+    if response.success?
+      response.parsed_response
+    else
+      Rails.logger.error "Failed to fetch weather data for #{city_name}: #{response.message}"
+      nil
+    end
+  end
+  
+
   def fetch_temperature(location)
-    # 各都道府県の気温データを取得するロジックをここに記述
-    # 例: WeatherService.get_temperature(location)
   end
 
   def extract_weather_data(weather_data, rainfall)
@@ -98,16 +109,6 @@ class WeatherController < ApplicationController
 
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15
-  end
-
-  def fetch_weather_data(city_name)
-    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast", query: { q: city_name, appid: ENV['WEATHER_API_KEY'], units: 'metric', lang: 'ja' })
-    if response.success?
-      response.parsed_response
-    else
-      Rails.logger.error "Failed to fetch weather data for #{city_name}: #{response.message}"
-      nil
-    end
   end
 
   def send_line_notification(message)
