@@ -7,7 +7,6 @@ module ApplicationHelper
 
   def dress_code_suggestion(temperature, constitution_id)
     icon_tags = []
-    suggestion = ''
     case constitution_id
     when 1 # 暑がり
       if temperature < 3
@@ -22,7 +21,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '厳しい寒さ,ダウンジャケットは必須！！'
       elsif temperature >= 3 && temperature < 7
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -33,7 +31,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても寒い,今日はマフラー手袋などで寒さ対策必要'
       elsif temperature >= 7 && temperature < 11
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -44,7 +41,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '寒い,コートを着ないと結構寒いわ'
       elsif temperature >= 11 && temperature < 15
         icon_tags = [
           image_tag('flight_jacket.png', size: '50x50'),
@@ -53,7 +49,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり冷える寒さ,薄手のアウターがちょうどいいかも'
       elsif temperature >= 15 && temperature < 18
         icon_tags = [
           image_tag('cardigan.png', size: '50x50'),
@@ -61,7 +56,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '程よい気温,カーディガンなど薄手のものがちょうどいいかも'
       elsif temperature >= 18 && temperature < 22
         icon_tags = [
           image_tag('parker.png', size: '50x50'),
@@ -69,23 +63,19 @@ module ApplicationHelper
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = '昼間の気温は快適,一応薄手のカーディガンやパーカーがあるといいかも'
       elsif temperature >= 22 && temperature < 26
         icon_tags = [
           image_tag('cloth_longt.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり暑い,薄手の長袖がちょうどいいんじゃ'
       elsif temperature >= 26 && temperature < 31
         icon_tags = [
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても暑い,半袖で十分'
       else
-        suggestion = '危険な暑さ,ノースリーブや短パンでも暑いから,熱中症に気をつけて！!'
         icon_tags = [
           image_tag('hat_kankan', size: '50x50'),
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
@@ -108,7 +98,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '厳しい寒さ,ダウンジャケットは必須！！'
       elsif temperature >= 4 && temperature < 8
         icon_tags = [
           image_tag('down.png', size: '50x50'),
@@ -119,7 +108,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても寒い,今日はマフラー手袋などで寒さ対策必要'
       elsif temperature >= 8 && temperature < 12
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -130,7 +118,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '寒い,コートを着ないと結構寒いわ'
       elsif temperature >= 12 && temperature < 16
         icon_tags = [
           image_tag('flight_jacket.png', size: '50x50'),
@@ -139,7 +126,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり冷える寒さ,薄手のアウターがちょうどいいかも'
       elsif temperature >= 16 && temperature < 19
         icon_tags = [
           image_tag('cardigan.png', size: '50x50'),
@@ -147,7 +133,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '程よい気温,カーディガンなど薄手のものがちょうどいいかも'
       elsif temperature >= 19 && temperature < 23
         icon_tags = [
           image_tag('parker.png', size: '50x50'),
@@ -155,23 +140,19 @@ module ApplicationHelper
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = '昼間の気温は快適,一応薄手のカーディガンやパーカーがあるといいかも'
       elsif temperature >= 23 && temperature < 27
         icon_tags = [
           image_tag('cloth_longt.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり暑い,薄手の長袖がちょうどいいんじゃ'
       elsif temperature >= 27 && temperature < 32
         icon_tags = [
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても暑い,半袖で十分'
       else
-        suggestion = '危険な暑さ,ノースリーブや短パンでも暑いから,熱中症に気をつけて！!'
         icon_tags = [
           image_tag('hat_kankan', size: '50x50'),
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
@@ -194,7 +175,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '厳しい寒さ,ダウンジャケットは必須！！'
       elsif temperature >= 5 && temperature < 9
         icon_tags = [
           image_tag('down.png', size: '50x50'),
@@ -205,7 +185,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても寒い,今日はマフラー手袋などで寒さ対策必要'
       elsif temperature >= 9 && temperature < 13
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -216,7 +195,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '寒い,コートを着ないと結構寒いわ'
       elsif temperature >= 13 && temperature < 17
         icon_tags = [
           image_tag('flight_jacket.png', size: '50x50'),
@@ -225,7 +203,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり冷える寒さ,薄手のアウターがちょうどいいかも'
       elsif temperature >= 17 && temperature < 20
         icon_tags = [
           image_tag('cardigan.png', size: '50x50'),
@@ -233,7 +210,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '程よい気温,カーディガンなど薄手のものがちょうどいいかも'
       elsif temperature >= 20 && temperature < 24
         icon_tags = [
           image_tag('parker.png', size: '50x50'),
@@ -241,23 +217,19 @@ module ApplicationHelper
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = '昼間の気温は快適,一応薄手のカーディガンやパーカーがあるといいかも'
       elsif temperature >= 24 && temperature < 28
         icon_tags = [
           image_tag('cloth_longt.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり暑い,薄手の長袖がちょうどいいんじゃ'
       elsif temperature >= 28 && temperature < 33
         icon_tags = [
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても暑い,半袖で十分'
       else
-        suggestion = '危険な暑さ,ノースリーブや短パンでも暑いから,熱中症に気をつけて！!'
         icon_tags = [
           image_tag('hat_kankan', size: '50x50'),
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
@@ -280,7 +252,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '厳しい寒さ,ダウンジャケットは必須！！'
       elsif temperature >= 6 && temperature < 10
         icon_tags = [
           image_tag('down.png', size: '50x50'),
@@ -291,7 +262,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても寒い,今日はマフラー手袋などで寒さ対策必要'
       elsif temperature >= 10 && temperature < 14
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -302,7 +272,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '寒い,コートを着ないと結構寒いわ'
       elsif temperature >= 14 && temperature < 18
         icon_tags = [
           image_tag('flight_jacket.png', size: '50x50'),
@@ -311,7 +280,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり冷える寒さ,薄手のアウターがちょうどいいかも'
       elsif temperature >= 18 && temperature < 21
         icon_tags = [
           image_tag('cardigan.png', size: '50x50'),
@@ -319,7 +287,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '程よい気温,カーディガンなど薄手のものがちょうどいいかも'
       elsif temperature >= 21 && temperature < 25
         icon_tags = [
           image_tag('parker.png', size: '50x50'),
@@ -327,23 +294,19 @@ module ApplicationHelper
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = '昼間の気温は快適,一応薄手のカーディガンやパーカーがあるといいかも'
       elsif temperature >= 25 && temperature < 29
         icon_tags = [
           image_tag('cloth_longt.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり暑い,薄手の長袖がちょうどいいんじゃ'
       elsif temperature >= 29 && temperature < 34
         icon_tags = [
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても暑い,半袖で十分'
       else
-        suggestion = '危険な暑さ,ノースリーブや短パンでも暑いから,熱中症に気をつけて！!'
         icon_tags = [
           image_tag('hat_kankan', size: '50x50'),
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
@@ -366,8 +329,7 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '厳しい寒さ,ダウンジャケットは必須！！'
-      elsif temperature >= 8 && temperature < 11
+      elsif temperature >= 7 && temperature < 11
         icon_tags = [
           image_tag('down.png', size: '50x50'),
           image_tag('muffler.png', size: '50x50'),
@@ -377,7 +339,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても寒い,今日はマフラー手袋などで寒さ対策必要'
       elsif temperature >= 11 && temperature < 15
         icon_tags = [
           image_tag('chester_coat.png', size: '50x50'),
@@ -388,7 +349,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '寒い,コートを着ないと結構寒いわ'
       elsif temperature >= 15 && temperature < 19
         icon_tags = [
           image_tag('flight_jacket.png', size: '50x50'),
@@ -397,7 +357,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり冷える寒さ,薄手のアウターがちょうどいいかも'
       elsif temperature >= 19 && temperature < 22
         icon_tags = [
           image_tag('cardigan.png', size: '50x50'),
@@ -405,7 +364,6 @@ module ApplicationHelper
           image_tag('jeans.png', size: '50x50'),
           image_tag('black_shoes.png', size: '50x50')
         ]
-        suggestion = '程よい気温,カーディガンなど薄手のものがちょうどいいかも'
       elsif temperature >= 22 && temperature < 26
         icon_tags = [
           image_tag('parker.png', size: '50x50'),
@@ -413,23 +371,19 @@ module ApplicationHelper
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = '昼間の気温は快適,一応薄手のカーディガンやパーカーがあるといいかも'
       elsif temperature >= 26 && temperature < 30
         icon_tags = [
           image_tag('cloth_longt.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'じんわり暑い,薄手の長袖がちょうどいいんじゃ'
       elsif temperature >= 30 && temperature < 35
         icon_tags = [
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
           image_tag('black_pants.png', size: '50x50'),
           image_tag('white_shoes.png', size: '50x50')
         ]
-        suggestion = 'とても暑い,半袖で十分'
       else
-        suggestion = '危険な暑さ,ノースリーブや短パンでも暑いから,熱中症に気をつけて！!'
         icon_tags = [
           image_tag('hat_kankan', size: '50x50'),
           image_tag('fashion_tshirt1_white.png', size: '50x50'),
@@ -439,12 +393,10 @@ module ApplicationHelper
         ]
       end
     else
-      suggestion = '**新規登録またはログインを行い,体質設定を行なってください**'
+      icon_tags << '**新規登録またはログインを行い,体質設定を行なってください**'
     end
 
-    return "#{icon_tags.join(' ')} #{suggestion}".html_safe unless icon_tags.empty?
-
-    suggestion
+    icon_tags.join(' ').html_safe
   end
 
   def display_clothes_photo(temperature, constitution_id, user)
@@ -463,6 +415,136 @@ module ApplicationHelper
       closet_item&.image_url
     end.compact
   end
+
+  def clothing_index(constitution_id)
+    clothing_index_tag = []
+    case constitution_id
+    when 1 # 暑がり
+      clothing_index_tag << image_tag('clothing_index1.png')
+    when 2 # やや暑がり
+      clothing_index_tag << image_tag('clothing_index2.png')
+    when 3 # 標準
+      clothing_index_tag << image_tag('clothing_index3.png')
+    when 4 # やや寒がり
+      clothing_index_tag << image_tag('clothing_index4.png')
+    when 5 # 寒がり
+      clothing_index_tag << image_tag('clothing_index5.png')
+    else
+      clothing_index_tag << '**新規登録またはログインを行い,体質設定を行なってください**'
+    end
+    clothing_index_tag
+  end
+
+  def get_clothing_icons(temperature, constitution_id)
+    icon_tag = []
+    case constitution_id
+    when 1 # 暑がり
+      if temperature < 3
+        icon_tag << image_tag('knitcap_down.png', size: '50x50')
+      elsif temperature >= 3 && temperature < 7
+        icon_tag << image_tag('down.png', size: '50x50')
+      elsif temperature >= 7 && temperature < 11
+        icon_tag << image_tag('chester_coat.png', size: '50x50')
+      elsif temperature >= 11 && temperature < 15
+        icon_tag << image_tag('flight_jacket.png', size: '50x50')
+      elsif temperature >= 15 && temperature < 18
+        icon_tag << image_tag('cardigan.png', size: '50x50')
+      elsif temperature >= 18 && temperature < 22
+        icon_tag << image_tag('parker.png', size: '50x50')
+      elsif temperature >= 22 && temperature < 26
+        icon_tag << image_tag('cloth_longt.png', size: '50x50')
+      elsif temperature >= 26 && temperature < 31
+        icon_tag << image_tag('fashion_tshirt1_white.png', size: '50x50')
+      else
+        icon_tag << image_tag('hat_kankan_T-shirt.png', size: '50x50')
+      end
+    when 2 # やや暑がり
+      if temperature < 4
+        icon_tag << image_tag('knitcap_down.png', size: '50x50')
+      elsif temperature >= 4 && temperature < 8
+        icon_tag << image_tag('down.png', size: '50x50')
+      elsif temperature >= 8 && temperature < 12
+        icon_tag << image_tag('chester_coat.png', size: '50x50')
+      elsif temperature >= 12 && temperature < 16
+        icon_tag << image_tag('flight_jacket.png', size: '50x50')
+      elsif temperature >= 16 && temperature < 19
+        icon_tag << image_tag('cardigan.png', size: '50x50')
+      elsif temperature >= 19 && temperature < 23
+        icon_tag << image_tag('parker.png', size: '50x50')
+      elsif temperature >= 23 && temperature < 27
+        icon_tag << image_tag('cloth_longt.png', size: '50x50')
+      elsif temperature >= 27 && temperature < 32
+        icon_tag << image_tag('fashion_tshirt1_white.png', size: '50x50')
+      else
+        icon_tag << image_tag('hat_kankan_T-shirt.png', size: '50x50')
+      end
+    when 3 # 標準
+      if temperature < 5
+        icon_tag << image_tag('knitcap_down.png', size: '50x50')
+      elsif temperature >= 5 && temperature < 9
+        icon_tag << image_tag('down.png', size: '50x50')
+      elsif temperature >= 9 && temperature < 13
+        icon_tag << image_tag('chester_coat.png', size: '50x50')
+      elsif temperature >= 13 && temperature < 17
+        icon_tag << image_tag('flight_jacket.png', size: '50x50')
+      elsif temperature >= 17 && temperature < 20
+        icon_tag << image_tag('cardigan.png', size: '50x50')
+      elsif temperature >= 20 && temperature < 24
+        icon_tag << image_tag('parker.png', size: '50x50')
+      elsif temperature >= 24 && temperature < 28
+        icon_tag << image_tag('cloth_longt.png', size: '50x50')
+      elsif temperature >= 28 && temperature < 33
+        icon_tag << image_tag('fashion_tshirt1_white.png', size: '50x50')
+      else
+        icon_tag << image_tag('hat_kankan_T-shirt.png', size: '50x50')
+      end
+    when 4 # やや寒がり
+      if temperature < 6
+        icon_tag << image_tag('knitcap_down.png', size: '50x50')
+      elsif temperature >= 6 && temperature < 10
+        icon_tag << image_tag('down.png', size: '50x50')
+      elsif temperature >= 10 && temperature < 14
+        icon_tag << image_tag('chester_coat.png', size: '50x50')
+      elsif temperature >= 14 && temperature < 18
+        icon_tag << image_tag('flight_jacket.png', size: '50x50')
+      elsif temperature >= 18 && temperature < 21
+        icon_tag << image_tag('cardigan.png', size: '50x50')
+      elsif temperature >= 21 && temperature < 25
+        icon_tag << image_tag('parker.png', size: '50x50')
+      elsif temperature >= 25 && temperature < 29
+        icon_tag << image_tag('cloth_longt.png', size: '50x50')
+      elsif temperature >= 29 && temperature < 34
+        icon_tag << image_tag('fashion_tshirt1_white.png', size: '50x50')
+      else
+        icon_tag << image_tag('hat_kankan_T-shirt.png', size: '50x50')
+      end
+    when 5 # 寒がり
+      if temperature < 7
+        icon_tag << image_tag('knitcap_down.png', size: '50x50')
+      elsif temperature >= 7 && temperature < 11
+        icon_tag << image_tag('down.png', size: '50x50')
+      elsif temperature >= 11 && temperature < 15
+        icon_tag << image_tag('chester_coat.png', size: '50x50')
+      elsif temperature >= 15 && temperature < 19
+        icon_tag << image_tag('flight_jacket.png', size: '50x50')
+      elsif temperature >= 19 && temperature < 22
+        icon_tag << image_tag('cardigan.png', size: '50x50')
+      elsif temperature >= 22 && temperature < 26
+        icon_tag << image_tag('parker.png', size: '50x50')
+      elsif temperature >= 26 && temperature < 30
+        icon_tag << image_tag('cloth_longt.png', size: '50x50')
+      elsif temperature >= 30 && temperature < 35
+        icon_tag << image_tag('fashion_tshirt1_white.png', size: '50x50')
+      else
+        icon_tag << image_tag('hat_kankan_T-shirt.png', size: '50x50')
+      end
+    else
+      icon_tag << '**新規登録またはログインを行い,体質設定を行なってください**'
+    end
+
+    icon_tag
+  end
+
 
   private
 

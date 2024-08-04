@@ -32,4 +32,9 @@ class User < ApplicationRecord
     user.save
     user
   end
+
+  def admin?
+    true
+  end
+
 end

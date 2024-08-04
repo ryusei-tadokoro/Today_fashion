@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Japan Map Example</title>
+  <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="left-column">
+  <div class="container">
+    <div class="row">
+      <% @weather_data.each do |data| %>
+        <div class="col-md-12 mb-2">
+          <div class="card">
+            <div class="card-header py-1">
+              <h6 class="card-title mb-0" style="font-size: 0.9rem;"><%= data[:name] %></h6> 
+            </div>
+            <div class="card-body p-1"> 
+              <% if data[:weather] && data[:weather]['list'] %>
+                <% current_time = Time.now %>
+                <% forecasts = data[:weather]['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
+                <div class="row flex-nowrap overflow-auto">
+                  <% forecasts.each do |forecast| %>
+                    <div class="col-md-2 mb-3" style="flex: 0 0 auto;">
+                      <div class="card">
+                        <div class="card-body p-1"> 
+                          <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
+                          <div style='display: flex; flex-wrap: wrap;'>
+                            <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="img-fluid" style="width: 50px; height: 50px;">
+                            <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
+                          </div>
+                          <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
+                            <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p> 
+                          <% end %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              <% else %>
+                <p>天気情報が取得できませんでした。</p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="right-column">
+  <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
+  <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
+  <p id="text"></p>
+  <div style='display: flex; flex-wrap: wrap;'>
+    <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+  </div>
+</div>
+
+</body>
+</html>
