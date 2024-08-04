@@ -38,7 +38,7 @@
                       <%= link_to "マイ クローゼット", closets_path, class: "dropdown-item" %>
                     </li>
                     <li class="nav-item">
-                      <%= link_to "全国の服装指数", map_weather_path, class: "dropdown-item" %>
+                      <%= link_to "全国の服装指数予報", map_weather_path, class: "dropdown-item" %>
                     </li>
                     <li class="nav-item">
                       <%= link_to t('nav.log_out'), destroy_user_session_path, class: "dropdown-item", method: :delete if user_signed_in? %>

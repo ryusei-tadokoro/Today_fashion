@@ -5,8 +5,6 @@
   </div>
 
   <div class="mt-4">
-    <h2 class="mt-4">5日間の天気予報</h2>
-
     <% if @weather_data.present? %>
       <div class="row">
         <% @weather_data['list'].group_by { |forecast| Time.at(forecast['dt']).strftime('%Y-%m-%d') }.each do |date, forecasts| %>
@@ -28,12 +26,24 @@
                           <% end %>
                           <div style='display: flex; flex-wrap: wrap;'>
                             <p style="font-size: 0.7rem;">服装指数:</p>
-                          <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
+                            <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
                           </div>
                         </div>
                       </div>
                     </div>
                   <% end %>
+                  <p style="font-size: 0.7rem;">おすすめファッション</p>
+                  <div style='display: flex; flex-wrap: wrap;'>
+                    <% first_forecast = forecasts.first %>
+                    <%= dress_code_suggestion(first_forecast['main']['temp'], current_user&.constitution_id.to_i) %>
+                    <h1> | </h1>
+                    <% if current_user %>
+                      <% image_urls = display_clothes_photo(first_forecast['main']['temp'], current_user.constitution_id.to_i, current_user) %>
+                      <% image_urls.each do |image_url| %>
+                        <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
+                      <% end %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
             </div>
