@@ -1,5 +1,6 @@
 # ワークフローの名前（任意）
 name: front-github-actions
+
 # mainブランチに対してPRが作成されたタイミングをトリガーとする
 on:
   push:
@@ -64,15 +65,17 @@ jobs:
           npm install
 
       - name: Set up database
-        run: |
-          bin/rails db:create
-          bin/rails db:schema:load
         env:
           RAILS_ENV: test
           POSTGRES_DB: myapp_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/myapp_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          echo $RAILS_MASTER_KEY > config/master.key
+          bin/rails db:create
+          bin/rails db:schema:load
 
       - name: Run tests
         run: |
