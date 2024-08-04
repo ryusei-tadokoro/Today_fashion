@@ -9,7 +9,8 @@ class Closet < ApplicationRecord
   validates :name, presence: true
   validates :category_id, presence: true, numericality: { only_integer: true }
   validates :subcategory_id, presence: true, numericality: { only_integer: true }
-  
+  validates :last_displayed_at, presence: false
+
   def default_image
     ActionController::Base.helpers.asset_path('sample.png')
   end
