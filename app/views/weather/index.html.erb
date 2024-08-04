@@ -1,5 +1,4 @@
 <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
-
 <% if @weather_data.present? %>
   <div class="container mt-5">
     <div class="card mt-3">
@@ -7,24 +6,19 @@
         <h5 class="card-title"><%= @weather_data['city']['name'] %></h5>
         <div class="row">
           <div class="col">
-            <p>気温: <%= @weather_data['list'][0]['main']['temp_max'] %> °C / <%= @weather_data['list'][0]['main']['temp_min'] %> °C</p>
-            <p>湿度: <%= @weather_data['list'][0]['main']['humidity'] %> %</p>
-            <p>風速: <%= @weather_data['list'][0]['wind']['speed'] %> m/s</p>
-            <p>天気: <%= @weather_data['list'][0]['weather'][0]['description'] %></p>
             <img src="https://openweathermap.org/img/wn/<%= @weather_data['list'][0]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
             <% if @weather_data['list'][0]['rain'] && @weather_data['list'][0]['rain']['1h'] %>
               <p>降水量: <%= @weather_data['list'][0]['rain']['1h'] %> mm</p>
             <% end %>
           </div>
           <div class="col ml-auto">
-            <p>アイコンでの今日のおすすめコーデ</p></br>
+            <p>今日のおすすめファッション</p>
             <div style='display: flex; flex-wrap: wrap;'>
               <%= dress_code_suggestion(
                 @weather_data['list'][0]['main']['temp_max'],
                 current_user&.constitution_id.to_i
               ) %>
             </div></br>
-            <p>今日のおすすめコーデ</p></br>
             <div style='display: flex; flex-wrap: wrap;'>
               <% if current_user %>
                 <% image_urls = display_clothes_photo(@weather_data['list'][0]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
@@ -34,8 +28,7 @@
               <% end %>
             </div>
           </div>
-        </div>
-
+        </div></br>
         <div class="row">
           <% current_time = Time.now %>
           <% forecasts = @weather_data['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
@@ -65,7 +58,9 @@
 <% else %>
   <p>天気情報がありません。</p>
 <% end %>
-
+<div class="container mt-5",style='display: flex; flex-wrap: wrap;'>
+  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
+</div>
 <% if @second_weather_data.present? %>
   <div class="container mt-5">
     <div class="card mt-3">
@@ -73,26 +68,21 @@
         <h5 class="card-title"><%= @second_weather_data['city']['name'] %></h5>
         <div class="row">
           <div class="col">
-            <p>気温: <%= @second_weather_data['list'][0]['main']['temp_max'] %> °C / <%= @second_weather_data['list'][0]['main']['temp_min'] %> °C</p>
-            <p>湿度: <%= @second_weather_data['list'][0]['main']['humidity'] %> %</p>
-            <p>風速: <%= @second_weather_data['list'][0]['wind']['speed'] %> m/s</p>
-            <p>天気: <%= @second_weather_data['list'][0]['weather'][0]['description'] %></p>
             <img src="https://openweathermap.org/img/wn/<%= @second_weather_data['list'][0]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
             <% if @second_weather_data['list'][0]['rain'] && @second_weather_data['list'][0]['rain']['1h'] %>
               <p>降水量: <%= @second_weather_data['list'][0]['rain']['1h'] %> mm</p>
             <% end %>
           </div>
           <div class="col ml-auto">
+            <p>今日のおすすめファッション</p>
             <div style='display: flex; flex-wrap: wrap;'>
-              <p>アイコンでの今日のおすすめコーデ:</p>
               <%= dress_code_suggestion(
                 @second_weather_data['list'][0]['main']['temp_max'],
                 current_user&.constitution_id.to_i
               ) %>
-            </div>
+            </div></br>
             <div style='display: flex; flex-wrap: wrap;'>
               <% if current_user %>
-                <p>今日のおすすめコーデ:</p>
                 <% image_urls = display_clothes_photo(@second_weather_data['list'][0]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
                 <% image_urls.each do |image_url| %>
                   <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
@@ -100,7 +90,7 @@
               <% end %>
             </div>
           </div>
-        </div>
+        </div></br>
 
         <div class="row">
           <% current_time = Time.now %>
@@ -132,6 +122,3 @@
   <p>天気情報がありません。</p>
 <% end %>
 
-<div style='display: flex; flex-wrap: wrap;'>
-  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
-</div>
