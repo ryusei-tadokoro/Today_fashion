@@ -5,26 +5,31 @@ import $ from "jquery";
 import "bootstrap";
 import "./scripts"; // scripts.js
 import "./closet_form"; // closet_form.js
-import "./jquery.japan-map"; 
-import './map';
+
+window.$ = $;
+window.jQuery = $;
 
 if (typeof Rails !== 'undefined') {
   Rails.start();
 }
 
-window.$ = $;
-window.jQuery = $;
-
-$(document).ready(function() {
+document.addEventListener("DOMContentLoaded", function() {
   var flashNotice = document.querySelector(".alert");
   if (flashNotice) {
     alert(flashNotice.textContent.trim());
     flashNotice.remove(); // アラートが表示された後に要素を削除
   }
   if (document.URL.match(/new/)) {
-    import(/* webpackChunkName: "vision_api" */ './vision_api').then(module => {
+    import('./vision_api').then(module => {
       const visionAPI = module.default;
       visionAPI();
+    });
+  }
+
+  if (document.getElementById('map-page')) {
+    import('./map').then(module => {
+      const map = module.default;
+      map();
     });
   }
 
