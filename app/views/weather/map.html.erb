@@ -5,24 +5,24 @@
   <title>Japan Map Example</title>
   <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 </head>
-<body>
+<body id="map-page">
 
 <div class="left-column">
   <div class="container">
     <div class="row">
       <% @weather_data.each do |data| %>
-        <div class="col-md-12 mb-2">
+        <div class="col-md-6 mb-2">
           <div class="card">
             <div class="card-header py-1">
               <h6 class="card-title mb-0" style="font-size: 0.9rem;"><%= data[:name] %></h6> 
             </div>
-            <div class="card-body p-1"> 
+            <div class="card-body p-2"> 
               <% if data[:weather] && data[:weather]['list'] %>
                 <% current_time = Time.now %>
                 <% forecasts = data[:weather]['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
                 <div class="row flex-nowrap overflow-auto">
                   <% forecasts.each do |forecast| %>
-                    <div class="col-md-2 mb-3" style="flex: 0 0 auto;">
+                    <div class="col-md-3 mb-3" style="flex: 0 0 auto;">
                       <div class="card">
                         <div class="card-body p-1"> 
                           <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
@@ -50,7 +50,6 @@
 </div>
 
 <div class="right-column">
-  <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
   <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
   <p id="text"></p>
   <div style='display: flex; flex-wrap: wrap;'>

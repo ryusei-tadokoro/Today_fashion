@@ -1,3 +1,5 @@
+import "./jquery.japan-map"; 
+
 ;(function($){
   "use strict";
 

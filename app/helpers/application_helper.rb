@@ -401,20 +401,35 @@ module ApplicationHelper
 
   def display_clothes_photo(temperature, constitution_id, user)
     subcategory_ids = get_subcategory_ids(temperature, constitution_id)
+    displayed_urls = []
 
     subcategory_ids.uniq.map do |subcategory_id|
-      # 最後に使用された日が最も古いアイテムを選択
       closet_item = user.closets
-                        .where(subcategory_id:)
-                        .order(:last_worn_on)
+                        .where(subcategory_id: subcategory_id)
+                        .where('last_displayed_at IS NULL OR last_displayed_at < ?', 24.hours.ago)
+                        .order('RANDOM()')
                         .first
 
-      # アイテムの最後に使用された日を今日に更新
-      closet_item.update(last_worn_on: Time.zone.today) if closet_item.present?
+      if closet_item.blank?
+        closet_item = user.closets
+                          .where(subcategory_id: subcategory_id)
+                          .order('RANDOM()')
+                          .first
+      end
 
-      closet_item&.image_url
+      if closet_item.present?
+        closet_item.update(last_worn_on: Time.zone.today, last_displayed_at: Time.zone.now)
+        Rails.logger.debug "Updated last_worn_on and last_displayed_at for item: #{closet_item.id}"
+
+        if !displayed_urls.include?(closet_item.image_url)
+          displayed_urls << closet_item.image_url
+          closet_item.image_url
+        end
+      end
     end.compact
   end
+
+  
 
   def clothing_index(constitution_id)
     clothing_index_tag = []
@@ -601,7 +616,7 @@ module ApplicationHelper
       when 11...15 then [17, 6, 8, 11, 35]
       when 15...19 then [17, 6, 2, 29, 11]
       when 19...22 then [7, 1, 10, 29]
-      when 22...26 then [20, ß1, 10, 29]
+      when 22...26 then [20, 1, 10, 29]
       when 26... then [1, 11, 29]
       end
 

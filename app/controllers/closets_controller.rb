@@ -67,10 +67,12 @@ class ClosetsController < ApplicationController
 
   def subcategories_for_category
     category_id = params[:category_id]
+    @category = Category.find(category_id)
+    authorize @category, :show?
     subcategories = Subcategory.where(category_id: category_id)
     render json: subcategories
   end
-
+  
   private
 
   def set_closet
