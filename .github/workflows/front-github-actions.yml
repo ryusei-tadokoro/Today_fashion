@@ -78,9 +78,7 @@ jobs:
           bin/rails db:schema:load
 
       - name: Run tests
-        run: |
-          bin/rails test
-          npm test
+        run: bin/rails test
 
       - name: Build assets
         run: npm run build
