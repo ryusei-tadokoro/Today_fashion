@@ -8,15 +8,6 @@
 <body>
 
 <div class="left-column">
-  <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
-  <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
-  <p id="text"></p>
-  <div style='display: flex; flex-wrap: wrap;'>
-    <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
-  </div>
-</div>
-
-<div class="right-column">
   <div class="container">
     <div class="row">
       <% @weather_data.each do |data| %>
@@ -55,6 +46,15 @@
         </div>
       <% end %>
     </div>
+  </div>
+</div>
+
+<div class="right-column">
+  <p>今日の日付: <%= Time.zone.now.in_time_zone('Tokyo').strftime('%Y年%m月%d日') %></p>
+  <div id="map-container" data-show-weather-path="<%= show_weather_path %>"></div>
+  <p id="text"></p>
+  <div style='display: flex; flex-wrap: wrap;'>
+    <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
   </div>
 </div>
 

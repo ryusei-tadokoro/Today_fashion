@@ -36,3 +36,12 @@
   width: 50px; /* 画像の幅を設定 */
   height: 50px; /* 画像の高さを設定 */
 }
+
+/* メディアクエリを追加 */
+@media (max-width: 768px) {
+  .left-column, .right-column {
+    width: 100%;
+    float: none;
+    padding: 10px 0; /* 水平方向のパディングを削除 */
+  }
+}
