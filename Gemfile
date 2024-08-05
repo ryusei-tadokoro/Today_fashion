@@ -1,5 +1,3 @@
-# Gemfile
-
 source 'https://rubygems.org'
 
 ruby '3.2.2'
@@ -18,6 +16,8 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'sqlite3', '~> 1.4'
+  gem 'rspec-rails' 
+  gem 'factory_bot_rails'
 end
 
 group :production do
@@ -32,6 +32,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
+  gem 'rails-controller-testing'
 end
 
 gem 'active_hash'
@@ -58,4 +59,4 @@ gem 'aws-sdk-s3', require: false
 gem 'memory_profiler'
 gem 'pundit'
 gem 'jsbundling-rails'
-gem "meta-tags"
+gem 'meta-tags'
