@@ -7,7 +7,9 @@
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",
     "build:css": "SASS_PATH=node_modules sass app/assets/stylesheets/application.scss app/assets/builds/application.css --no-source-map",
     "dev": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --watch --public-path=/assets",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "fix:eslint": "eslint src --ext .js,.ts,.jsx,.tsx --fix",
+    "fix:prettier": "prettier --write ."
   },
   "engines": {
     "node": ">=14.0.0",
