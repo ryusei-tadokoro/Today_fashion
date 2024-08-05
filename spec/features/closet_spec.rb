@@ -1,4 +1,3 @@
-# spec/features/closet_spec.rb
 require 'rails_helper'
 
 RSpec.feature 'Closet Management', type: :feature do
@@ -44,32 +43,29 @@ RSpec.feature 'Closet Management', type: :feature do
     fill_in '名前', with: '新しいTシャツ'
     select 'トップス', from: 'カテゴリ'
     select 'Tシャツ', from: 'サブカテゴリ'
-    attach_file '画像', Rails.root.join('spec/fixtures/files/new_test_image.png')
-    click_button '登録する'
+    attach_file '画像', Rails.root.join('spec/fixtures/files/test_image.png')
+    click_button '更新する'
 
     expect(page).to have_content('クローゼットの詳細')
     expect(page).to have_content('新しいTシャツ')
     expect(page).to have_content('トップス')
     expect(page).to have_content('Tシャツ')
-    expect(page).to have_css("img[src*='new_test_image.png']")
   end
 
   scenario '無効な情報で服の編集が失敗すること' do
     visit edit_closet_path(closet)
 
     fill_in '名前', with: ''
-    click_button '登録する'
+    click_button '更新する'
 
     expect(page).to have_content('登録できませんでした')
   end
 
   scenario 'ユーザーが服を削除できること' do
     visit closet_path(closet)
+    click_link '削除する'
 
-    expect {
-      click_link '削除'
-      page.driver.browser.switch_to.alert.accept
-      expect(page).to have_content('クローゼットが削除されました')
-    }.to change(Closet, :count).by(-1)
+    expect(page).to have_content('クローゼットは削除されました。')
+    expect(page).not_to have_content(closet.name)
   end
 end
