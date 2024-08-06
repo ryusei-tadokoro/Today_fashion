@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature 'Closet Management', type: :feature do
+RSpec.feature 'Closet Management', type: :feature, js: true do
   let(:user) { FactoryBot.create(:user) }
   let!(:category) { FactoryBot.create(:category, name: 'トップス') }
   let!(:subcategory) { FactoryBot.create(:subcategory, category: category, name: 'Tシャツ') }
@@ -15,6 +15,7 @@ RSpec.feature 'Closet Management', type: :feature do
 
     fill_in '名前', with: 'Tシャツ'
     select 'トップス', from: 'カテゴリ'
+    wait_for_ajax
     select 'Tシャツ', from: 'サブカテゴリ'
     attach_file '画像', Rails.root.join('spec/fixtures/files/test_image.png')
     click_button '登録する'
@@ -30,6 +31,7 @@ RSpec.feature 'Closet Management', type: :feature do
 
     fill_in '名前', with: ''
     select 'トップス', from: 'カテゴリ'
+    wait_for_ajax
     select 'Tシャツ', from: 'サブカテゴリ'
     attach_file '画像', Rails.root.join('spec/fixtures/files/test_image.png')
     click_button '登録する'
@@ -42,6 +44,7 @@ RSpec.feature 'Closet Management', type: :feature do
 
     fill_in '名前', with: '新しいTシャツ'
     select 'トップス', from: 'カテゴリ'
+    wait_for_ajax
     select 'Tシャツ', from: 'サブカテゴリ'
     attach_file '画像', Rails.root.join('spec/fixtures/files/test_image.png')
     click_button '更新する'

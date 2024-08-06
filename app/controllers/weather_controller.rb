@@ -29,7 +29,8 @@ class WeatherController < ApplicationController
   
       send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。") if rainfall.positive?
     else
-      redirect_to action: :index, alert: '天気情報の取得に失敗しました。'
+      flash[:alert] = '天気情報の取得に失敗しました。' 
+      redirect_to action: :index
     end
   end
 

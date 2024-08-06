@@ -5,9 +5,9 @@ ENV['RAILS_ENV'] ||= 'test'
 require_relative '../config/environment'
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
-require 'rails-controller-testing' # 追加
+require 'rails-controller-testing'
 
-Rails::Controller::Testing.install # 追加
+Rails::Controller::Testing.install
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
 
@@ -25,5 +25,8 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include Devise::Test::IntegrationHelpers, type: :request
-  config.include Devise::Test::IntegrationHelpers, type: :feature # 追加
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+
+  # Capybaraのドライバ設定を追加
+  Capybara.javascript_driver = :selenium_chrome_headless
 end

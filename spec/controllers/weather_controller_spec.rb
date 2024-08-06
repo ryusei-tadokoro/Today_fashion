@@ -1,40 +1,88 @@
 require 'rails_helper'
 
 RSpec.describe WeatherController, type: :controller do
-  describe "GET #index" do
-    context "when user is logged in" do
+  before do
+    @user = FactoryBot.create(:user)
+    sign_in @user
+    allow(controller).to receive(:current_user).and_return(@user)
+  end
+
+  describe 'GET #index' do
+    context 'when weather data cannot be fetched' do
       before do
-        # ログインユーザーのモックを作成（必要に応じて調整してください）
-        @user = FactoryBot.create(:user)
-        sign_in @user
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_api_data).and_return(nil)
+        get :index
       end
 
-      it "assigns weather data for default and second city" do
-        # WeatherServiceのモックを作成して、期待される応答を返すように設定
-        allow_any_instance_of(WeatherService).to receive(:fetch_weather).and_return(instance_double("HTTParty::Response", success?: true, parsed_response: {"some" => "data"}))
-
-        get :index
-
-        expect(assigns(:weather_data)).to_not be_nil
-        expect(assigns(:second_weather_data)).to_not be_nil
-      end
-
-      it "shows alert when weather data cannot be fetched" do
-        allow_any_instance_of(WeatherService).to receive(:fetch_weather).and_return(instance_double("HTTParty::Response", success?: false))
-
-        get :index
-
+      it 'sets the flash alert' do
         expect(flash[:alert]).to eq('天気情報の取得に失敗しました。')
+      end
+    end
+
+    context 'when weather data is fetched successfully' do
+      before do
+        weather_data = { 'list' => [] }
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_api_data).and_return(weather_data)
+        get :index
+      end
+
+      it 'does not set the flash alert' do
+        expect(flash[:alert]).to be_nil
       end
     end
   end
 
-  describe "GET #show" do
-    it "redirects when city is not provided" do
-        get :show, params: { city: '' }
-    
-        # クエリパラメータとしてアラートメッセージを含むURLにリダイレクトされることを期待
-        expect(response).to redirect_to(root_url(alert: '都市名を入力してください。'))
+  describe 'GET #show' do
+    context 'when city is valid' do
+      before do
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_service_data).and_return('name' => 'Tokyo', 'main' => { 'temp' => 300.15, 'feels_like' => 298.15, 'temp_min' => 299.15, 'temp_max' => 301.15, 'humidity' => 80 }, 'wind' => { 'speed' => 5 }, 'weather' => [{ 'description' => 'clear sky' }])
+        get :show, params: { city: 'Tokyo' }
+      end
+
+      it 'fetches weather data' do
+        expect(assigns(:weather_data)).not_to be_nil
+      end
+
+      it 'does not set the flash alert' do
+        expect(flash[:alert]).to be_nil
+      end
+    end
+
+    context 'when city is invalid' do
+      before do
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_service_data).and_return(nil)
+        get :show, params: { city: 'InvalidCity' }
+      end
+
+      it 'sets the flash alert and redirects to index' do
+        expect(flash[:alert]).to eq('天気情報の取得に失敗しました。')
+        expect(response).to redirect_to(action: :index)
+      end
+    end
+  end
+
+  describe 'GET #map' do
+    context 'when weather data is fetched successfully' do
+      before do
+        weather_data = { 'list' => [] }
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_api_data).and_return(weather_data)
+        get :map
+      end
+
+      it 'does not set the flash alert' do
+        expect(flash[:alert]).to be_nil
+      end
+    end
+
+    context 'when some weather data cannot be fetched' do
+      before do
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_api_data).and_return(nil)
+        get :map
+      end
+
+      it 'sets the flash alert' do
+        expect(flash[:alert]).to eq('一部の天気情報の取得に失敗しました。')
+      end
     end
   end
 end

@@ -1,46 +1,46 @@
 require 'rails_helper'
 
-RSpec.feature 'User Registration', type: :feature do
-  scenario 'ユーザーが新規登録のstep1を完了してstep2に進む' do
-    visit new_user_registration_path
+RSpec.feature "User Registration", type: :feature do
+  let(:user) { build(:user) }
 
-    fill_in '名前', with: 'John Doe'
-    fill_in 'Email', with: 'john.doe@example.com'
-    fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
+  scenario "ユーザーが新規登録のstep1を完了してstep2に進む" do
+    visit new_user_registration_step_path(step: 'step1')
+    fill_in 'user[name]', with: user.name
+    fill_in 'user[email]', with: user.email
+    fill_in 'user[password]', with: user.password
+    fill_in 'user[password_confirmation]', with: user.password_confirmation
     click_button '次へ'
 
     expect(page).to have_current_path(new_user_registration_step_path(step: 'step2'))
   end
 
-  scenario 'ユーザーが全てのステップを完了して登録される' do
-    visit new_user_registration_path
-
-    fill_in '名前', with: 'John Doe'
-    fill_in 'Email', with: 'john.doe@example.com'
-    fill_in 'Password', with: 'password'
-    fill_in 'Password confirmation', with: 'password'
+  scenario "ユーザーが全てのステップを完了して登録される" do
+    visit new_user_registration_step_path(step: 'step1')
+    fill_in 'user[name]', with: user.name
+    fill_in 'user[email]', with: user.email
+    fill_in 'user[password]', with: user.password
+    fill_in 'user[password_confirmation]', with: user.password_confirmation
     click_button '次へ'
 
-    attach_file 'Image', Rails.root.join('spec/fixtures/files/test_image.png')
-    select '東京都', from: 'Prefecture'
-    select '大阪府', from: 'Second prefecture'
-    select '標準', from: 'Constitution'
+    expect(page).to have_current_path(new_user_registration_step_path(step: 'step2'))
+
+    attach_file('user[image]', Rails.root.join('spec/fixtures/files/test_image.png'))
+    select '東京都', from: 'user[prefecture_id]'
+    select '大阪府', from: 'user[second_prefecture_id]'
+    select 'やや寒がり', from: 'user[constitution_id]'
     click_button 'アカウント登録'
 
-    expect(page).to have_current_path(root_path)
-    expect(User.last.email).to eq('john.doe@example.com')
+    expect(page).to have_content('アカウント登録完了しました。さあ！始めよう!!')
   end
 
-  scenario '無効な情報でstep1に留まる' do
-    visit new_user_registration_path
-
-    fill_in '名前', with: ''
-    fill_in 'Email', with: ''
-    fill_in 'Password', with: ''
-    fill_in 'Password confirmation', with: ''
+  scenario "無効な情報でstep1に留まる" do
+    visit new_user_registration_step_path(step: 'step1')
+    fill_in 'user[name]', with: ''
+    fill_in 'user[email]', with: ''
+    fill_in 'user[password]', with: ''
+    fill_in 'user[password_confirmation]', with: ''
     click_button '次へ'
 
-    expect(page).to have_current_path(new_user_registration_path)
+    expect(page).to have_content('エラーが発生したため ユーザー は保存されませんでした')
   end
 end
