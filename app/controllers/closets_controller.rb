@@ -1,6 +1,6 @@
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
-  before_action :set_categories_and_subcategories, only: %i[new edit]
+  before_action :set_categories_and_subcategories, only: %i[new edit create update]
   before_action :authenticate_user!
   after_action :verify_authorized, except: :index
   after_action :verify_policy_scoped, only: :index
@@ -54,6 +54,7 @@ class ClosetsController < ApplicationController
     if @closet.update(update_params)
       redirect_to closet_url(@closet), notice: t('.success')
     else
+      set_categories_and_subcategories # エラー時に再度 @categories と @subcategories を設定
       render :edit, status: :unprocessable_entity
     end
   end
@@ -85,10 +86,7 @@ class ClosetsController < ApplicationController
   end
 
   def closet_update_params
-    params.require(:closet).permit(
-      :name, :category_id, :subcategory_id, :purchase_date, :size, :color,
-      :purchase_location, :price, :usage_frequency, :season, :other_comments, :image
-    )
+    params.require(:closet).permit(:name, :category_id, :subcategory_id, :color, :season, :purchase_date, :size, :purchase_location, :price, :usage_frequency, :other_comments, :image)
   end
 
   def set_categories_and_subcategories
