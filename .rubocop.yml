@@ -5,3 +5,5 @@ AllCops:
   NewCops: enable # 新しいCopを自動的に有効にする
   Exclude:
     - 'db/schema.rb'
+Style/FrozenStringLiteralComment:
+  Enabled: false

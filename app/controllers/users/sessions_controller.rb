@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Users::SessionsController manages user sessions (login and logout).
 module Users
   class SessionsController < Devise::SessionsController
     # before_action :configure_sign_in_params, only: [:create]

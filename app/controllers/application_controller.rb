@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# ApplicationController is the base controller class for the application.
+# It provides common functionality for all controllers.
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include Pundit::Authorization
@@ -23,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_not_authorized
-    flash[:alert] = 'あなたはこの操作を行う権限がありません。'
+    flash[:alert] = I18n.t('authorization.not_authorized')
     redirect_to(request.referer || root_path)
   end
 end

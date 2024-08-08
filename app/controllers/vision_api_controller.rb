@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# VisionApiController interacts with Google Cloud Vision API to process images.
 class VisionApiController < ApplicationController
   require 'google/cloud/vision'
   require 'net/http'

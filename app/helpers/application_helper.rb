@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# ApplicationHelper provides utility methods for views.
 module ApplicationHelper
   def kelvin_to_celsius(kelvin)
     kelvin - 273.15

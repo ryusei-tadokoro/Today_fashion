@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Users::RegistrationsController manages user registration and profile updates.
 module Users
   class RegistrationsController < Devise::RegistrationsController
     before_action :set_prefectures, only: %i[new create edit update]

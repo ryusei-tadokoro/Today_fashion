@@ -1,4 +1,6 @@
 ja:
+  authorization:
+    not_authorized: 'あなたはこの操作を行う権限がありません。'
   activerecord:
     attributes:
       closet:

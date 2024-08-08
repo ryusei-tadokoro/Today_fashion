@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Public
+  # ContactsController handles the creation and management of contact forms.
+  # It includes actions for new contact form, confirming, creating, and showing a confirmation of the submission.
   class ContactsController < ApplicationController
     def new
       @contact = Contact.new
