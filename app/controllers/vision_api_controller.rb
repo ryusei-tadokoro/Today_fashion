@@ -16,7 +16,7 @@ class VisionApiController < ApplicationController
     image = params[:image].path
 
     # 画像のラベル検出を実行
-    response = image_annotator_client.label_detection(image: image)
+    response = image_annotator_client.label_detection(image:)
 
     # レスポンスから最初のラベルの説明を取得
     if response.responses.any? && response.responses.first.label_annotations.any?
@@ -38,13 +38,13 @@ class VisionApiController < ApplicationController
 
   def translate_text(text)
     api_key = Rails.application.credentials.dig(:deepl, :api_key)
-    url = URI.parse("https://api-free.deepl.com/v2/translate")
+    url = URI.parse('https://api-free.deepl.com/v2/translate')
     request = Net::HTTP::Post.new(url.to_s)
-    request["Authorization"] = "DeepL-Auth-Key #{api_key}"
+    request['Authorization'] = "DeepL-Auth-Key #{api_key}"
     request.set_form_data({
-      'text' => text,
-      'target_lang' => 'JA'
-    })
+                            'text' => text,
+                            'target_lang' => 'JA'
+                          })
 
     response = Net::HTTP.start(url.host, url.port, use_ssl: true) do |http|
       http.request(request)

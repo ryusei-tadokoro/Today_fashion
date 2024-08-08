@@ -2,7 +2,7 @@ class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
   before_action :load_prefecture_data, only: [:index]
   before_action :authenticate_user!
-  after_action :verify_authorized, except: [:index, :show]
+  after_action :verify_authorized, except: %i[index show]
   after_action :verify_policy_scoped, only: :index
 
   def index
@@ -21,15 +21,15 @@ class WeatherController < ApplicationController
 
   def show
     @weather_data = fetch_weather_service_data(params[:city] || default_city)
-  
+
     if @weather_data
       rainfall = @weather_data.dig('rain', '1h') || @weather_data.dig('rain', '3h') || 0
       @weather = extract_weather_data(@weather_data, rainfall)
       fetch_and_update_weather_forecast(params[:city] || default_city)
-  
+
       send_line_notification("【#{@weather[:name]}】に降水が予測されています。傘をお持ちください。") if rainfall.positive?
     else
-      flash[:alert] = '天気情報の取得に失敗しました。' 
+      flash[:alert] = '天気情報の取得に失敗しました。'
       redirect_to action: :index
     end
   end
@@ -38,16 +38,22 @@ class WeatherController < ApplicationController
     authorize :weather, :map?
     prefecture_ids = [1, 4, 13, 23, 15, 26, 34, 39, 40, 46, 47]
     prefectures = Prefecture.where(id: prefecture_ids)
-  
+
     @weather_data = prefectures.map do |prefecture|
       weather = fetch_weather_api_data(prefecture.name)
-      forecasts = weather.present? && weather['list'].present? ? weather['list'].select { |forecast| Time.at(forecast['dt']) <= Time.now + 24.hours } : []
-      { name: prefecture.name, weather: weather, forecasts: forecasts }
+      forecasts = if weather.present? && weather['list'].present?
+                    weather['list'].select do |forecast|
+                      Time.at(forecast['dt']) <= Time.now + 24.hours
+                    end
+                  else
+                    []
+                  end
+      { name: prefecture.name, weather:, forecasts: }
     end
-  
-    if @weather_data.any? { |data| data[:weather].nil? }
-      flash.now[:alert] = '一部の天気情報の取得に失敗しました。'
-    end
+
+    return unless @weather_data.any? { |data| data[:weather].nil? }
+
+    flash.now[:alert] = '一部の天気情報の取得に失敗しました。'
   end
 
   private
@@ -68,7 +74,8 @@ class WeatherController < ApplicationController
 
   def fetch_weather_api_data(city_name)
     api_key = Rails.application.credentials.dig(:openweathermap, :api_key)
-    response = HTTParty.get("https://api.openweathermap.org/data/2.5/forecast", query: { q: city_name, appid: api_key, units: 'metric', lang: 'ja' })
+    response = HTTParty.get('https://api.openweathermap.org/data/2.5/forecast',
+                            query: { q: city_name, appid: api_key, units: 'metric', lang: 'ja' })
     if response.success?
       response.parsed_response
     else
@@ -77,8 +84,7 @@ class WeatherController < ApplicationController
     end
   end
 
-  def fetch_temperature(location)
-  end
+  def fetch_temperature(location); end
 
   def extract_weather_data(weather_data, rainfall)
     {

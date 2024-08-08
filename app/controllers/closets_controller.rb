@@ -70,10 +70,10 @@ class ClosetsController < ApplicationController
     category_id = params[:category_id]
     @category = Category.find(category_id)
     authorize @category, :show?
-    subcategories = Subcategory.where(category_id: category_id)
+    subcategories = Subcategory.where(category_id:)
     render json: subcategories
   end
-  
+
   private
 
   def set_closet
@@ -86,7 +86,8 @@ class ClosetsController < ApplicationController
   end
 
   def closet_update_params
-    params.require(:closet).permit(:name, :category_id, :subcategory_id, :color, :season, :purchase_date, :size, :purchase_location, :price, :usage_frequency, :other_comments, :image)
+    params.require(:closet).permit(:name, :category_id, :subcategory_id, :color, :season, :purchase_date, :size,
+                                   :purchase_location, :price, :usage_frequency, :other_comments, :image)
   end
 
   def set_categories_and_subcategories

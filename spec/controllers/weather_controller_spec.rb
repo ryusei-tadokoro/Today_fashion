@@ -35,7 +35,8 @@ RSpec.describe WeatherController, type: :controller do
   describe 'GET #show' do
     context 'when city is valid' do
       before do
-        allow_any_instance_of(WeatherController).to receive(:fetch_weather_service_data).and_return('name' => 'Tokyo', 'main' => { 'temp' => 300.15, 'feels_like' => 298.15, 'temp_min' => 299.15, 'temp_max' => 301.15, 'humidity' => 80 }, 'wind' => { 'speed' => 5 }, 'weather' => [{ 'description' => 'clear sky' }])
+        allow_any_instance_of(WeatherController).to receive(:fetch_weather_service_data).and_return('name' => 'Tokyo',
+                                                                                                    'main' => { 'temp' => 300.15, 'feels_like' => 298.15, 'temp_min' => 299.15, 'temp_max' => 301.15, 'humidity' => 80 }, 'wind' => { 'speed' => 5 }, 'weather' => [{ 'description' => 'clear sky' }])
         get :show, params: { city: 'Tokyo' }
       end
 

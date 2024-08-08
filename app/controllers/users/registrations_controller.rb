@@ -12,6 +12,10 @@ module Users
       render "users/registrations/#{@step}"
     end
 
+    def edit
+      @user = current_user
+    end
+
     def create
       session[:user_params].deep_merge!(user_params) if user_params
       @user = User.new(session[:user_params])
@@ -28,10 +32,6 @@ module Users
       else
         render "users/registrations/#{@step}"
       end
-    end
-
-    def edit
-      @user = current_user
     end
 
     def update

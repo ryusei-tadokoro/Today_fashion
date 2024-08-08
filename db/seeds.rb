@@ -3,7 +3,7 @@
 categories_data = [
   { name: 'トップス' }, { name: 'ボトムス' }, { name: 'アウター' },
   { name: 'セットアップ' }, { name: 'ワンピース・サロペット' }, { name: 'シューズ' },
-  { name: 'バッグ' }, { name: 'アクセサリー' }, { name: 'その他' },{ name: '指定しない' }
+  { name: 'バッグ' }, { name: 'アクセサリー' }, { name: 'その他' }, { name: '指定しない' }
 ]
 
 categories_data.each do |category_data|
