@@ -16,6 +16,7 @@
         <% end %>
 
         <h3 class="mb-8">必須入力情報</h3>
+
         <div class="form-group">
           <%= f.label :image, t('activerecord.attributes.closet.image'), class: 'form-label' %>
           <%= f.file_field :image, id: 'image-upload', class: 'form-control' %>
@@ -85,10 +86,6 @@
         <div class="form-group">
           <%= f.label :other_comments, t('activerecord.attributes.closet.other_comments'), class: 'form-label' %>
           <%= f.text_area :other_comments, class: 'form-control' %>
-        </div>
-
-        <div class="col-12 mt-3">
-          <%= f.submit "登録する", class: 'btn btn-primary' %>
         </div>
       <% end %>
     </div>
