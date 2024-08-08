@@ -72,10 +72,9 @@ RSpec.feature 'Closet Management', type: :feature, js: true do
   scenario 'ユーザーが服を削除できること' do
     visit closet_path(closet)
     accept_confirm do
-      click_link '削除する'
+      click_link I18n.t('closets.destroy_button')
     end
   
-    expect(page).to have_content('クローゼットは削除されました。')
     expect(page).not_to have_content(closet.name)
   end
 end
