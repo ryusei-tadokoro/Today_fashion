@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
   before_action :set_categories_and_subcategories, only: %i[new edit create update]

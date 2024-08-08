@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/factories/closets.rb
 FactoryBot.define do
   factory :closet do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WeatherController < ApplicationController
   before_action :validate_city, only: [:show]
   before_action :load_prefecture_data, only: [:index]
