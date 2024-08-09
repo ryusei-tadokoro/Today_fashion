@@ -8,9 +8,7 @@ module Users
     skip_before_action :verify_authenticity_token, only: [:create]
 
     def new
-      @user = User.new
-      session[:user_params] ||= {}
-      @user.attributes = session[:user_params]
+      @user = initialize_user
       @step = params[:step] || 'step1'
       render "users/registrations/#{@step}"
     end
@@ -25,13 +23,7 @@ module Users
       @step = params[:step] || 'step1'
 
       if @user.valid?(step_validation_context(@step))
-        if @step == 'step2'
-          @user.save
-          sign_in(@user)
-          redirect_to root_path, notice: 'アカウント登録完了しました。さあ！始めよう!!'
-        else
-          redirect_to new_user_registration_step_path(step: next_step(@step))
-        end
+        handle_valid_step
       else
         render "users/registrations/#{@step}"
       end
@@ -42,7 +34,7 @@ module Users
 
       if update_resource(@user, user_params)
         bypass_sign_in(@user)
-        redirect_to root_path, notice: 'アカウントを更新しました.'
+        redirect_to root_path, notice: I18n.t('devise.registrations.account_updated')
       else
         render :edit
       end
@@ -55,9 +47,9 @@ module Users
     def destroy
       @user = current_user
       if @user.destroy
-        redirect_to root_path, notice: 'アカウントは削除されました。'
+        redirect_to root_path, notice: I18n.t('devise.registrations.account_deleted')
       else
-        redirect_to cancel_account_user_path, alert: 'アカウント削除に失敗しました。'
+        redirect_to cancel_account_user_path, alert: I18n.t('devise.registrations.account_deletion_failed')
       end
     end
 
@@ -72,6 +64,23 @@ module Users
     end
 
     private
+
+    def initialize_user
+      session[:user_params] ||= {}
+      user = User.new
+      user.attributes = session[:user_params]
+      user
+    end
+
+    def handle_valid_step
+      if @step == 'step2'
+        @user.save
+        sign_in(@user)
+        redirect_to root_path, notice: I18n.t('devise.registrations.account_created')
+      else
+        redirect_to new_user_registration_step_path(step: next_step(@step))
+      end
+    end
 
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation, :prefecture_id,
@@ -94,9 +103,7 @@ module Users
     end
 
     def next_step(current_step)
-      case current_step
-      when 'step1' then 'step2'
-      end
+      'step2' if current_step == 'step1'
     end
   end
 end

@@ -32,7 +32,7 @@ RSpec.feature 'User Registration', type: :feature do
     select 'やや寒がり', from: 'user[constitution_id]'
     click_button 'アカウント登録'
 
-    expect(page).to have_content('アカウント登録完了しました。さあ！始めよう!!')
+    expect(page).to have_content(I18n.t('devise.registrations.account_created'))
   end
 
   scenario '無効な情報でstep1に留まる' do

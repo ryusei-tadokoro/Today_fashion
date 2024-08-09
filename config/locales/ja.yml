@@ -121,6 +121,10 @@ ja:
       updated: パスワードが正しく変更されました。
       updated_not_active: パスワードが正しく変更されました。
     registrations:
+      user_signed_up: "アカウント登録完了しました。さあ！始めよう!!"
+      user_updated: "アカウントを更新しました."
+      user_deleted: "アアカウントを削除しました。またのご利用をお待ちしております。"
+      user_deletion_failed: "アカウント削除に失敗しました。"
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:
         are_you_sure: 本当によろしいですか？
