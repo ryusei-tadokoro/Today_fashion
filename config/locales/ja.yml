@@ -233,3 +233,8 @@ ja:
       success: 'アイテムが削除されました'
   alerts:
     login_required: "ログインが必要です"
+  weather:
+    fetch_failed: "天気情報の取得に失敗しました。"
+    partial_fetch_failed: "一部の天気情報の取得に失敗しました。"
+    rainfall_alert: "【%{city}】に降水が予測されています。傘をお持ちください。"
+    enter_city: "都市名を入力してください。"
