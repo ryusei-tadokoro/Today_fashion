@@ -6,36 +6,6 @@ module ApplicationHelper
     kelvin - 273.15
   end
 
-  def display_clothes_photo(temperature, constitution_id, user)
-    subcategory_ids = get_subcategory_ids(temperature, constitution_id)
-    displayed_urls = []
-
-    subcategory_ids.uniq.map do |subcategory_id|
-      closet_item = user.closets
-                        .where(subcategory_id:)
-                        .where('last_displayed_at IS NULL OR last_displayed_at < ?', 24.hours.ago)
-                        .order('RANDOM()')
-                        .first
-
-      if closet_item.blank?
-        closet_item = user.closets
-                          .where(subcategory_id:)
-                          .order('RANDOM()')
-                          .first
-      end
-
-      next unless closet_item.present?
-
-      closet_item.update(last_worn_on: Time.zone.today, last_displayed_at: Time.zone.now)
-      Rails.logger.debug { "Updated last_worn_on and last_displayed_at for item: #{closet_item.id}" }
-
-      unless displayed_urls.include?(closet_item.image_url)
-        displayed_urls << closet_item.image_url
-        closet_item.image_url
-      end
-    end.compact
-  end
-
   def clothing_index(constitution_id)
     clothing_index_tag = []
     clothing_index_tag << case constitution_id
