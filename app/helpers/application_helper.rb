@@ -6,396 +6,118 @@ module ApplicationHelper
     kelvin - 273.15
   end
 
+  def very_cold_set
+    [
+      image_tag('knitcap.png', size: '50x50'),
+      image_tag('down.png', size: '50x50'),
+      image_tag('muffler.png', size: '50x50'),
+      image_tag('cardigan.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('tebukuro.png', size: '50x50'),
+      image_tag('jeans.png', size: '50x50'),
+      image_tag('black_shoes.png', size: '50x50')
+    ]
+  end
+
+  def cold_set
+    [
+      image_tag('down.png', size: '50x50'),
+      image_tag('muffler.png', size: '50x50'),
+      image_tag('cardigan.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('tebukuro.png', size: '50x50'),
+      image_tag('jeans.png', size: '50x50'),
+      image_tag('black_shoes.png', size: '50x50')
+    ]
+  end
+
+  def cool_set
+    [
+      image_tag('chester_coat.png', size: '50x50'),
+      image_tag('muffler.png', size: '50x50'),
+      image_tag('cardigan.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('tebukuro.png', size: '50x50'),
+      image_tag('jeans.png', size: '50x50'),
+      image_tag('black_shoes.png', size: '50x50')
+    ]
+  end
+
+  def mild_set
+    [
+      image_tag('flight_jacket.png', size: '50x50'),
+      image_tag('cardigan.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('jeans.png', size: '50x50'),
+      image_tag('black_shoes.png', size: '50x50')
+    ]
+  end
+
+  def warm_set
+    [
+      image_tag('cardigan.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('jeans.png', size: '50x50'),
+      image_tag('black_shoes.png', size: '50x50')
+    ]
+  end
+
+  def hot_set
+    [
+      image_tag('parker.png', size: '50x50'),
+      image_tag('Y-shirts.png', size: '50x50'),
+      image_tag('black_pants.png', size: '50x50'),
+      image_tag('white_shoes.png', size: '50x50')
+    ]
+  end
+
+  def very_hot_set
+    [
+      image_tag('cloth_longt.png', size: '50x50'),
+      image_tag('black_pants.png', size: '50x50'),
+      image_tag('white_shoes.png', size: '50x50')
+    ]
+  end
+
+  def extreme_hot_set
+    [
+      image_tag('fashion_tshirt1_white.png', size: '50x50'),
+      image_tag('black_pants.png', size: '50x50'),
+      image_tag('white_shoes.png', size: '50x50')
+    ]
+  end
+
+  def tropical_set
+    [
+      image_tag('hat_kankan', size: '50x50'),
+      image_tag('fashion_tshirt1_white.png', size: '50x50'),
+      image_tag('half_pants.png', size: '50x50'),
+      image_tag('shoes_side06_beach.png', size: '50x50'),
+      image_tag('pool_bath_towel.png', size: '50x50')
+    ]
+  end
+
   def dress_code_suggestion(temperature, constitution_id)
-    icon_tags = []
-    case constitution_id
-    when 1 # 暑がり
-      icon_tags = if temperature < 3
-                    [
-                      image_tag('knitcap.png', size: '50x50'),
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('hokkairo.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 3 && temperature < 7
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 7 && temperature < 11
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 11 && temperature < 15
-                    [
-                      image_tag('flight_jacket.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 15 && temperature < 18
-                    [
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 18 && temperature < 22
-                    [
-                      image_tag('parker.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 22 && temperature < 26
-                    [
-                      image_tag('cloth_longt.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 26 && temperature < 31
-                    [
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  else
-                    [
-                      image_tag('hat_kankan', size: '50x50'),
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('half_pants.png', size: '50x50'),
-                      image_tag('shoes_side06_beach.png', size: '50x50'),
-                      image_tag('pool_bath_towel.png', size: '50x50')
-                    ]
-                  end
+    adjusted_temp = case constitution_id
+                    when 1 then temperature + 2 # 寒がり
+                    when 2 then temperature + 1 # やや寒がり
+                    when 4 then temperature - 1 # やや暑がり
+                    when 5 then temperature - 2 # 暑がり
+                    else
+                      0
+                    end
 
-    when 2 # やや暑がり
-      icon_tags = if temperature < 4
-                    [
-                      image_tag('knitcap.png', size: '50x50'),
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('hokkairo.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 4 && temperature < 8
-                    [
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 8 && temperature < 12
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 12 && temperature < 16
-                    [
-                      image_tag('flight_jacket.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 16 && temperature < 19
-                    [
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 19 && temperature < 23
-                    [
-                      image_tag('parker.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 23 && temperature < 27
-                    [
-                      image_tag('cloth_longt.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 27 && temperature < 32
-                    [
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  else
-                    [
-                      image_tag('hat_kankan', size: '50x50'),
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('half_pants.png', size: '50x50'),
-                      image_tag('shoes_side06_beach.png', size: '50x50'),
-                      image_tag('pool_bath_towel.png', size: '50x50')
-                    ]
-                  end
-
-    when 3 # 標準
-      icon_tags = if temperature < 5
-                    [
-                      image_tag('knitcap.png', size: '50x50'),
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('hokkairo.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 5 && temperature < 9
-                    [
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 9 && temperature < 13
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 13 && temperature < 17
-                    [
-                      image_tag('flight_jacket.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 17 && temperature < 20
-                    [
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 20 && temperature < 24
-                    [
-                      image_tag('parker.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 24 && temperature < 28
-                    [
-                      image_tag('cloth_longt.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 28 && temperature < 33
-                    [
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  else
-                    [
-                      image_tag('hat_kankan', size: '50x50'),
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('half_pants.png', size: '50x50'),
-                      image_tag('shoes_side06_beach.png', size: '50x50'),
-                      image_tag('pool_bath_towel.png', size: '50x50')
-                    ]
-                  end
-
-    when 4 # やや寒がり
-      icon_tags = if temperature < 6
-                    [
-                      image_tag('knitcap.png', size: '50x50'),
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('hokkairo.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 6 && temperature < 10
-                    [
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 10 && temperature < 14
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 14 && temperature < 18
-                    [
-                      image_tag('flight_jacket.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 18 && temperature < 21
-                    [
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 21 && temperature < 25
-                    [
-                      image_tag('parker.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 25 && temperature < 29
-                    [
-                      image_tag('cloth_longt.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 29 && temperature < 34
-                    [
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  else
-                    [
-                      image_tag('hat_kankan', size: '50x50'),
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('half_pants.png', size: '50x50'),
-                      image_tag('shoes_side06_beach.png', size: '50x50'),
-                      image_tag('pool_bath_towel.png', size: '50x50')
-                    ]
-                  end
-
-    when 5 # 寒がり
-      icon_tags = if temperature < 7
-                    [
-                      image_tag('knitcap.png', size: '50x50'),
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('hokkairo.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 7 && temperature < 11
-                    [
-                      image_tag('down.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 11 && temperature < 15
-                    [
-                      image_tag('chester_coat.png', size: '50x50'),
-                      image_tag('muffler.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('tebukuro.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 15 && temperature < 19
-                    [
-                      image_tag('flight_jacket.png', size: '50x50'),
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 19 && temperature < 22
-                    [
-                      image_tag('cardigan.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('jeans.png', size: '50x50'),
-                      image_tag('black_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 22 && temperature < 26
-                    [
-                      image_tag('parker.png', size: '50x50'),
-                      image_tag('Y-shirts.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 26 && temperature < 30
-                    [
-                      image_tag('cloth_longt.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  elsif temperature >= 30 && temperature < 35
-                    [
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('black_pants.png', size: '50x50'),
-                      image_tag('white_shoes.png', size: '50x50')
-                    ]
-                  else
-                    [
-                      image_tag('hat_kankan', size: '50x50'),
-                      image_tag('fashion_tshirt1_white.png', size: '50x50'),
-                      image_tag('half_pants.png', size: '50x50'),
-                      image_tag('shoes_side06_beach.png', size: '50x50'),
-                      image_tag('pool_bath_towel.png', size: '50x50')
-                    ]
-                  end
-    else
-      icon_tags << '**新規登録またはログインを行い,体質設定を行なってください**'
-    end
+    icon_tags = case adjusted_temp
+                when ...5 then very_cold_set
+                when 5...9 then cold_set
+                when 9...13 then cool_set
+                when 13...17 then mild_set
+                when 17...20 then warm_set
+                when 20...24 then hot_set
+                when 24...28 then very_hot_set
+                when 28...33 then extreme_hot_set
+                else tropical_set
+                end
 
     icon_tags.join(' ').html_safe
   end
