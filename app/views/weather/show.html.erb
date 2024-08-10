@@ -1,8 +1,5 @@
 <div class="container mt-5">
   <h1><%= @weather[:name] %> の天気と服装指数予報</h1>
-  <div style='display: flex; flex-wrap: wrap;'>
-    <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
-  </div>
 
   <div class="mt-4">
     <% if @weather_data.present? %>
@@ -54,7 +51,7 @@
       <p class="mt-4">天気情報が取得できませんでした。</p>
     <% end %>
   </div>
-
+  <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
   <div class="mt-4">
     <%= link_to '戻る', weather_path, class: "btn btn-primary" %>
   </div>

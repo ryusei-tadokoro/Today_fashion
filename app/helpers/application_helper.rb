@@ -6,25 +6,6 @@ module ApplicationHelper
     kelvin - 273.15
   end
 
-  def clothing_index(constitution_id)
-    clothing_index_tag = []
-    clothing_index_tag << case constitution_id
-                          when 1 # 暑がり
-                            image_tag('clothing_index1.png')
-                          when 2 # やや暑がり
-                            image_tag('clothing_index2.png')
-                          when 3 # 標準
-                            image_tag('clothing_index3.png')
-                          when 4 # やや寒がり
-                            image_tag('clothing_index4.png')
-                          when 5 # 寒がり
-                            image_tag('clothing_index5.png')
-                          else
-                            '**新規登録またはログインを行い,体質設定を行なってください**'
-                          end
-    clothing_index_tag
-  end
-
   private
 
   def get_subcategory_ids(temperature, constitution_id)
