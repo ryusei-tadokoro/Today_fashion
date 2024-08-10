@@ -12,16 +12,12 @@ class WeatherController < ApplicationController
 
   def index
     skip_policy_scope
-    user_prefecture_id = current_user&.prefecture_id
-    user_second_prefecture_id = current_user&.second_prefecture_id
 
-    default_city = user_prefecture_id.present? ? Prefecture.find(user_prefecture_id).name : 'Tokyo'
-    second_city = user_second_prefecture_id.present? ? Prefecture.find(user_second_prefecture_id).name : 'Osaka'
+    weather_data = fetch_weather_data_for_user(current_user)
+    @weather_data = weather_data[:default_city]
+    @second_weather_data = weather_data[:second_city]
 
-    @weather_data = fetch_weather_api_data(default_city)
-    @second_weather_data = fetch_weather_api_data(second_city)
-
-    flash.now[:alert] = '天気情報の取得に失敗しました。' unless @weather_data || @second_weather_data
+    flash[:alert] = I18n.t('weather.fetch_failed') unless @weather_data || @second_weather_data
   end
 
   def show
@@ -56,10 +52,7 @@ class WeatherController < ApplicationController
     default_city = fetch_city_name(user&.prefecture_id, 'Tokyo')
     second_city = fetch_city_name(user&.second_prefecture_id, 'Osaka')
 
-    {
-      default_city: fetch_weather_api_data(default_city),
-      second_city: fetch_weather_api_data(second_city)
-    }
+    { default_city: fetch_weather_api_data(default_city), second_city: fetch_weather_api_data(second_city) }
   end
 
   def fetch_city_name(prefecture_id, default_city)

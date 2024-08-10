@@ -5,13 +5,12 @@ module WeatherHelper
     {
       name: extract_weather_name(weather_data),
       temp_celsius: extract_temperature(weather_data, 'temp'),
-      feels_like_celsius: extract_temperature(weather_data, 'feels_like'),
       temp_min_celsius: extract_temperature(weather_data, 'temp_min'),
       temp_max_celsius: extract_temperature(weather_data, 'temp_max'),
       humidity: extract_humidity(weather_data),
       wind_speed: extract_wind_speed(weather_data),
       description: extract_description(weather_data),
-      rainfall: 
+      rainfall:
     }
   end
 
