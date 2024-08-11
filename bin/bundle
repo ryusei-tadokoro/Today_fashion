@@ -39,10 +39,10 @@ m = Module.new do
 
   def gemfile
     gemfile = ENV.fetch('BUNDLE_GEMFILE', nil)
-    return gemfile if gemfile.present?
-
+    return gemfile unless gemfile.nil? || gemfile.empty?
+  
     File.expand_path('../Gemfile', __dir__)
-  end
+  end  
 
   def lockfile
     lockfile =
