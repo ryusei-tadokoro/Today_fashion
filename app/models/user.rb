@@ -27,15 +27,31 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-    user = where(provider: auth.provider, uid: auth.uid).first_or_initialize
-    user.email = auth.info.email || "#{auth.uid}-#{auth.provider}@example.com"
-    user.password = Devise.friendly_token[0, 20] if user.new_record?
-    user.name = auth.info.name
+    user = find_or_initialize_user(auth)
+    update_user_attributes(user, auth)
     user.save
     user
   end
 
   def admin?
     true
+  end
+
+  class << self
+    private
+
+    def find_or_initialize_user(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_initialize
+    end
+
+    def update_user_attributes(user, auth)
+      user.email = extract_email(auth)
+      user.password = Devise.friendly_token[0, 20] if user.new_record?
+      user.name = auth.info.name
+    end
+
+    def extract_email(auth)
+      auth.info.email || "#{auth.uid}-#{auth.provider}@example.com"
+    end
   end
 end

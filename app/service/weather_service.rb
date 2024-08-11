@@ -25,11 +25,15 @@ class WeatherService
 
   def update_forecast_temperatures(weather_forecast_data)
     weather_forecast_data['list'].each do |forecast|
-      forecast['main']['temp'] = kelvin_to_celsius(forecast['main']['temp']).round(1)
-      forecast['main']['feels_like'] = kelvin_to_celsius(forecast['main']['feels_like']).round(1)
-      forecast['main']['temp_min'] = kelvin_to_celsius(forecast['main']['temp_min']).round(1)
-      forecast['main']['temp_max'] = kelvin_to_celsius(forecast['main']['temp_max']).round(1)
+      update_forecast_temperature(forecast['main'])
     end
+  end
+
+  def update_forecast_temperature(main)
+    main['temp'] = kelvin_to_celsius(main['temp']).round(1)
+    main['feels_like'] = kelvin_to_celsius(main['feels_like']).round(1)
+    main['temp_min'] = kelvin_to_celsius(main['temp_min']).round(1)
+    main['temp_max'] = kelvin_to_celsius(main['temp_max']).round(1)
   end
 
   def kelvin_to_celsius(kelvin)

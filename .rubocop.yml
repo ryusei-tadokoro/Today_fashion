@@ -10,3 +10,8 @@ Style/FrozenStringLiteralComment:
 
 Style/Documentation:
   Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/prefecture.rb'
+    - 'app/models/constitution.rb'
