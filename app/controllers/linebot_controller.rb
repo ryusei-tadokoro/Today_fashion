@@ -1,13 +1,10 @@
 # frozen_string_literal: true
 
 require 'line/bot'
-require 'weather_message_builder'
 
 # LinebotController handles interactions with the LINE messaging API.
 # It processes incoming messages and sends appropriate responses.
 class LinebotController < ApplicationController
-  include WeatherMessageBuilder
-
   # callbackアクションのCSRFトークン認証を無効
   protect_from_forgery except: [:callback]
 
