@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClosetPolicy < ApplicationPolicy
   def show?
     user.present? && user.id == record.user_id

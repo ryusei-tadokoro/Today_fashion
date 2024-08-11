@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/controllers/closets_controller_spec.rb
 require 'rails_helper'
 
@@ -9,64 +11,64 @@ RSpec.describe ClosetsController, type: :controller do
     sign_in user
   end
 
-  describe "GET #index" do
-    it "returns http success" do
+  describe 'GET #index' do
+    it 'returns http success' do
       get :index
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #show" do
-    it "returns http success" do
-      closet = create(:closet, user: user)
+  describe 'GET #show' do
+    it 'returns http success' do
+      closet = create(:closet, user:)
       get :show, params: { id: closet.to_param }
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #new" do
-    it "returns http success" do
+  describe 'GET #new' do
+    it 'returns http success' do
       get :new
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "GET #edit" do
-    it "returns http success" do
-      closet = create(:closet, user: user)
+  describe 'GET #edit' do
+    it 'returns http success' do
+      closet = create(:closet, user:)
       get :edit, params: { id: closet.to_param }
       expect(response).to have_http_status(:success)
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Closet" do
-        expect {
+  describe 'POST #create' do
+    context 'with valid params' do
+      it 'creates a new Closet' do
+        expect do
           post :create, params: { closet: valid_attributes }
-        }.to change(Closet, :count).by(1)
+        end.to change(Closet, :count).by(1)
       end
     end
   end
 
-  describe "PATCH/PUT #update" do
-    context "with valid params" do
-      it "updates the requested closet" do
-        closet = create(:closet, user: user)
-        new_attributes = { name: "Updated Closet" }
+  describe 'PATCH/PUT #update' do
+    context 'with valid params' do
+      it 'updates the requested closet' do
+        closet = create(:closet, user:)
+        new_attributes = { name: 'Updated Closet' }
         patch :update, params: { id: closet.to_param, closet: new_attributes }
         closet.reload
-        expect(closet.name).to eq("Updated Closet")
+        expect(closet.name).to eq('Updated Closet')
       end
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested closet" do
-      closet = create(:closet, user: user)
-      expect {
+  describe 'DELETE #destroy' do
+    it 'destroys the requested closet' do
+      closet = create(:closet, user:)
+      expect do
         delete :destroy, params: { id: closet.to_param }
-      }.to change(Closet, :count).by(-1)
+      end.to change(Closet, :count).by(-1)
     end
   end
 end

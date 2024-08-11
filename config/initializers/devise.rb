@@ -14,7 +14,7 @@ Devise.setup do |config|
   config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
   config.reset_password_within = 6.hours
   config.navigational_formats = ['*/*', :html, :turbo_stream]
-  config.sign_out_via = [:get, :delete]
+  config.sign_out_via = %i[get delete]
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
   config.omniauth :line, Rails.application.credentials.line[:key], Rails.application.credentials.line[:secret]

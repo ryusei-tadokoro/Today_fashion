@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# UsersController manages the user profile and related actions.
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :closets do
     get 'subcategories_for_category/:category_id', on: :collection, to: 'closets#subcategories_for_category'

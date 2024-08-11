@@ -1,159 +1,19 @@
 <% if @weather_data.present? %>
   <div class="container">
-    <div class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title"><%= @weather_data['city']['name'] %></h5>
-        <div class="row">
-          <div class="col">
-            <p>天気: <%= @weather_data['list'][0]['weather'][0]['description'] %></p>
-            <img src="https://openweathermap.org/img/wn/<%= @weather_data['list'][0]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
-            <% if @weather_data['list'][0]['rain'] && @weather_data['list'][0]['rain']['1h'] %>
-              <p>降水量: <%= @weather_data['list'][0]['rain']['1h'] %> mm</p>
-            <% end %>
-            <p>湿度: <%= @weather_data['list'][0]['main']['humidity'] %> %</p>
-            <p>風速: <%= @weather_data['list'][0]['wind']['speed'] %> m/s</p>
-          </div>
-          <div class="col ml-auto">
-            <p>今日のおすすめファッション</p>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <%= dress_code_suggestion(
-                @weather_data['list'][0]['main']['temp_max'],
-                current_user&.constitution_id.to_i
-              ) %>
-            </div></br>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <% if current_user %>
-                <% image_urls = display_clothes_photo(@weather_data['list'][0]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
-                <% image_urls.each do |image_url| %>
-                  <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <div class="col ml-auto">
-          <p>明日のおすすめファッション</p>
-          <div style='display: flex; flex-wrap: wrap;'>
-            <%= dress_code_suggestion(
-              @weather_data['list'][8]['main']['temp_max'],
-              current_user&.constitution_id.to_i
-            ) %>
-          </div></br>
-          <div style='display: flex; flex-wrap: wrap;'>
-            <% if current_user %>
-              <% image_urls = display_clothes_photo(@weather_data['list'][8]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
-              <% image_urls.each do |image_url| %>
-                <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
-              <% end %>
-            <% end %>
-          </div>
-        </div>
-        </div></br>
-        <div class="row">
-          <% current_time = Time.now %>
-          <% forecasts = @weather_data['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
-          <div class="row flex-nowrap overflow-auto">
-            <% forecasts.each do |forecast| %>
-              <div class="col-md-2 mb-3" style="flex: 0 0 auto;">
-                <div class="card">
-                  <div class="card-body p-1">
-                    <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
-                    <div style='display: flex; flex-wrap: wrap;'>
-                      <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="img-fluid" style="width: 100px; height: 100px;">
-                      <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
-                    </div>
-                    <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
-                      <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'weather_card', locals: { weather_data: @weather_data } %>
   </div>
 <% else %>
   <p>天気情報がありません。</p>
 <% end %>
+
 <% if @second_weather_data.present? %>
   <div class="container mt-5">
-    <div class="card mt-3">
-      <div class="card-body">
-        <h5 class="card-title"><%= @second_weather_data['city']['name'] %></h5>
-        <div class="row">
-          <div class="col">
-            <p>天気: <%= @second_weather_data['list'][0]['weather'][0]['description'] %></p>
-            <img src="https://openweathermap.org/img/wn/<%= @second_weather_data['list'][0]['weather'][0]['icon'] %>@2x.png" alt="Weather Icon">
-            <% if @second_weather_data['list'][0]['rain'] && @second_weather_data['list'][0]['rain']['1h'] %>
-              <p>降水量: <%= @second_weather_data['list'][0]['rain']['1h'] %> mm</p>
-            <% end %>
-            <p>湿度: <%= @second_weather_data['list'][0]['main']['humidity'] %> %</p>
-            <p>風速: <%= @second_weather_data['list'][0]['wind']['speed'] %> m/s</p>
-          </div>
-          <div class="col ml-auto">
-            <p>今日のおすすめファッション</p>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <%= dress_code_suggestion(
-                @second_weather_data['list'][0]['main']['temp_max'],
-                current_user&.constitution_id.to_i
-              ) %>
-            </div></br>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <% if current_user %>
-                <% image_urls = display_clothes_photo(@second_weather_data['list'][0]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
-                <% image_urls.each do |image_url| %>
-                  <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-          <div class="col ml-auto">
-          <p>明日のおすすめファッション</p>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <%= dress_code_suggestion(
-                @second_weather_data['list'][8]['main']['temp_max'],
-                current_user&.constitution_id.to_i
-              ) %>
-            </div></br>
-            <div style='display: flex; flex-wrap: wrap;'>
-              <% if current_user %>
-                <% image_urls = display_clothes_photo(@second_weather_data['list'][8]['main']['temp_max'], current_user.constitution_id.to_i, current_user) %>
-                <% image_urls.each do |image_url| %>
-                  <%= image_tag image_url, alt: "Clothes Photo", size: '50x50' %>
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-        </div></br>
-        <div class="row">
-          <% current_time = Time.now %>
-          <% forecasts = @second_weather_data['list'].select { |forecast| Time.at(forecast['dt']) <= current_time + 24.hours } %>
-          <div class="row flex-nowrap overflow-auto">
-            <% forecasts.each do |forecast| %>
-              <div class="col-md-2 mb-3" style="flex: 0 0 auto;">
-                <div class="card">
-                    <div class="card-body p-1">
-                    <h6 class="card-subtitle mb-1 text-muted" style="font-size: 0.8rem;"><%= Time.at(forecast['dt']).strftime('%H:%M') %></h6>
-                    <div style='display: flex; flex-wrap: wrap;'>
-                      <img src="https://openweathermap.org/img/wn/<%= forecast['weather'][0]['icon'] %>@2x.png" alt="Weather Icon" class="img-fluid" style="width: 100px; height: 100px;">
-                      <%= get_clothing_icons(forecast['main']['temp'], current_user.constitution_id).join(' ').html_safe %>
-                    </div>
-                    <% if forecast['rain'].present? && forecast['rain']['3h'].present? %>
-                      <p class="card-text mb-1" style="font-size: 0.7rem;">降水量: <%= forecast['rain']['3h'] %>mm</p>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'weather_card', locals: { weather_data: @second_weather_data } %>
   </div>
 <% else %>
   <p>天気情報がありません。</p>
 <% end %>
-<div class="container", style='display: flex; flex-wrap: wrap;'>
+
+<div class="container">
   <%= clothing_index(current_user.constitution_id).join(' ').html_safe %>
 </div>

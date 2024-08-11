@@ -21,5 +21,5 @@ class Prefecture < ActiveHash::Base
   ]
 
   include ActiveHash::Associations
-  has_many :users
+  has_many :users # :dependent が不要のため、警告を無視
 end

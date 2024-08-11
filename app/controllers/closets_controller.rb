@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+# ClosetsController handles the CRUD operations for the Closet model.
+# It ensures that users can create, read, update, and delete their closet items.
 class ClosetsController < ApplicationController
   before_action :set_closet, only: %i[show edit update destroy]
   before_action :set_categories_and_subcategories, only: %i[new edit create update]
@@ -35,26 +39,16 @@ class ClosetsController < ApplicationController
   def create
     @closet = current_user.closets.new(closet_params)
     authorize @closet
-    respond_to do |format|
-      if @closet.save
-        format.html { redirect_to closet_url(@closet), notice: t('.success') }
-        format.json { render :show, status: :created, location: @closet }
-      else
-        set_categories_and_subcategories
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @closet.errors, status: :unprocessable_entity }
-      end
-    end
+    respond_to_create(@closet)
   end
 
   # PATCH/PUT /closets/1 or /closets/1.json
   def update
     authorize @closet
-    update_params = closet_update_params
-    if @closet.update(update_params)
+    if @closet.update(closet_update_params)
       redirect_to closet_url(@closet), notice: t('.success')
     else
-      set_categories_and_subcategories # エラー時に再度 @categories と @subcategories を設定
+      set_categories_and_subcategories
       render :edit, status: :unprocessable_entity
     end
   end
@@ -70,11 +64,24 @@ class ClosetsController < ApplicationController
     category_id = params[:category_id]
     @category = Category.find(category_id)
     authorize @category, :show?
-    subcategories = Subcategory.where(category_id: category_id)
+    subcategories = Subcategory.where(category_id:)
     render json: subcategories
   end
-  
+
   private
+
+  def respond_to_create(closet)
+    respond_to do |format|
+      if closet.save
+        format.html { redirect_to closet_url(closet), notice: t('.success') }
+        format.json { render :show, status: :created, location: closet }
+      else
+        set_categories_and_subcategories
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: closet.errors, status: :unprocessable_entity }
+      end
+    end
+  end
 
   def set_closet
     @closet = Closet.find(params[:id])
@@ -86,7 +93,8 @@ class ClosetsController < ApplicationController
   end
 
   def closet_update_params
-    params.require(:closet).permit(:name, :category_id, :subcategory_id, :color, :season, :purchase_date, :size, :purchase_location, :price, :usage_frequency, :other_comments, :image)
+    params.require(:closet).permit(:name, :category_id, :subcategory_id, :color, :season, :purchase_date, :size,
+                                   :purchase_location, :price, :usage_frequency, :other_comments, :image)
   end
 
   def set_categories_and_subcategories

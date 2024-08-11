@@ -5,3 +5,20 @@ AllCops:
   NewCops: enable # 新しいCopを自動的に有効にする
   Exclude:
     - 'db/schema.rb'
+    - 'bin/bundle'
+    - 'config/environments/development.rb'
+    - 'config/environments/production.rb'
+    - 'config/routes.rb'
+    - 'db/migrate/**/*.rb'
+    - 'spec/**/*.rb'
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/prefecture.rb'
+    - 'app/models/constitution.rb'

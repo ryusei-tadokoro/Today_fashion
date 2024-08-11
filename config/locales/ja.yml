@@ -1,4 +1,6 @@
 ja:
+  authorization:
+    not_authorized: 'あなたはこの操作を行う権限がありません。'
   activerecord:
     attributes:
       closet:
@@ -119,6 +121,10 @@ ja:
       updated: パスワードが正しく変更されました。
       updated_not_active: パスワードが正しく変更されました。
     registrations:
+      user_signed_up: "アカウント登録完了しました。さあ！始めよう!!"
+      user_updated: "アカウントを更新しました."
+      user_deleted: "アアカウントを削除しました。またのご利用をお待ちしております。"
+      user_deletion_failed: "アカウント削除に失敗しました。"
       destroyed: アカウントを削除しました。またのご利用をお待ちしております。
       edit:
         are_you_sure: 本当によろしいですか？
@@ -227,3 +233,8 @@ ja:
       success: 'アイテムが削除されました'
   alerts:
     login_required: "ログインが必要です"
+  weather:
+    fetch_failed: "天気情報の取得に失敗しました。"
+    partial_fetch_failed: "一部の天気情報の取得に失敗しました。"
+    rainfall_alert: "【%{city}】に降水が予測されています。傘をお持ちください。"
+    enter_city: "都市名を入力してください。"

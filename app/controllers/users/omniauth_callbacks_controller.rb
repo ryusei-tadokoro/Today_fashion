@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Users::OmniauthCallbacksController handles the callback from OmniAuth providers for user authentication.
 module Users
   class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     # GET|POST /users/auth/line/callback
